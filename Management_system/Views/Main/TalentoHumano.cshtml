@@ -1,0 +1,1135 @@
+﻿@{
+    ViewData["Title"] = "Talento Humano ";
+    Layout = "~/Views/Shared/_Layout_main.cshtml";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
+
+<style>
+    .option {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .title-main {
+        font-size: 1.8em;
+        color: #333;
+    }
+
+    .title-menu {
+        font-size: 1.4em;
+        color: #333;
+    }
+
+    .card-header-title {
+        font-size: 1.2em;
+        color: #333;
+    }
+
+    .lead {
+        font-size: 1.1rem;
+        font-weight: 300;
+    }
+    .lead-content {
+        font-size: 1.0rem;
+        font-weight: 300;
+    }
+
+    /*tarjeta 1*/
+    .card-header-first {
+        margin-top: -40px;
+        height: 30px;
+        background: linear-gradient(-90deg, #0f268d, #4a6cc3);
+        box-shadow: 1px 5px 15px #a2a2a2;
+    }
+
+    /*tarjeta 2*/
+    .card-header-second {
+        margin-top: -40px;
+        height: 30px;
+        background: linear-gradient(-90deg, #ff0000, #ff6347);
+        box-shadow: 1px 5px 15px #a2a2a2;
+    }
+
+    /*tarjeta 3*/
+    .card-header-third {
+        margin-top: -40px;
+        height: 30px;
+        background: linear-gradient(-90deg, #2ecc71, #1f6f47);
+        box-shadow: 1px 5px 15px #a2a2a2;
+    }
+
+    /*efecto shadows para todas las tarjetas*/
+    .card-section {
+        box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+    }
+        /*Para el efecto sombra al pasar por encima el mouse*/
+        .card-section:hover {
+            box-shadow: 1px 1px 20px #d2d2d2;
+        }
+
+
+        /* Personalización para nav-pills con clase custom-nav-pills */
+    .custom-nav-pills .nav-link {
+        border: 1px solid #ddd;
+        transition: all 0.3s ease-in-out;
+        border: 1px solid #000;
+        border-radius: 30px;
+        background-color: #fff;
+        font-size: 1.2em;
+        color: #333;
+        font-weight: 320;
+    }
+
+    .custom-nav-pills .nav-link:hover {
+        background: linear-gradient(-90deg, #0f268d, #4a6cc3);
+        color: #fff;
+    }
+
+    .custom-nav-pills .nav-link.active {
+        background: linear-gradient(-90deg, #0f268d, #4a6cc3);
+        color: #fff;
+        border-color: #0f268d;
+    }
+</style>
+
+
+<style>
+    /* Eliminar la línea vertical entre las columnas */
+    .row {
+        border: none; /* Si hay algún borde entre las columnas, lo eliminamos */
+    }
+
+    /* Asegurar que no haya fondo gris en el menú */
+    .col-3 {
+        background-color: transparent; /* Sin fondo gris */
+    }
+
+    .alert-custom {
+        color: red;
+        font-size: 1.1em;
+        display: block;
+        margin-top: 10px;
+    }
+
+        .alert-custom i {
+            margin-right: 5px;
+        }
+</style>
+
+
+@* NAVIDAD TEMA *@
+<div>
+    @* <style>
+        .snowflake {
+            color: #87CEEB;
+            font-family: sans-serif;
+            font-size: 1.5em;
+            position: fixed;
+            top: -2em;
+            z-index: 1000;
+            user-select: none;
+            pointer-events: none;
+            animation: fall linear infinite;
+        }
+
+        @@keyframes fall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0.2;
+            }
+        }
+    </style>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const snowflakeCount = 50;
+
+            for (let i = 0; i < snowflakeCount; i++) {
+                let snowflake = document.createElement("div");
+                snowflake.className = "snowflake";
+                snowflake.innerHTML = "❄";
+
+                snowflake.style.left = Math.random() * 100 + "vw";
+                snowflake.style.animationDuration = Math.random() * 5 + 5 + "s";
+                snowflake.style.fontSize = Math.random() * 10 + 10 + "px";
+
+                document.body.appendChild(snowflake);
+            }
+        });
+    </script> *@
+</div>
+
+<div class="container-fluid">
+
+    <div class="section">
+        <P class="title-main">
+            Talento Humano
+        </P>
+        <p class="lead">Este módulo se encarga de gestionar de manera integral el proceso de Talento Humano.</p>
+    </div>
+    <hr>
+
+
+    <div class="row">
+        <div class="col-md-3 p-3">
+            <p class="title-menu">Menú</p>
+            <!-- Nav vertical  -->
+            <ul class="nav flex-column nav-pills custom-nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                
+                <!-- Opción 1 - Novedad Comercial -->
+                @if (User.Identity.IsAuthenticated)
+                {
+                    var userRole = User.FindFirst("Rol")?.Value;
+                    var userArea = User.FindFirst("Area")?.Value;
+
+                    // Check if the user has one of the allowed roles or if the area is "Purchasing".
+                    if (userRole != null && (userRole == "Administrador" || userRole == "Super Usuario" || userRole == "Desarrollador" || userRole == "Soporte TI"))
+                    {
+                        <li class="nav-item mt-2" role="presentation">
+                            <a class="nav-link active" id="v-pills-descargos-tab" data-bs-toggle="pill" href="#v-pills-descargos" role="tab" aria-controls="v-pills-descargos" aria-selected="false">Descargos</a>
+                        </li>
+                    }
+
+                    else if (userRole != null && userRole == "Jefe de Proceso" || userRole == "Lider")
+                    {
+                        <li class="nav-item mt-2" role="presentation">
+                            <a class="nav-link active" id="v-pills-descargos-tab" data-bs-toggle="pill" href="#v-pills-descargos" role="tab" aria-controls="v-pills-descargos" aria-selected="false">Descargos</a>
+                        </li>
+                    }
+                }
+
+                <!-- Opción 2 - Novedad Compras -->
+                @if (User.Identity.IsAuthenticated)
+                {
+                    var userRole = User.FindFirst("Rol")?.Value;
+                    var userArea = User.FindFirst("Area")?.Value;
+
+                    // Check if the user has one of the allowed roles or if the area is "Purchasing".
+                    if (userRole != null && (userRole == "Administrador" || userRole == "Super Usuario" || userRole == "Desarrollador" || userRole == "Soporte TI"))
+                    {
+                        <li class="nav-item mt-2" role="presentation">
+                            <a class="nav-link" id="v-pills-permisos-tab" data-bs-toggle="pill" href="#v-pills-permisos" role="tab" aria-controls="v-pills-permisos" aria-selected="false">Permisos</a>
+                        </li>
+                    }
+
+                    else if (userArea != null && userArea == "Compras")
+                    {
+                        <li class="nav-item mt-2" role="presentation">
+                            <a class="nav-link active" id="v-pills-permisos-tab" data-bs-toggle="pill" href="#v-pills-permisos" role="tab" aria-controls="v-pills-permisos" aria-selected="false">Permisos</a>
+                        </li>
+                    }
+                }
+
+                <!-- Opción 3 - Novedad General -->
+                @if (User.Identity.IsAuthenticated)
+                {
+                    var userRole = User.FindFirst("Rol")?.Value;
+                    var userArea = User.FindFirst("Area")?.Value;
+
+                    // Check if the user has one of the allowed roles or if the area is "Purchasing".
+                    if ((userRole != null && (userRole == "Administrador" || userRole == "Super Usuario" || userRole == "Desarrollador" || userRole == "Soporte TI")) || (userArea != null && userArea != "Logistica"))
+                    {
+                        <li class="nav-item mt-2" role="presentation">
+                            <a class="nav-link" id="v-pills-solicitudes-tab" data-bs-toggle="pill" href="#v-pills-solicitudes" role="tab" aria-controls="v-pills-solicitudes" aria-selected="true">Solicitudes</a>
+                        </li>
+                    }
+                }
+
+                <!-- Opción 4 - Ruta -->
+                @if (User.Identity.IsAuthenticated)
+                {
+                    var userRole = User.FindFirst("Rol")?.Value;
+                    var userArea = User.FindFirst("Area")?.Value;
+
+                    // Check if the user has one of the allowed roles or if the area is "Purchasing".
+                    if (userRole != null && (userRole == "Administrador" || userRole == "Super Usuario" || userRole == "Desarrollador" || userRole == "Soporte TI"))
+                    {
+                        <li class="nav-item mt-2" role="presentation">
+                            <a class="nav-link" id="v-pills-talentohumano-tab" data-bs-toggle="pill" href="#v-pills-talentohumano" role="tab" aria-controls="v-pills-talentohumano" aria-selected="false">Talento Humano</a>
+                        </li>
+                    }
+
+                    else if (userArea != null && userArea == "Talento Humano")
+                    {
+                        <li class="nav-item mt-2" role="presentation">
+                            <a class="nav-link active" id="v-pills-talentohumano-tab" data-bs-toggle="pill" href="#v-pills-talentohumano" role="tab" aria-controls="v-pills-talentohumano" aria-selected="false">Talento Humano</a>
+                        </li>
+                    }                        
+                }
+
+            </ul>
+        </div>
+
+        <!-- Columna para el Contenido (col-9) -->
+        <div class="col-md-9 p-3">
+            <div class="tab-content" id="v-pills-tabContent">
+
+                <!-- Contenido de Opción 1 - Novedad Comercial -->
+                @if (User.Identity.IsAuthenticated)
+                {
+                    var userRole = User.FindFirst("Rol")?.Value;
+                    var userArea = User.FindFirst("Area")?.Value;
+
+                    // Check if the user has one of the allowed roles or if the area is "Purchasing".
+                    if (userRole != null && (userRole == "Administrador" || userRole == "Super Usuario" || userRole == "Desarrollador" || userRole == "Soporte TI"))
+                    {
+                        <div class="tab-pane fade show active" id="v-pills-descargos" role="tabpanel" aria-labelledby="v-pills-descargos-tab">
+
+                            <div class="novedad-comercial">
+                                <p class="title-menu">
+                                    @* <i class="fas fa-clipboard-list me-2"></i> *@ Descargos
+                                </p>
+
+                                <hr />
+
+                                <div class="container mt-3">
+                                    <div class="row">
+
+                                        @* 1. Option *@
+                                        <div class="col-md-4 mt-3">
+                                            <a href="/ThDescargoSolicitud/Index" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-first rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Crear Solicitud Descargo</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Accede a esta opción para generar una nueva solicitud de descargo de manera sencilla.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                        @* 2. Option *@
+                                        @* <div class="col-md-4 mt-3">
+                                            <a href="/NovedadComercialUsuario/Index" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-first rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Revisar Novedad</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Consulta las novedades comerciales abiertas y en proceso de revisión para un mejor seguimiento.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div> *@
+
+                                        @* 3. Option *@
+                                        <div class="col-md-4 mt-3">
+                                            <a href="/ThDescargoSolicitud/TrackingIndex" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-first rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Seguimiento Descargo</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Consulta el estado de tus solicitudes de descargo en esta sección, podrás visualizar el progreso.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                        @* 4. Option *@
+                                        @if (User.Identity.IsAuthenticated)
+                                        {
+                                            var userRole1 = User.FindFirst("Rol")?.Value;
+                                            if (userRole1 != null && (userRole1 == "Administrador" || userRole1 == "Super Usuario" || userRole1 == "Desarrollador" || userRole1 == "Soporte TI"))
+                                            {
+
+                                                <div class="col-md-4 mt-3">
+                                                    <a href="/ThDescargoSolicitud/OverrideIndex" class="option">
+                                                        <div class="card-section border rounded p-3">
+                                                            <div class="card-header-second rounded pb-5">
+                                                                <h2 class="card-header-title text-white pt-3 text-center">Anular Solicitud</h2>
+                                                            </div>
+                                                            <div class="card-body text-center">
+                                                                <p class="lead-content">Anular solicitudes registradas de forma rápida y segura, eliminando aquellas que ya no sean necesarias.</p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            }
+                                        }
+
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                                <p class="title-menu mt-3">
+                                    <i class="fas fa-search me-2"></i> Consultar
+                                </p>
+                                <div class="container">
+
+                                    <div class="row">
+
+                                        @* 5. Option *@
+                                        <div class="col-md-4 mt-3">
+                                            <a asp-action="ExportExcelConsulteR" asp-controller="ThDescargoSolicitud" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-third rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Movimiento Resumen</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Consulta un resumen detallado de los movimientos registrados, proporcionando una visión clara y organizada.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                            </div>
+
+                        </div>
+                    }
+                    
+                    else if (userRole != null && userRole == "Jefe de Proceso" || userRole == "Lider")
+                    {
+                        <div class="tab-pane fade show active" id="v-pills-descargos" role="tabpanel" aria-labelledby="v-pills-descargos-tab">
+
+                            <div class="novedad-comercial">
+                                <p class="title-menu">
+                                    @* <i class="fas fa-clipboard-list me-2"></i> *@ Descargos
+                                </p>
+
+                                <hr />
+
+                                <div class="container mt-3">
+                                    <div class="row">
+
+                                        @* 1. Option *@
+                                        <div class="col-md-4 mt-3">
+                                            <a href="/ThDescargoSolicitud/Index" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-first rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Crear Solicitud Descargo</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Accede a esta opción para generar una nueva solicitud de descargo de manera sencilla.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                        @* 2. Option *@
+                                        @* <div class="col-md-4 mt-3">
+                                            <a href="/NovedadComercialUsuario/Index" class="option">
+                                            <div class="card-section border rounded p-3">
+                                            <div class="card-header-first rounded pb-5">
+                                            <h2 class="card-header-title text-white pt-3 text-center">Revisar Novedad</h2>
+                                            </div>
+                                            <div class="card-body text-center">
+                                            <p class="lead-content">Consulta las novedades comerciales abiertas y en proceso de revisión para un mejor seguimiento.</p>
+                                            </div>
+                                            </div>
+                                            </a>
+                                            </div> *@
+
+                                        @* 3. Option *@
+                                        <div class="col-md-4 mt-3">
+                                            <a href="/ThDescargoSolicitud/TrackingIndex" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-first rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Seguimiento Descargo</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Consulta el estado de tus solicitudes de descargo en esta sección, podrás visualizar el progreso.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                        @* 4. Option *@
+                                        @if (User.Identity.IsAuthenticated)
+                                        {
+                                            var userRole1 = User.FindFirst("Rol")?.Value;
+                                            if (userRole1 != null && (userRole1 == "Administrador" || userRole1 == "Super Usuario" || userRole1 == "Desarrollador" || userRole1 == "Soporte TI"))
+                                            {
+
+                                                <div class="col-md-4 mt-3">
+                                                    <a href="/ThDescargoSolicitud/OverrideIndex" class="option">
+                                                        <div class="card-section border rounded p-3">
+                                                            <div class="card-header-second rounded pb-5">
+                                                                <h2 class="card-header-title text-white pt-3 text-center">Anular Solicitud</h2>
+                                                            </div>
+                                                            <div class="card-body text-center">
+                                                                <p class="lead-content">Anular solicitudes registradas de forma rápida y segura, eliminando aquellas que ya no sean necesarias.</p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            }
+                                        }
+
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                                <p class="title-menu mt-3">
+                                    <i class="fas fa-search me-2"></i> Consultar
+                                </p>
+                                <div class="container">
+
+                                    <div class="row">
+
+                                        @* 5. Option *@
+                                        <div class="col-md-4 mt-3">
+                                            <a asp-action="ExportExcelConsulteR" asp-controller="ThDescargoSolicitud" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-third rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Movimiento Resumen</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Consulta un resumen detallado de los movimientos registrados, proporcionando una visión clara y organizada.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                            </div>
+
+                        </div>
+                    }
+                }
+
+
+                <!-- Contenido de Opción 2 - Novedad Compra-->
+                @if (User.Identity.IsAuthenticated)
+                {
+                    var userRole = User.FindFirst("Rol")?.Value;
+                    var userArea = User.FindFirst("Area")?.Value;
+
+                    // Check if the user has one of the allowed roles or if the area is "Purchasing".
+                    if (userRole != null && (userRole == "Administrador" || userRole == "Super Usuario" || userRole == "Desarrollador" || userRole == "Soporte TI"))
+                    {
+                        <div class="tab-pane fade" id="v-pills-permisos" role="tabpanel" aria-labelledby="v-pills-permisos-tab">
+                            <div class="novedad-comercial">
+                                <p class="title-menu">
+                                    <i @* class="fas fa-clipboard-list me-2" *@></i> Permisos
+                                </p>
+
+                                <hr />
+
+                                <div class="container mt-3">
+                                    <div class="row">
+
+                                        @* 1. Option *@
+                                        <div class="col-md-4 mt-3">
+                                            <a href="/NovedadCompraUsuario/ReviewIndex" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-first rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Agregar Novedad Compra</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Este apartado permite crear novedad de compras, asegurando que todas las transacciones.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                        @* 2. Option *@
+                                        <div class="col-md-4 mt-3">
+                                            <a href="/NovedadCompraUsuario/Index" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-first rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Revisar Novedad</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Permite registrar nuevas novedades relacionadas con compras o actualizar.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                        @* 3. Option *@
+                                        <div class="col-md-4 mt-3">
+                                            <a href="/NovedadCompraUsuario/TrackingIndex" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-first rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Seguimiento Novedad</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Realiza un seguimiento detallado del estado y progreso de las novedades de compras.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                        @* 4. Option *@
+                                        @if (User.Identity.IsAuthenticated)
+                                        {
+                                            var userRole1 = User.FindFirst("Rol")?.Value;
+                                            if (userRole1 != null && (userRole1 == "Administrador" || userRole1 == "Super Usuario" || userRole1 == "Desarrollador" || userRole1 == "Soporte TI"))
+                                            {
+
+                                                <div class="col-md-4 mt-3">
+                                                    <a href="/NovedadComercialUsuario/OverrideIndex" class="option">
+                                                        <div class="card-section border rounded p-3">
+                                                            <div class="card-header-second rounded pb-5">
+                                                                <h2 class="card-header-title text-white pt-3 text-center">Anular Novedad</h2>
+                                                            </div>
+                                                            <div class="card-body text-center">
+                                                                <p class="lead-content">Cancela una novedad de compra previamente registrada si ya no es necesaria.</p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            }
+                                        }
+
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                                <p class="title-menu mt-3">
+                                    <i class="fas fa-search me-2"></i> Consultar
+                                </p>
+                                <div class="container">
+
+                                    <div class="row">
+
+                                        @* 5. Option *@
+                                        <div class="col-md-4 mt-3">
+                                            <a href="/SolicitudUsuarios/ConsulteReview" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-third rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Movimiento Resumen</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Ofrece un resumen completo de todos los movimientos y modificaciones asociados a las novedades de compras.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                            </div>
+                        </div>
+
+                    }
+                    
+                    else if (userArea != null && userArea == "Compras")
+                    {
+                        <div class="tab-pane fade" id="v-pills-permisos" role="tabpanel" aria-labelledby="v-pills-permisos-tab">
+                            <div class="novedad-comercial">
+                                <p class="title-menu">
+                                    <i @* class="fas fa-clipboard-list me-2" *@></i> Permisos
+                                </p>
+
+                                <hr />
+
+                                <div class="container mt-3">
+                                    <div class="row">
+
+                                        @* 1. Option *@
+                                        <div class="col-md-4 mt-3">
+                                            <a href="/NovedadCompraUsuario/ReviewIndex" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-first rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Agregar Novedad Compra</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Este apartado permite crear novedad de compras, asegurando que todas las transacciones.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                        @* 2. Option *@
+                                        <div class="col-md-4 mt-3">
+                                            <a href="/NovedadCompraUsuario/Index" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-first rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Revisar Novedad</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Permite registrar nuevas novedades relacionadas con compras o actualizar.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                        @* 3. Option *@
+                                        <div class="col-md-4 mt-3">
+                                            <a href="/NovedadCompraUsuario/TrackingIndex" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-first rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Seguimiento Novedad</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Realiza un seguimiento detallado del estado y progreso de las novedades de compras.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                        @* 4. Option *@
+                                        @if (User.Identity.IsAuthenticated)
+                                        {
+                                            var userRole1 = User.FindFirst("Rol")?.Value;
+                                            if (userRole1 != null && (userRole1 == "Administrador" || userRole1 == "Super Usuario" || userRole1 == "Desarrollador" || userRole1 == "Soporte TI"))
+                                            {
+
+                                                <div class="col-md-4 mt-3">
+                                                    <a href="/NovedadComercialUsuario/OverrideIndex" class="option">
+                                                        <div class="card-section border rounded p-3">
+                                                            <div class="card-header-second rounded pb-5">
+                                                                <h2 class="card-header-title text-white pt-3 text-center">Anular Novedad</h2>
+                                                            </div>
+                                                            <div class="card-body text-center">
+                                                                <p class="lead-content">Cancela una novedad de compra previamente registrada si ya no es necesaria.</p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            }
+                                        }
+
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                                <p class="title-menu mt-3">
+                                    <i class="fas fa-search me-2"></i> Consultar
+                                </p>
+                                <div class="container">
+
+                                    <div class="row">
+
+                                        @* 5. Option *@
+                                        <div class="col-md-4 mt-3">
+                                            <a href="/SolicitudUsuarios/ConsulteReview" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-third rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Movimiento Resumen</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Ofrece un resumen completo de todos los movimientos y modificaciones asociados a las novedades de compras.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                            </div>
+                        </div>
+                        
+                    }
+                }
+                
+
+                <!-- Contenido de Opción 3 - Novedad General -->
+                @if (User.Identity.IsAuthenticated)
+                {
+                    var userRole = User.FindFirst("Rol")?.Value;
+                    var userArea = User.FindFirst("Area")?.Value;
+
+                    // Check if the user has one of the allowed roles or if the area is "Purchasing".
+                    if ((userRole != null && (userRole == "Administrador" || userRole == "Super Usuario" || userRole == "Desarrollador" || userRole == "Soporte TI")) || (userArea != null && userArea != "Logistica"))
+                    {
+                        <div class="tab-pane fade" id="v-pills-solicitudes" role="tabpanel" aria-labelledby="v-pills-solicitudes-tab">
+
+                            <div class="novedad-general">
+                                <p class="title-menu">
+                                    <i @* class="fas fa-clipboard-list me-2" *@></i> Solicitudes
+                                </p>
+
+                                <div class="alert-custom">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    Las novedades que se creen aquí no están destinadas a facturas ni remisiones comerciales; utiliza el módulo de Novedad Comercial para esos casos.
+                                </div>
+
+                        
+                                <hr/>
+
+                                <div class="container mt-3">
+                                    <div class="row">
+
+                                        @* 1. Option *@
+                                        <div class="col-md-4 mt-3">
+                                            <a href="/NovedadUsuario/Index" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-first rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Crear Novedad</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Permite crear nuevas solicitudes para novedad de ruta o modificar.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                        @* 2. Option *@
+                                        <div class="col-md-4 mt-3">
+                                            <a href="/NovedadUsuario/TrackingIndex" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-first rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Seguimiento Novedad</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Consulta el estado actual de las novedades y su progreso.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                        @* 3. Option *@
+                                        @if (User.Identity.IsAuthenticated)
+                                        {
+                                            var userRole1 = User.FindFirst("Rol")?.Value;
+                                            if (userRole1 != null && (userRole1 == "Administrador" || userRole1 == "Super Usuario" || userRole1 == "Desarrollador" || userRole1 == "Soporte TI"))
+                                            {
+
+                                                <div class="col-md-4 mt-3">
+                                                    <a href="/NovedadUsuario/OverrideIndex" class="option">
+                                                        <div class="card-section border rounded p-3">
+                                                            <div class="card-header-second rounded pb-5">
+                                                                <h2 class="card-header-title text-white pt-3 text-center">Anular Novedad</h2>
+                                                            </div>
+                                                            <div class="card-body text-center">
+                                                                <p class="lead-content">Anula o cancela una novedad de ruta previamente registrada.</p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            }
+                                        }
+
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                                <p class="title-menu mt-3">
+                                    <i class="fas fa-search me-2"></i> Consultar
+                                </p>
+                                <div class="container">
+
+                                    <div class="row">
+
+                                        @* 4. Option *@
+                                        <div class="col-md-4 mt-3">
+                                            <a href="/NovedadUsuario/ConsulteReview" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-third rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Movimiento Resumen</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Revisa un resumen detallado de todos los movimientos de las novedades.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                            </div>
+
+                        </div>
+                    }
+                }
+
+
+                <!-- Contenido de Opción 4 - Ruta-->
+                @if (User.Identity.IsAuthenticated)
+                {
+                    var userRole = User.FindFirst("Rol")?.Value;
+                    var userArea = User.FindFirst("Area")?.Value;
+
+                    // Check if the user has one of the allowed roles or if the area is "Purchasing".
+                    if (userRole != null && (userRole == "Administrador" || userRole == "Super Usuario" || userRole == "Desarrollador" || userRole == "Soporte TI"))
+                    {
+                        <div class="tab-pane fade" id="v-pills-talentohumano" role="tabpanel" aria-labelledby="v-pills-talentohumano-tab">
+
+                            <div class="novedad-general">
+                                <p class="title-menu">
+                                    <i @* class="fas fa-clipboard-list me-2" *@></i> Talento Humano
+                                </p>
+
+                                <hr />
+
+                                <div class="container mt-3">
+                                    <div class="row">
+
+                                        @* 1. Option *@
+                                        <div class="col-md-4 mt-3">
+                                            <a href="/ThDescargoCaso/ReviewIndex" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-first rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Crear Caso</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Esta opción permite iniciar un nuevo caso a partir de las solicitudes de descargo registradas previamente.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                        @* 2. Option *@
+                                        <div class="col-md-4 mt-3">
+                                            <a href="/ThDescargoCaso/Index" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-first rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Seguimento Casos</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Visualiza y gestiona el estado de los casos abiertos relacionados con descargos laborales.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                        @* 3. Option *@
+                                        <div class="col-md-4 mt-3">
+                                            <a href="/ThDescargoCitacion/SeguimientoMain" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-first rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Citaciones Pendientes</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Consulta las citaciones de descargos que están abiertas de resolución asegurando su gestión.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                        @* 4. Option *@
+                                        @if (User.Identity.IsAuthenticated)
+                                        {
+                                            var userRole1 = User.FindFirst("Rol")?.Value;
+                                            if (userRole1 != null && (userRole1 == "Administrador" || userRole1 == "Super Usuario" || userRole1 == "Desarrollador" || userRole1 == "Soporte TI"))
+                                            {
+
+                                                <div class="col-md-4 mt-3">
+                                                    <a href="/NovedadUsuario/OverrideIndex" class="option">
+                                                        <div class="card-section border rounded p-3">
+                                                            <div class="card-header-second rounded pb-5">
+                                                                <h2 class="card-header-title text-white pt-3 text-center">Anular Caso</h2>
+                                                            </div>
+                                                            <div class="card-body text-center">
+                                                                <p class="lead-content">
+                                                                    Gestiona la anulación de casos de descargos que ya no requieren seguimiento o han sido resueltos por otras vías.
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            }
+                                        }
+
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                                <p class="title-menu mt-3">
+                                    <i class="fas fa-search me-2"></i> Consultar
+                                </p>
+                                <div class="container">
+
+                                    <div class="row">
+
+                                        @* 5. Option *@
+                                        <div class="col-md-4 mt-3">
+                                            <a href="/RutaUsuario/GenerarRuta" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-third rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Movimiento Resumen</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Consulta un resumen detallado de los movimientos realizados en los casos de descargos.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                        @* 6. Option *@
+                                        <div class="col-md-4 mt-3">
+                                            <a href="/RutaUsuario/ConsulteReview" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-third rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Movimiento Detalle</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Accede al detalle completo de los movimientos registrados en los casos, incluyendo fechas.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <hr>
+
+                            </div>
+                        </div>
+                    }
+
+                    else if (userArea != null && userArea == "Telento Humano")
+                    {
+                        <div class="tab-pane fade show active" id="v-pills-talentohumano" role="tabpanel" aria-labelledby="v-pills-talentohumano-tab">
+
+                            <div class="novedad-general">
+                                <p class="title-menu">
+                                    <i @* class="fas fa-clipboard-list me-2" *@></i> Talento Humano
+                                </p>
+
+                                <hr />
+
+                                <div class="container mt-3">
+                                    <div class="row">
+
+                                        @* 1. Option *@
+                                        <div class="col-md-4 mt-3">
+                                            <a href="/RutaUsuario/Create" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-first rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Asignar Ruta</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Asigna las rutas de entrega o recolección a los conductores, vinculando las novedades logísticas.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                        @* 2. Option *@
+                                        <div class="col-md-4 mt-3">
+                                            <a href="/RutaUsuario/Index" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-first rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Editar Ruta</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Monitorea el progreso y estado de las rutas asignadas, revisando en tiempo real el cumplimiento.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                        @* 3. Option *@
+                                        <div class="col-md-4 mt-3">
+                                            <a href="/VistaSolicitud/SeguimientoMain" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-first rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Seguimiento Ruta</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Monitorea el progreso y estado de las rutas asignadas, revisando en tiempo real el cumplimiento.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                        @* 4. Option *@
+                                        @if (User.Identity.IsAuthenticated)
+                                        {
+                                            var userRole1 = User.FindFirst("Rol")?.Value;
+                                            if (userRole1 != null && (userRole1 == "Administrador" || userRole1 == "Super Usuario" || userRole1 == "Desarrollador" || userRole1 == "Soporte TI"))
+                                            {
+
+                                                <div class="col-md-4 mt-3">
+                                                    <a href="/NovedadUsuario/OverrideIndex" class="option">
+                                                        <div class="card-section border rounded p-3">
+                                                            <div class="card-header-second rounded pb-5">
+                                                                <h2 class="card-header-title text-white pt-3 text-center">Anular Ruta</h2>
+                                                            </div>
+                                                            <div class="card-body text-center">
+                                                                <p class="lead-content">
+                                                                    Cancela una ruta asignada previamente en caso de cambios o reprogramaciones, permitiendo ajustar tiempos.
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            }
+                                        }
+
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                                <p class="title-menu mt-3">
+                                    <i class="fas fa-search me-2"></i> Consultar
+                                </p>
+                                <div class="container">
+
+                                    <div class="row">
+
+                                        @* 5. Option *@
+                                        <div class="col-md-4 mt-3">
+                                            <a href="/RutaUsuario/GenerarRuta" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-third rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Generar Ruta</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Configura y genera una ruta asignada por fecha y conductor.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                        @* 6. Option *@
+                                        <div class="col-md-4 mt-3">
+                                            <a href="/RutaUsuario/ConsulteReview" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-third rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Movimiento Resumen</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Consulta un resumen detallado de todas las rutas asignadas.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                            </div>
+
+                        </div>
+                    }
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>

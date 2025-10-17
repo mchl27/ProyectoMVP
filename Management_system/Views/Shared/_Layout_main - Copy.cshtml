@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Sistema de Gestión</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site1.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/purchase_request.styles.css" asp-append-version="true" />
+    <link rel="icon" href="~/img/1. Logo UDC.png" type="image/x-icon">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            display: flex;
+        }
+
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background: #343a40;
+            color: white;
+            transition: 0.3s;
+            position: fixed;
+        }
+
+            .sidebar .nav-link {
+                color: white;
+            }
+
+                .sidebar .nav-link:hover {
+                    background: #495057;
+                }
+
+            .sidebar.collapsed {
+                width: 70px;
+            }
+
+        .main-content {
+            margin-left: 250px;
+            transition: 0.3s;
+            width: 100%;
+            padding: 20px;
+        }
+
+        .collapsed + .main-content {
+            margin-left: 70px;
+        }
+
+        .user-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .toggle-btn {
+            position: absolute;
+            top: 10px;
+            left: 260px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .collapsed + .toggle-btn {
+            left: 80px;
+        }
+
+
+        .sidebar.collapsed .nav-link i {
+            margin-right: 0;
+        }
+
+        .sidebar.collapsed .nav-link span {
+            display: none;
+        }
+
+        .toggle-btn {
+            position: fixed;
+            top: 10px;
+            left: 260px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            transition: 0.3s;
+            z-index: 1000; /* Para que esté por encima del contenido */
+        }
+
+        .sidebar.collapsed + .toggle-btn {
+            left: 80px;
+        }
+    </style>
+
+    <script>
+        // Verify if the user is authenticated
+        var isAuthenticated = @Html.Raw(User.Identity.IsAuthenticated.ToString().ToLower());
+
+        // Redirect user if not authenticated
+        if (!isAuthenticated) {
+            window.location.href = '/Home/Index';
+        }
+    </script>
+
+</head>
+<body>
+
+    <nav class="sidebar" id="sidebar">
+        <button class="toggle-btn" onclick="toggleSidebar()">
+            <i class="fas fa-bars"></i>
+        </button>
+        <ul class="nav flex-column p-3">
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-home me-2"></i> <span>Inicio</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-user me-2"></i> <span>Perfil</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-cog me-2"></i> <span>Configuración</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <main class="main-content" id="main-content">
+        <div class="user-info">
+            <h5>Bienvenido, Usuario</h5>
+            <p>Último acceso: 11 de marzo de 2025</p>
+        </div>
+        <div class="container">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+    </main>
+
+    <script>
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('collapsed');
+            document.getElementById('main-content').classList.toggle('collapsed');
+        }
+    </script>
+
+    
+
+</body>
+</html>

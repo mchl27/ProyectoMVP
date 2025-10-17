@@ -1,0 +1,166 @@
+﻿@{
+    ViewData["Title"] = "Importar Datos";
+    Layout = "~/Views/Shared/_Layout_main.cshtml";
+}
+
+<style>
+    .card {
+        border-radius: 15px;
+        transition: all 0.2s ease;
+    }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+
+    .card-title {
+        font-size: 1.40rem;
+        font-weight: 400;
+        margin-bottom: 0.75rem;
+        color: #333;
+        border-bottom: 1px solid #e5e5e5;
+        padding-bottom: 0.5rem;
+    }
+
+
+    .btn-primary {
+        background-color: #0f268d;
+        border-color: #0f268d;
+    }
+
+        .btn-primary:hover {
+            background-color: #0d1e6f;
+            border-color: #0d1e6f;
+        }
+
+
+    .title-main {
+        font-size: 1.6em;
+        color: #333;
+    }
+
+    .title-menu {
+        font-size: 1.4em;
+        color: #333;
+    }
+
+    .card-header-title {
+        font-size: 1.1em;
+        color: #333;
+    }
+
+    .lead {
+        font-size: 1.1rem;
+        font-weight: 300;
+    }
+
+    .lead-content {
+        font-size: 1.0rem;
+        font-weight: 300;
+    }
+</style>
+
+<div class="container">
+    <a asp-action="Configuration" asp-controller="Main" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Volver
+    </a>
+</div>
+
+<p class="title-menu text-center">Plantillas</p>
+<hr />
+
+<div class="container">
+    <div class="row">
+
+        @* 1. Option *@
+        @if (User.Identity.IsAuthenticated)
+        {
+            var userRole = User.FindFirst("Rol")?.Value;
+            if (userRole != null && (userRole == "Administrador" || userRole == "Super Usuario" || userRole == "Gerencia" || userRole == "Desarrollador" || userRole == "Soporte TI"))
+            {
+                <div class="col-md-4 mt-1">
+                    <div class="card shadow-lg rounded-4 text-center">
+                        <div class="card-body">
+                            <h5 class="card-title">Clientes</h5>
+                            <p>Aquí puedes descargar la plantilla de clientes.</p>
+                            <a asp-controller="ClientesSecure" asp-action="DescargarPlantilla" class="btn btn-success rounded-pill">Descargar plantilla Excel</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+
+        @* 2. Option *@
+        @if (User.Identity.IsAuthenticated)
+        {
+            var userRole = User.FindFirst("Rol")?.Value;
+            if (userRole != null && (userRole == "Administrador" || userRole == "Super Usuario" || userRole == "Gerencia" || userRole == "Desarrollador" || userRole == "Soporte TI"))
+            {
+                <div class="col-md-4 mt-1">
+                    <div class="card shadow-lg rounded-4 text-center">
+                        <div class="card-body">
+                            <h5 class="card-title">Vendedores</h5>
+                            <p>Aquí puedes descargar la plantilla de vendedores.</p>
+                            <a asp-controller="ClientesSecure" asp-action="DescargarPlantilla" class="btn btn-success rounded-pill">Descargar plantilla Excel</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+<p class="title-menu text-center mt-2">Importar Datos</p>
+<hr />
+
+<div class="container">
+    <div class="row">
+
+        @* 3. Option *@
+        @if (User.Identity.IsAuthenticated)
+        {
+            var userRole = User.FindFirst("Rol")?.Value;
+            if (userRole != null && (userRole == "Administrador" || userRole == "Super Usuario" || userRole == "Gerencia" || userRole == "Desarrollador" || userRole == "Soporte TI" || userRole == "Editor de Informacion"))
+            {
+                <div class="col-md-4 mt-2">
+                    <div class="card shadow-lg rounded-4 text-center">
+                        <div class="card-body">
+                            <h2 class="card-title">Clientes</h2>
+                            <p class="card-text">Seleccione el excel e importe los clientes nuevos.</p>
+                            <form asp-controller="ClientesSecure" asp-action="CargarClientes" enctype="multipart/form-data" method="post">
+                                <input type="file" name="archivo" accept=".xlsx" />
+                                <button type="submit" class="btn btn-primary rounded-pill">Subir Clientes</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+
+        @* 4. Option *@
+        @if (User.Identity.IsAuthenticated)
+        {
+            var userRole = User.FindFirst("Rol")?.Value;
+            if (userRole != null && (userRole == "Administrador" || userRole == "Super Usuario" || userRole == "Gerencia" || userRole == "Desarrollador" || userRole == "Soporte TI" || userRole == "Editor de Informacion"))
+            {
+                <div class="col-md-4 mt-2">
+                    <div class="card shadow-lg rounded-4 text-center">
+                        <div class="card-body">
+                            <h2 class="card-title">Vendedores</h2>
+                            <p class="card-text">Seleccione el excel e importe los vendedores nuevos.</p>
+                            <form asp-controller="ClientesSecure" asp-action="CargarClientes" enctype="multipart/form-data" method="post">
+                                <input type="file" name="archivo" accept=".xlsx" />
+                                <button type="submit" class="btn btn-primary rounded-pill">Subir Vendedores</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+
+    </div>
+</div>
+
+
+

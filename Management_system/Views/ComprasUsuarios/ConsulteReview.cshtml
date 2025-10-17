@@ -1,0 +1,244 @@
+﻿@model ConsulteReviewComprasViewModel
+
+@{
+    ViewData["Title"] = "Consulte Review";
+    Layout = "~/Views/Shared/_Layout_main.cshtml";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
+<style>
+    .fixed-width-btn {
+        width: 80px;
+    }
+
+    .alert-custom {
+        color: red;
+        font-size: 1.2em;
+        display: none;
+        margin-top: 10px;
+    }
+
+        .alert-custom i {
+            margin-right: 5px;
+        }
+
+    .card {
+        border-radius: 15px;
+    }
+
+    .card-title {
+        font-size: 1.25rem;
+        font-weight: 500;
+        margin-bottom: 0.75rem;
+        color: #333;
+        border-bottom: 1px solid #e5e5e5;
+        padding-bottom: 0.5rem;
+    }
+</style>
+<div class="container">
+    <a asp-action="Compras" asp-controller="Main" class="btn btn-secondary">Volver</a>
+</div>
+
+<div class="col-12">
+    <nav>
+        <ul class="pagination justify-content-center">
+            <li class="page-item @(Model.Pagination.PageNumber == 1 ? "disabled" : "")">
+                <a class="page-link" asp-action="ConsulteReview" asp-route-pageNumber="@(Model.Pagination.PageNumber - 1)" asp-route-pageSize="@Model.Pagination.PageSize" asp-route-searchString="@ViewData["CurrentFilter"]">Anterior</a>
+            </li>
+            @for (int i = 1; i <= Model.Pagination.TotalPages; i++)
+            {
+                <li class="page-item @(i == Model.Pagination.PageNumber ? "active" : "") page-number" data-page="@i" style="display: @(i > 5 ? "none" : "inline-block")">
+                    <a class="page-link" asp-action="ConsulteReview" asp-route-pageNumber="@i" asp-route-pageSize="@Model.Pagination.PageSize" asp-route-searchString="@ViewData["CurrentFilter"]">@i</a>
+                </li>
+            }
+            <li class="page-item @(Model.Pagination.PageNumber == Model.Pagination.TotalPages ? "disabled" : "")">
+                <a class="page-link" asp-action="ConsulteReview" asp-route-pageNumber="@(Model.Pagination.PageNumber + 1)" asp-route-pageSize="@Model.Pagination.PageSize" asp-route-searchString="@ViewData["CurrentFilter"]">Siguiente</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title text-center">Movimiento Resumen - Compras</h4>
+            <div class="mt-1">
+                <h6>Busqueda</h6>
+            </div>
+            <form method="get" action="@Url.Action("ConsulteReview", "ComprasUsuarios")" class="form-inline">
+                <div class="form-group row">
+                    <div class="col-md-4">
+                        <label for="searchCriteria" class="mr-2">Criterio de búsqueda</label>
+                        <select class="form-control" id="searchCriteria" name="searchCriteria">
+                            <option value="">Seleccionar Criterio</option>
+                            <option value="Consecutivo">Orden de Compra</option>
+                            <option value="Solicitud">Solicitud</option>
+                            <option value="Vendedor">Vendedor</option>
+                            <option value="Proveedor">Proveedor</option>
+                            <option value="Usuario">Usuario</option>
+                            <option value="Estado">Estado</option>
+                            <option value="Pagos">Pagos</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="searchTerm" class="mr-2">Término de búsqueda</label>
+                        <input type="text" class="form-control" id="searchTerm" name="searchTerm">
+                    </div>
+                    <div class="col-md-2">
+                        <label for="fecha" class="mr-2">Fecha</label>
+                        <input type="date" class="form-control" id="fecha" name="fecha">
+                    </div>
+                    <div class="col-md-1 text-center d-flex align-items-end justify-content-center">
+                        <button type="submit" class="btn btn-primary">Buscar</button>
+                    </div>
+                    <div class="col-md-1 text-center d-flex align-items-end justify-content-center">
+                        <a asp-action="ExportExcelR" class="btn btn-success">Exportar</a>
+                    </div>
+                </div>
+            </form>
+            <div class="table-responsive mt-2">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>O.C</th>
+                            <th>Fecha O.C</th>
+                            <th>Fecha de Entrega</th>
+                            <th>Alarma</th>
+                            <th>Estado de la orden</th>
+                            <th>Link OC</th>
+                            <th>Observaciones</th>
+                            <th>Solicitud</th>
+                            <th>Vendedor</th>
+                            <th>Proveedor</th>
+                            <th>Usuario</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Compras)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.OrdenCompra)</td>
+                                <td>@Html.DisplayFor(modelItem => item.FechaCompra)</td>
+                                <td>@Html.DisplayFor(modelItem => item.FechaEntrega)</td>
+                                <td>
+                                    @{
+                                        DateTime fechaEntrega = Convert.ToDateTime(item.FechaEntrega);
+
+                                        TimeSpan diasRestantes = fechaEntrega.Subtract(DateTime.Today);
+
+                                        if (diasRestantes.TotalDays > 1)
+                                        {
+                                            <i class="fas fa-check-circle" style="color: green;"></i> @($"Faltan {diasRestantes.TotalDays:N1} días")
+                                        }
+                                        else if (diasRestantes.TotalDays <= 1 && diasRestantes.TotalDays >= 0)
+                                        {
+                                            <i class="fas fa-exclamation-circle" style="color: orange;"></i> @($"Falta 1 día")
+                                        }
+                                        else
+                                        {
+                                            <i class="fas fa-times-circle" style="color: red;"></i> @($"Se pasó la fecha")
+                                        }
+                                    }
+                                </td>
+                                <td>@Html.DisplayFor(modelItem => item.Estado)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Observaciones)</td>
+                                <td>@Html.DisplayFor(modelItem => item.ObservacionesPago)</td>
+                                <td>@Html.DisplayFor(modelItem => item.IdSolicitudNavigation.Consecutivo)</td>
+                                <td>@Html.DisplayFor(modelItem => item.IdSolicitudNavigation.IdVendedorNavigation.Nombre)</td>
+                                <td>@Html.DisplayFor(modelItem => item.IdSolicitudNavigation.IdProveedorNavigation.Nombre)</td>
+                                <td>@Html.DisplayFor(modelItem => item.IdUsuarioNavigation.Username)</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <nav>
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item @(Model.Pagination.PageNumber == 1 ? "disabled" : "")">
+                                <a class="page-link" asp-action="ConsulteReview" asp-route-pageNumber="@(Model.Pagination.PageNumber - 1)" asp-route-pageSize="@Model.Pagination.PageSize" asp-route-searchString="@ViewData["CurrentFilter"]">Anterior</a>
+                            </li>
+                            @for (int i = 1; i <= Model.Pagination.TotalPages; i++)
+                            {
+                                <li class="page-item @(i == Model.Pagination.PageNumber ? "active" : "") page-number" data-page="@i" style="display: @(i > 5 ? "none" : "inline-block")">
+                                    <a class="page-link" asp-action="ConsulteReview" asp-route-pageNumber="@i" asp-route-pageSize="@Model.Pagination.PageSize" asp-route-searchString="@ViewData["CurrentFilter"]">@i</a>
+                                </li>
+                            }
+                            <li class="page-item @(Model.Pagination.PageNumber == Model.Pagination.TotalPages ? "disabled" : "")">
+                                <a class="page-link" asp-action="ConsulteReview" asp-route-pageNumber="@(Model.Pagination.PageNumber + 1)" asp-route-pageSize="@Model.Pagination.PageSize" asp-route-searchString="@ViewData["CurrentFilter"]">Siguiente</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<style>
+    .pagination {
+        justify-content: center;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var now = new Date();
+        var currentHour = now.getHours();
+        var currentMinutes = now.getMinutes();
+
+        // Check if the current time is after 4:59 PM
+        if (currentHour > 16 || (currentHour === 16 && currentMinutes >= 59)) {
+            document.getElementById('timeAlert').style.display = 'block';
+        }
+    });
+
+    $(document).ready(function () {
+        var maxVisiblePages = 5;
+        var totalPages = @Model.Pagination.TotalPages;
+        var currentPage = @Model.Pagination.PageNumber;
+
+        function showPageNumbers(startPage) {
+            $('.page-number').hide();
+            for (var i = startPage; i < startPage + maxVisiblePages && i <= totalPages; i++) {
+                $('.page-number[data-page=' + i + ']').show();
+            }
+        }
+
+        showPageNumbers(Math.max(currentPage - Math.floor(maxVisiblePages / 2), 1));
+
+        $('.previous-page a').click(function (e) {
+            e.preventDefault();
+            if (currentPage > 1) {
+                currentPage--;
+                showPageNumbers(Math.max(currentPage - Math.floor(maxVisiblePages / 2), 1));
+                updatePageLinks();
+            }
+        });
+
+        $('.next-page a').click(function (e) {
+            e.preventDefault();
+            if (currentPage < totalPages) {
+                currentPage++;
+                showPageNumbers(Math.max(currentPage - Math.floor(maxVisiblePages / 2), 1));
+                updatePageLinks();
+            }
+        });
+
+        function updatePageLinks() {
+            $('.pagination a').each(function () {
+                var pageNumber = $(this).attr('asp-route-pageNumber');
+                if (pageNumber) {
+                    $(this).attr('href', '@Url.Action("ConsulteReview")?pageNumber=' + pageNumber + '&pageSize=@Model.Pagination.PageSize&searchString=@ViewData["CurrentFilter"]');
+                }
+            });
+        }
+
+        updatePageLinks();
+    });
+</script>

@@ -1,0 +1,432 @@
+﻿@{
+    ViewData["Title"] = "Compras";
+    Layout = "~/Views/Shared/_Layout_main.cshtml";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
+<style>
+    .card {
+        border-radius: 15px;
+        transition: all 0.2s ease;
+    }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+
+    .card-title {
+        font-size: 1.40rem;
+        font-weight: 400;
+        margin-bottom: 0.75rem;
+        color: #333;
+        border-bottom: 1px solid #e5e5e5;
+        padding-bottom: 0.5rem;
+    }
+
+    
+
+    .btn-primary {
+        background-color: #0f268d;
+        border-color: #0f268d;
+    }
+
+        .btn-primary:hover {
+            background-color: #0d1e6f;
+            border-color: #0d1e6f;
+        }
+
+    .title-main {
+        font-size: 1.6em;
+        color: #333;
+    }
+
+    .title-menu {
+        font-size: 1.4em;
+        color: #333;
+    }
+
+    .card-header-title {
+        font-size: 1.1em;
+        color: #333;
+    }
+
+    .lead {
+        font-size: 1.1rem;
+        font-weight: 300;
+    }
+
+    .lead-content {
+        font-size: 1.0rem;
+        font-weight: 300;
+    }
+</style>
+
+
+@* NAVIDAD TEMA *@
+<div>
+    @* <style>
+    .snowflake {
+    color: #87CEEB;
+    font-family: sans-serif;
+    font-size: 1.5em;
+    position: fixed;
+    top: -2em;
+    z-index: 1000;
+    user-select: none;
+    pointer-events: none;
+    animation: fall linear infinite;
+    }
+
+    @@keyframes fall {
+    0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+    }
+
+    100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0.2;
+    }
+    }
+    </style>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const snowflakeCount = 50;
+
+    for (let i = 0; i < snowflakeCount; i++) {
+    let snowflake = document.createElement("div");
+    snowflake.className = "snowflake";
+    snowflake.innerHTML = "❄";
+
+    snowflake.style.left = Math.random() * 100 + "vw";
+    snowflake.style.animationDuration = Math.random() * 5 + 5 + "s";
+    snowflake.style.fontSize = Math.random() * 10 + 10 + "px";
+
+    document.body.appendChild(snowflake);
+    }
+    });
+    </script> *@
+</div>
+
+
+<div class="container">
+    <div class="section">
+        <P class="title-main">
+            Solicitudes de Compra
+        </P>
+        <p class="lead">Este módulo se encarga de gestionar de manera integral el proceso de Solicitudes.</p>
+
+        <!-- Tarjetas KPI -->
+        <div class="row">
+            
+            <div class="col-md-3">
+                <div class="card shadow-lg rounded-4 text-center p-3">
+                    <h5>Total Solicitado</h5>
+                    <h3 class="text-primary">$@ViewBag.TotalSolicitado.ToString("N2")</h3>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card shadow-lg rounded-4 text-center p-3">
+                    <h5>Solicitudes Abiertas</h5>
+                    <h3 class="text-info">@ViewBag.TotalSolicitudesAbiertas</h3>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="card shadow-lg rounded-4 text-center p-3">
+                    <h5>OC Abiertas</h5>
+                    <h3 class="text-info">@ViewBag.TotalComprasAbiertas</h3>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="card shadow-lg rounded-4 text-center p-3">
+                    <h5>OC Parciales</h5>
+                    <h3 class="text-warning">@ViewBag.TotalComprasParciales</h3>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="card shadow-lg rounded-4 text-center p-3">
+                    <h5>OC Recibidas</h5>
+                    <h3 class="text-success">@ViewBag.TotalComprasRecibidas</h3>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <hr>
+    @if (User.Identity.IsAuthenticated)
+    {
+        var userRole = User.FindFirst("Rol")?.Value;
+        var userArea = User.FindFirst("Area")?.Value;
+
+        // Check if the user has one of the allowed roles or if the area is "Purchasing".
+        if ((userRole != null && (userRole == "Administrador" || userRole == "Super Usuario" || userRole == "Desarrollador" || userRole == "Soporte TI")) || (userArea != null && userArea == "Compras"))
+        {
+            <div class="compras">
+                <p class="title-menu">
+                    <i class="fas fa-shopping-cart me-2"></i> Compra
+                </p>
+                <div class="container">
+                    <div class="row">
+
+                        @* 1. Option *@
+                        <div class="col-md-4">
+                            <a href="@Url.Action("ReviewIndex", "ComprasUsuarios")" class="text-decoration-none text-dark">
+                                <div class="card shadow-lg rounded-4 text-center p-4">
+                                    <div class="mb-3">
+                                        <i class="fas fa-cart-plus fa-3x"></i>
+                                    </div>
+                                    <h4 class="card-title fw-normal">Agregar Ordenes de Compra</h4>
+                                    <p class="text-muted">Crea órdenes de compra para adquirir materiales o productos.</p>
+                                    <button class="btn btn-primary mt-2">Ir al módulo</button>
+                                </div>
+                            </a>
+                        </div>
+
+                        @* <div class="col-md-4 mt-3">
+                            <a href="/ComprasUsuarios/ReviewIndex" class="option">
+                                <div class="card-section border rounded p-3">
+                                    <div class="card-header-first rounded pb-5">
+                                        <h2 class="card-header-title text-white pt-3 text-center">Agregar Ordenes de Compra</h2>
+                                    </div>
+                                    <div class="card-body text-center">
+                                        <p class="lead">Crea nuevas órdenes de compra para adquirir materiales o productos necesarios.</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div> *@
+
+                        @* 2. Option *@
+                        <div class="col-md-4">
+                            <a href="@Url.Action("Index", "ComprasUsuarios")" class="text-decoration-none text-dark">
+                                <div class="card shadow-lg rounded-4 text-center p-4">
+                                    <div class="mb-3">
+                                        <i class="fas fa-search-dollar fa-3x"></i>
+                                    </div>
+                                    <h4 class="card-title fw-normal">Revisar Ordenes de Compra</h4>
+                                    <p class="text-muted">Verifica y revisa las órdenes de compra para mayor precisión.</p>
+                                    <button class="btn btn-primary mt-2">Ir al módulo</button>
+                                </div>
+                            </a>
+                        </div>
+
+                        @* <div class="col-md-4 mt-3">
+                            <a href="/ComprasUsuarios/Index" class="option">
+                                <div class="card-section border rounded p-3">
+                                    <div class="card-header-first rounded pb-5">
+                                        <h2 class="card-header-title text-white pt-3 text-center">Revisar Ordenes de Compra</h2>
+                                    </div>
+                                    <div class="card-body text-center">
+                                        <p class="lead">Verifica y revisa las órdenes de compra creadas para asegurar una mejor precisión.</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div> *@
+
+                        @* 3. Option *@
+                        <div class="col-md-4">
+                            <a href="@Url.Action("CSeguimientoMain", "VistaSolicitud")" class="text-decoration-none text-dark">
+                                <div class="card shadow-lg rounded-4 text-center p-4">
+                                    <div class="mb-3">
+                                        <i class="fas fa-tasks fa-3x"></i>
+                                    </div>
+                                    <h4 class="card-title fw-normal">Seguimiento Ordenes de Compra</h4>
+                                    <p class="text-muted">Accede a las órdenes de compra, permitiendo una rápida búsqueda.</p>
+                                    <button class="btn btn-primary mt-2">Ir al módulo</button>
+                                </div>
+                            </a>
+                        </div>
+
+                        @* <div class="col-md-4 mt-3">
+                            <a href="/VistaSolicitud/CSeguimientoMain" class="option">
+                                <div class="card-section border rounded p-3">
+                                    <div class="card-header-first rounded pb-5">
+                                        <h2 class="card-header-title text-white pt-3 text-center">Seguimiento Ordenes de Compra</h2>
+                                    </div>
+                                    <div class="card-body text-center">
+                                        <p class="lead">Accede a las órdenes de compra, permitiendo una rápida búsqueda.</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div> *@
+
+                    </div>
+                </div>
+
+                <hr>
+
+                <p class="title-menu mt-3">
+                    <i class="fas fa-search me-2"></i> Consultar
+                </p>
+                <div class="container">
+
+                    <div class="row">
+
+                        @* 4. Option *@
+                        <div class="col-md-4">
+                            <a href="@Url.Action("ConsulteReview", "ComprasUsuarios")" class="text-decoration-none text-dark">
+                                <div class="card shadow-lg rounded-4 text-center p-4">
+                                    <div class="mb-3">
+                                        <i class="fas fa-list-alt fa-3x"></i>
+                                    </div>
+                                    <h4 class="card-title fw-normal">Movimiento Resumen</h4>
+                                    <p class="text-muted">Muestra un resumen general de todas las solicitudes.</p>
+                                    <button class="btn btn-primary mt-2">Ir al módulo</button>
+                                </div>
+                            </a>
+                        </div>
+
+                        @* <div class="col-md-4 mt-3">
+                            <a href="/ComprasUsuarios/ConsulteReview" class="option">
+                                <div class="card-section border rounded p-3">
+                                    <div class="card-header-third rounded pb-5">
+                                        <h2 class="card-header-title text-white pt-3 text-center">Movimiento Resumen</h2>
+                                    </div>
+                                    <div class="card-body text-center">
+                                        <p class="lead">Muestra un resumen general de todas las solicitudes.</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div> *@
+
+                        @* 5. Option *@
+                        <div class="col-md-4">
+                            <a href="@Url.Action("ConsulteDetails", "ComprasUsuarios")" class="text-decoration-none text-dark">
+                                <div class="card shadow-lg rounded-4 text-center p-4">
+                                    <div class="mb-3">
+                                        <i class="fas fa-align-justify fa-3x"></i>
+                                    </div>
+                                    <h4 class="card-title fw-normal">Movimiento Detalle</h4>
+                                    <p class="text-muted">Muestra un resumen detallado de todas las solicitudes.</p>
+                                    <button class="btn btn-primary mt-2">Ir al módulo</button>
+                                </div>
+                            </a>
+                        </div>
+
+                        @* <div class="col-md-4 mt-3">
+                            <a href="/ComprasUsuarios/ConsulteDetails" class="option">
+                                <div class="card-section border rounded p-3">
+                                    <div class="card-header-third rounded pb-5">
+                                        <h2 class="card-header-title text-white pt-3 text-center">Movimiento Detalle</h2>
+                                    </div>
+                                    <div class="card-body text-center">
+                                        <p class="lead">Muestra un resumen detallado de todas las solicitudes.</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div> *@
+
+                        @* 6. Option *@
+                        <div class="col-md-4">
+                            <a href="@Url.Action("ConsulteDiscount", "ComprasUsuarios")" class="text-decoration-none text-dark">
+                                <div class="card shadow-lg rounded-4 text-center p-4">
+                                    <div class="mb-3">
+                                        <i class="fas fa-percentage fa-3x text-success"></i>
+                                    </div>
+                                    <h4 class="card-title fw-normal">Descuentos Compra</h4>
+                                    <p class="text-muted">Presenta un desglose detallado de los descuentos de compra.</p>
+                                    <button class="btn btn-primary mt-2">Ir al módulo</button>
+                                </div>
+                            </a>
+                        </div>
+
+                        @* <div class="col-md-4 mt-3">
+                            <a href="/ComprasUsuarios/ConsulteDiscount" class="option">
+                                <div class="card-section border rounded p-3">
+                                    <div class="card-header-third rounded pb-5">
+                                        <h2 class="card-header-title text-white pt-3 text-center">Descuentos Compra</h2>
+                                    </div>
+                                    <div class="card-body text-center">
+                                        <p class="lead">Presenta un desglose detallado de los descuentos de compra.</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div> *@
+
+                    </div>
+                </div>
+
+                <hr>
+
+            </div>
+
+            <div class="section">
+                <P class="title-main">
+                    Análisis
+                </P>
+                <p class="lead">Este módulo se encargará de analizar los tiempos en los procesos relacionados, proporcionando una visión detallada para mejorar la eficiencia y la toma de decisiones.</p>
+            </div>
+            <hr>
+
+            <div class="analyze">
+                <p class="title-menu mt-3">
+                    <i class="fas fa-chart-line me-2"></i> Compras
+                </p>
+                <div class="container">
+                    <div class="row">
+
+                        @* 7. Option *@
+                        <div class="col-md-4">
+                            <a href="@Url.Action("AnalyzeCompras", "ComprasUsuarios")" class="text-decoration-none text-dark">
+                                <div class="card shadow-lg rounded-4 text-center p-4">
+                                    <div class="mb-3">
+                                        <i class="fas fa-chart-pie fa-3x"></i>
+                                    </div>
+                                    <h4 class="card-title fw-normal">Analisis Compras</h4>
+                                    <p class="text-muted">Evalúa el proceso de compra desde la creación de la solicitud, incluyendo la selección de proveedores.</p>
+                                    <button class="btn btn-primary mt-2">Ir al módulo</button>
+                                </div>
+                            </a>
+                        </div>
+
+                        @* <div class="col-md-4 mt-3">
+                            <a href="/ComprasUsuarios/AnalyzeCompras" class="option">
+                                <div class="card-section border rounded p-3">
+                                    <div class="card-header-first rounded pb-5">
+                                        <h2 class="card-header-title text-white pt-3 text-center">Analisis Compras</h2>
+                                    </div>
+                                    <div class="card-body text-center">
+                                        <p class="lead">Evalúa el proceso de compra desde la creación de la solicitud, incluyendo la selección de proveedores.</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div> *@
+
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>
+
+
+<!-- Botón para regresar al inicio -->
+<button onclick="scrollToTop()" class="btn btn-primary" id="scrollTopButton">
+    <i class="fas fa-arrow-up"></i> <!-- Icono de flecha hacia arriba -->
+</button>
+
+
+<style>
+    #scrollTopButton {
+        position: fixed;
+        bottom: 50px; /* Espacio desde la parte inferior de la ventana */
+        right: 20px; /* Espacio desde el lado derecho de la ventana */
+        z-index: 1000; /* Asegura que el botón esté por encima de otros elementos */
+        width: 40px; /* Ancho del botón */
+        height: 40px; /* Alto del botón */
+        border-radius: 50%; /* Hace el botón redondo */
+        display: flex; /* Centra el contenido dentro del botón */
+        align-items: center; /* Centra verticalmente el contenido */
+        justify-content: center; /* Centra horizontalmente el contenido */
+        font-size: 18px; /* Tamaño del icono */
+    }
+</style>
+
+<script>
+    function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+</script>

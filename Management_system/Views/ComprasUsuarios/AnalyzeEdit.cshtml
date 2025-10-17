@@ -1,0 +1,92 @@
+﻿@model Management_system.Models.CompraDetalle
+
+@{
+    ViewData["Title"] = "Editar Producto";
+    Layout = "~/Views/Shared/_Layout_main.cshtml";
+}
+
+<h1>Editar</h1>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <h4 class="card-title text-center mt-3">Articulo</h4>
+                <div class="card-body">
+                    <input type="hidden" name="idSolicitud" value="@ViewBag.IdSolicitud" />
+
+                    <form asp-action="AnalyzeEdit">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="IdCompraDetalle" />
+                        <div class="form-group">
+                            <label asp-for="IdCompra" class="control-label">Id Compra</label>
+                            <input asp-for="IdCompra" class="form-control" readonly />
+                            <span asp-validation-for="IdCompra" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="IdSolicitudDetalle" class="control-label">Producto</label>
+                            <input asp-for="IdSolicitudDetalle" class="form-control" readonly />
+                            <span asp-validation-for="IdSolicitudDetalle" class="text-danger"></span>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label asp-for="ProveedorSugerido" class="control-label">Proveedor Sugerido</label>
+                                    <input asp-for="ProveedorSugerido" class="form-control" required />
+                                    <span asp-validation-for="ProveedorSugerido" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="PrecioUnitario" class="control-label">Precio</label>
+                                    <input asp-for="PrecioUnitario" class="form-control" required />
+                                    <span asp-validation-for="PrecioUnitario" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="Cantidad" class="control-label">Cantidad</label>
+                                    <input asp-for="Cantidad" class="form-control" required />
+                                    <span asp-validation-for="Cantidad" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="ProveedorSugerido1" class="control-label">Proveedor Sugerido</label>
+                                    <input asp-for="ProveedorSugerido1" class="form-control"/>
+                                    <span asp-validation-for="ProveedorSugerido1" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="PrecioUnitario1" class="control-label">Precio</label>
+                                    <input asp-for="PrecioUnitario1" class="form-control"/>
+                                    <span asp-validation-for="PrecioUnitario1" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="Cantidad1" class="control-label">Cantidad</label>
+                                    <input asp-for="Cantidad1" class="form-control"/>
+                                    <span asp-validation-for="Cantidad1" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group text-center mt-3">
+                            <button type="submit" value="CreateProducto" class="btn btn-primary">Editar Producto</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="form-group text-center mt-3">
+    <a asp-action="Analyze" asp-route-idSolicitud="@ViewData["IdSolicitud"]" class="btn btn-secondary">Volver</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

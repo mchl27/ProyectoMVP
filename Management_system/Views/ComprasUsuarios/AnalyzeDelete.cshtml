@@ -1,0 +1,46 @@
+﻿@model Management_system.Models.CompraDetalle
+
+@{
+    ViewData["Title"] = "Eliminar Producto";
+    Layout = "~/Views/Shared/_Layout_main.cshtml";
+}
+
+<h1 class="text-center">Eliminar</h1>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title text-center">¿Estás seguro de que deseas eliminar esto?</h3>
+                    <dl class="row">
+                        <dt class="col-sm-4">ID Solicitud:</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.IdCompraNavigation.OrdenCompra)</dd>
+                        <dt class="col-sm-4">Producto:</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.IdSolicitudDetalleNavigation.IdProductoNavigation.Descripcion)</dd>
+                        <dt class="col-sm-4">Proveedor Sugerido:</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.ProveedorSugerido)</dd>
+                        <dt class="col-sm-4">Cantidad:</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.Cantidad)</dd>
+                        <dt class="col-sm-4">Precio Unitario:</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.PrecioUnitario)</dd>
+                        <dt class="col-sm-4">Proveedor Sugerido:</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.ProveedorSugerido1)</dd>
+                        <dt class="col-sm-4">Cantidad:</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.Cantidad1)</dd>
+                        <dt class="col-sm-4">Precio Unitario:</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.PrecioUnitario1)</dd>
+                    </dl>
+                </div>
+                <div class="card-footer text-center">
+                    <form asp-action="AnalyzeDelete">
+                        <input type="hidden" asp-for="IdSolicitudDetalle" />
+                        <button type="submit" class="btn btn-danger mr-2">Eliminar</button>
+
+                        <a asp-action="Analyze" asp-route-idSolicitud="@ViewData["IdSolicitud"]" class="btn btn-secondary">Volver</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

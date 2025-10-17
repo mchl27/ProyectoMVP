@@ -1,0 +1,75 @@
+﻿@model Management_system.Models.Conductor
+
+@{
+    ViewData["Title"] = "Detalle Conductor";
+    Layout = "~/Views/Shared/_Layout_main.cshtml";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
+
+<style>
+    .fixed-width-btn {
+        width: 80px;
+    }
+
+    .alert-custom {
+        color: red;
+        font-size: 1.2em;
+        display: none;
+        margin-top: 10px;
+    }
+
+        .alert-custom i {
+            margin-right: 5px;
+        }
+
+    .card {
+        border-radius: 15px;
+    }
+
+    .card-title {
+        font-size: 1.25rem;
+        font-weight: 500;
+        margin-bottom: 0.75rem;
+        color: #333;
+        border-bottom: 1px solid #e5e5e5;
+        padding-bottom: 0.5rem;
+    }
+</style>
+<h1>Details</h1>
+
+<div>
+    <h4>Conductor</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Identificacion)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Identificacion)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PlacaVehiculo)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PlacaVehiculo)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Telefono)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Telefono)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.IdConductor">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -1,0 +1,43 @@
+﻿@model Management_system.Models.Producto
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout_main.cshtml";
+}
+
+<div class="container">
+
+    <div>
+        <a asp-action="ReceptionIndex" class="btn btn-secondary">Volver</a>
+    </div>
+
+    <div class="card mt-2">
+        <div class="card-body">
+            <h4 class="card-title">Información del Producto</h4>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-2">Empresa</dt>
+                <dd class="col-sm-10">@Html.DisplayFor(model => model.Empresa)</dd>
+                <dt class="col-sm-2">Referencia</dt>
+                <dd class="col-sm-10">@Html.DisplayFor(model => model.Referencia)</dd>
+                <dt class="col-sm-2">Descripción</dt>
+                <dd class="col-sm-10">@Html.DisplayFor(model => model.Descripcion)</dd>
+                <dt class="col-sm-2">Unidad</dt>
+                <dd class="col-sm-10">@Html.DisplayFor(model => model.Unidad)</dd>
+                <dt class="col-sm-2">Estado</dt>
+                <dd class="col-sm-10">@Html.DisplayFor(model => model.Estado)</dd>
+                <dt class="col-sm-2">Link</dt>
+                <dd class="col-sm-10">@Html.DisplayFor(model => model.Link)</dd>
+                <dt class="col-sm-2">Ultimo Proveedor</dt>
+                <dd class="col-sm-10">@Html.DisplayFor(model => model.Proveedor)</dd>
+                <dt class="col-sm-2">Ultima fecha</dt>
+                <dd class="col-sm-10">@Html.DisplayFor(model => model.UltimoIngreso)</dd>
+                <dt class="col-sm-2">Ultimo precio</dt>
+                <dd class="col-sm-10">@Html.DisplayFor(model => model.Precio)</dd>
+            </dl>
+        </div>
+    </div>
+
+</div>
+
+

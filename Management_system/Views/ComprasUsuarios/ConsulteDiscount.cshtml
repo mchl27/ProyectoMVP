@@ -1,0 +1,115 @@
+﻿@model IEnumerable<Management_system.Models.CompraDetalle>
+
+@{
+    ViewData["Title"] = "Consulte Review";
+    Layout = "~/Views/Shared/_Layout_main.cshtml";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
+<style>
+    .fixed-width-btn {
+        width: 80px;
+    }
+</style>
+
+<p>
+    <a asp-action="Compras" asp-controller="Main" class="btn btn-secondary">Volver</a>
+</p>
+
+<h2 class="card-title">Listado de Compras</h2>
+
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <div class="mt-1">
+                <h3>Busqueda</h3>
+            </div>
+            <form method="get" action="@Url.Action("ConsulteDiscount", "ComprasUsuarios")" class="form-inline">
+                <div class="form-group row">
+                    <div class="col-md-4">
+                        <label for="searchCriteria" class="mr-2">Criterio de búsqueda</label>
+                        <select class="form-control" id="searchCriteria" name="searchCriteria">
+                            <option value="">Seleccionar Criterio</option>
+                            <option value="Consecutivo">Orden de Compra</option>
+                            <option value="Solicitud">Solicitud</option>
+                            <option value="Vendedor">Vendedor</option>
+                            <option value="Proveedor">Proveedor</option>
+                            <option value="Usuario">Usuario</option>
+                            <option value="Estado">Estado</option>
+                            <option value="Referencia">Referencia</option>
+                            <option value="Descripcion">Descripcion</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="searchTerm" class="mr-2">Término de búsqueda</label>
+                        <input type="text" class="form-control" id="searchTerm" name="searchTerm">
+                    </div>
+                    <div class="col-md-2">
+                        <label for="fecha" class="mr-2">Fecha</label>
+                        <input type="date" class="form-control" id="fecha" name="fecha">
+                    </div>
+                    <div class="col-md-1 text-center d-flex align-items-end justify-content-center">
+                        <button type="submit" class="btn btn-primary">Buscar</button>
+                    </div>
+                    <div class="col-md-1 text-center d-flex align-items-end justify-content-center">
+                        <a asp-action="ExportExcelDs" class="btn btn-success">Exportar</a>
+                    </div>
+                </div>
+            </form>
+            <div class="table-responsive mt-2">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Solicitud</th>
+                            <th>O.C</th>
+                            <th>Fecha O.C</th>
+                            <th>Fecha de Entrega</th>
+                            <th>Estado de la orden</th>
+                            <th>Observaciones</th>
+                            <th>Referencia</th>
+                            <th>Descripcion</th>
+                            <th>Cantidad</th>
+                            <th>Costo</th>
+                            <th>Proveedor sugerido</th>
+                            <th>Cantidad</th>
+                            <th>Precio</th>
+                            <th>Ahorro</th>
+                            <th>Proveedor sugerido 2</th>
+                            <th>Cantidad 2</th>
+                            <th>Precio 2</th>
+                            <th>Ahorro 2</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.IdCompraNavigation.IdSolicitudNavigation.Consecutivo)</td>
+                                <td>@Html.DisplayFor(modelItem => item.IdCompraNavigation.OrdenCompra)</td>
+                                <td>@Html.DisplayFor(modelItem => item.IdCompraNavigation.FechaCompra)</td>
+                                <td>@Html.DisplayFor(modelItem => item.IdCompraNavigation.FechaEntrega)</td>
+                                <td>@Html.DisplayFor(modelItem => item.IdCompraNavigation.Estado)</td>
+                                <td>@Html.DisplayFor(modelItem => item.IdCompraNavigation.ObservacionesPago)</td>
+                                <td>@Html.DisplayFor(modelItem => item.IdSolicitudDetalleNavigation.IdProductoNavigation.Referencia)</td>
+                                <td>@Html.DisplayFor(modelItem => item.IdSolicitudDetalleNavigation.IdProductoNavigation.Descripcion)</td>
+                                <td>@Html.DisplayFor(modelItem => item.IdSolicitudDetalleNavigation.Cantidad)</td>
+                                <td>@Html.DisplayFor(modelItem => item.IdSolicitudDetalleNavigation.PrecioCosto)</td>
+
+                                <td>@Html.DisplayFor(modelItem => item.ProveedorSugerido)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Cantidad)</td>
+                                <td>@Html.DisplayFor(modelItem => item.PrecioUnitario)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Ahorro)</td>
+
+                                <td>@Html.DisplayFor(modelItem => item.ProveedorSugerido1)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Cantidad1)</td>
+                                <td>@Html.DisplayFor(modelItem => item.PrecioUnitario1)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Ahorro1)</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

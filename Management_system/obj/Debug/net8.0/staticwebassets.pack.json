@@ -1,0 +1,369 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\Management_system.bundle.scp.css",
+      "PackagePath": "staticwebassets\\Management_system.h35bhak7r8.bundle.scp.css"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\Rotativa\\Windows\\wkhtmltoimage.exe",
+      "PackagePath": "staticwebassets\\Rotativa\\Windows\\wkhtmltoimage.exe"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\Rotativa\\Windows\\wkhtmltopdf.exe",
+      "PackagePath": "staticwebassets\\Rotativa\\Windows\\wkhtmltopdf.exe"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\css\\site.css",
+      "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\css\\site1.css",
+      "PackagePath": "staticwebassets\\css\\site1.css"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\favicon.ico",
+      "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\img\\0. logo geu.png",
+      "PackagePath": "staticwebassets\\img\\0. logo geu.png"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\img\\1. LOGO GEU BLANCO.png",
+      "PackagePath": "staticwebassets\\img\\1. LOGO GEU BLANCO.png"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\img\\1. LOGO GEU.JPG",
+      "PackagePath": "staticwebassets\\img\\1. LOGO GEU.JPG"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\img\\1. Logo UDC.png",
+      "PackagePath": "staticwebassets\\img\\1. Logo UDC.png"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\img\\2. Fachada (1).jpeg",
+      "PackagePath": "staticwebassets\\img\\2. Fachada (1).jpeg"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\img\\2. Fachada (2).jpeg",
+      "PackagePath": "staticwebassets\\img\\2. Fachada (2).jpeg"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\img\\2. Fachada (3).jpeg",
+      "PackagePath": "staticwebassets\\img\\2. Fachada (3).jpeg"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\img\\2. Fachada (4).jpeg",
+      "PackagePath": "staticwebassets\\img\\2. Fachada (4).jpeg"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\img\\2. Fachada (5).jpeg",
+      "PackagePath": "staticwebassets\\img\\2. Fachada (5).jpeg"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\img\\2. Fachada (6).jpeg",
+      "PackagePath": "staticwebassets\\img\\2. Fachada (6).jpeg"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\img\\3. Index.jpg",
+      "PackagePath": "staticwebassets\\img\\3. Index.jpg"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\img\\Christmas\\Gifts.png",
+      "PackagePath": "staticwebassets\\img\\Christmas\\Gifts.png"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\img\\Christmas\\Gifts1.png",
+      "PackagePath": "staticwebassets\\img\\Christmas\\Gifts1.png"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\img\\Christmas\\christmas tree.png",
+      "PackagePath": "staticwebassets\\img\\Christmas\\christmas tree.png"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\img\\Christmas\\christmas tree1.png",
+      "PackagePath": "staticwebassets\\img\\Christmas\\christmas tree1.png"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\img\\Christmas\\christmas tree2.png",
+      "PackagePath": "staticwebassets\\img\\Christmas\\christmas tree2.png"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\img\\DD9A5959 como objeto inteligente-1.jpg",
+      "PackagePath": "staticwebassets\\img\\DD9A5959 como objeto inteligente-1.jpg"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\img\\FACHADA UNIVERSAL 2 OPCIONES_Mesa de trabajo 1.jpg",
+      "PackagePath": "staticwebassets\\img\\FACHADA UNIVERSAL 2 OPCIONES_Mesa de trabajo 1.jpg"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\img\\Santa_culon.mp4",
+      "PackagePath": "staticwebassets\\img\\Santa_culon.mp4"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\img\\Terminator.jpeg",
+      "PackagePath": "staticwebassets\\img\\Terminator.jpeg"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\img\\default-avatar.png",
+      "PackagePath": "staticwebassets\\img\\default-avatar.png"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\js\\number.js",
+      "PackagePath": "staticwebassets\\js\\number.js"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\js\\site.js",
+      "PackagePath": "staticwebassets\\js\\site.js"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "PackagePath": "staticwebassets\\lib\\bootstrap"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\LICENSE.md"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.js"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.min.js"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.js"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery\\LICENSE.txt"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.js"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.js"
+    },
+    {
+      "Id": "D:\\Universal\\Management_system\\Management_system\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.Management_system.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.Management_system.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.Management_system.props",
+      "PackagePath": "build\\Management_system.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.Management_system.props",
+      "PackagePath": "buildMultiTargeting\\Management_system.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.Management_system.props",
+      "PackagePath": "buildTransitive\\Management_system.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

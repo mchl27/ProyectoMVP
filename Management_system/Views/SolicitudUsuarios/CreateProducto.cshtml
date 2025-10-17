@@ -1,0 +1,298 @@
+﻿@model Management_system.Models.SolicitudDetalle
+
+@{
+    ViewData["Title"] = "Agregar Productos";
+    Layout = "~/Views/Shared/_Layout_main.cshtml";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
+<style>
+    .fixed-width-btn {
+        width: 80px;
+    }
+
+    .alert-custom {
+        color: red;
+        font-size: 1.2em;
+        display: none;
+        margin-top: 10px;
+    }
+
+    .card {
+        border-radius: 15px;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #333;
+        border-bottom: 1px solid #e5e5e5;
+        padding-bottom: 0.5rem;
+        text-transform: uppercase;
+    }
+
+    input[type="submit"] {
+        width: 150px;
+    }
+
+
+    .title-main {
+        font-size: 1.6em;
+        color: #333;
+    }
+
+    .title-menu {
+        font-size: 1.4em;
+        color: #333;
+    }
+
+    .card-header-title {
+        font-size: 1.1em;
+        color: #333;
+    }
+
+    .lead {
+        font-size: 1.1rem;
+        font-weight: 300;
+    }
+
+    .lead-content {
+        font-size: 1.0rem;
+        font-weight: 300;
+    }
+
+    .btn {
+        /* background-color: #007bff;
+                        border-color: #007bff; */
+        font-weight: 500;
+        padding: 5px 15px;
+        border-radius: 20px;
+        transition: background-color 0.3s ease;
+    }
+
+</style>
+
+
+<div class="container">
+    <a asp-action="CreateDetalle" asp-route-idSolicitud="@ViewData["IdSolicitud"]" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Volver
+    </a>
+</div>
+
+<div class="container mt-3">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+
+                    <p class="text-center title-menu">Agregar Articulo</p>
+                    <hr/>
+                    <form asp-action="CreateProducto">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            @* <label asp-for="IdSolicitud" class="control-label"></label> *@
+                            <input type="hidden" asp-for="IdSolicitud" class="form-control" value="@ViewData["IdSolicitud"]" required />
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="searchReferencia" class="control-label card-header-title">Buscar Producto</label>
+
+                                    <div class="input-group">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-search"></i>
+                                        </span>
+                                        <input type="text" id="searchReferencia" class="form-control lead-content"
+                                               placeholder="Ingresa Referencia o Descripción" required />
+                                    </div>
+
+
+                                    @* <input type="text" id="searchReferencia" class="form-control lead-content" /> *@
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label asp-for="IdProducto" class="control-label card-header-title">Producto</label>
+                                    <select asp-for="IdProducto" class="form-control lead-content" id="selectProducto" required>
+                                        <option value="" class="lead-content">Seleccione un producto</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label card-header-title">Descripción del Producto</label>
+                                    <input type="text" id="descripcionProducto" class="form-control lead-content" readonly />
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label class="control-label card-header-title">Unidad de medida</label>
+                                    <input type="text" id="unidadProducto" class="form-control lead-content" readonly />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="Cantidad" class="control-label card-header-title">Cantidad</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-sort-numeric-up"></i>
+                                        </span>
+                                        <input asp-for="Cantidad" class="form-control lead-content"
+                                               placeholder="Ingresa la cantidad solicitada" required />
+                                    </div>
+
+                                    @* <input asp-for="Cantidad" class="form-control lead-content" required /> *@
+                                    <span asp-validation-for="Cantidad" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="PrecioCosto" class="control-label card-header-title">Precio Costo</label>
+                                    
+                                    <div class="input-group">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-money-bill-wave"></i>
+                                        </span>
+                                        <input type="hidden" asp-for="PrecioCosto" id="PrecioCostoHidden" class="form-control lead-content"
+                                               placeholder="Ingresa precio de costo" required />
+
+                                        <input type="text" id="PrecioCostoInput" class="form-control lead-content"
+                                               placeholder="Ingresa precio de costo" required />
+                                    </div>
+                                    
+
+
+                                    @* <input asp-for="PrecioCosto" class="form-control lead-content" required /> *@
+                                    <span asp-validation-for="PrecioCosto" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="PrecioVenta" class="control-label card-header-title">Precio Venta</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-shopping-cart"></i>
+                                        </span>
+                                        <input type="hidden" asp-for="PrecioVenta" id="PrecioVentaHidden" class="form-control lead-content"
+                                               placeholder="Ingresa precio de venta" required />
+
+                                        <input type="text" id="PrecioVentaInput" class="form-control lead-content"
+                                               placeholder="Ingresa precio de venta" required />
+                                    </div>
+
+                                    @* <input asp-for="PrecioVenta" class="form-control lead-content" required /> *@
+                                    <span asp-validation-for="PrecioVenta" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="Observaciones" class="control-label card-header-title">Observaciones</label>
+                                    <input asp-for="Observaciones" class="form-control lead-content" required />
+                                    <span asp-validation-for="Observaciones" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="Negociacion" class="control-label card-header-title">Negociación</label>
+                                    <input asp-for="Negociacion" class="form-control lead-content" required />
+                                    <span asp-validation-for="Negociacion" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group text-center mt-3">
+                            <button type="submit" value="CreateProducto" class="btn btn-primary">Agregar Producto</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#searchReferencia").on("input", function () {
+                var query = $(this).val();
+                if (query.length > 2) { // Buscar después de que el usuario haya ingresado al menos 3 caracteres
+                    $.ajax({
+                        url: '@Url.Action("SearchProducto", "SolicitudUsuarios")',
+                        data: { term: query },
+                        success: function (data) {
+                            var select = $("#selectProducto");
+                            select.empty();
+                            select.append($("<option>").val("").text("Seleccione un producto"));
+                            $.each(data, function (index, item) {
+                                select.append($("<option>").val(item.value).text(item.text));
+                            });
+                        }
+                    });
+                }
+            });
+
+            // Al cambiar la selección del producto, actualizar la descripción
+            $("#selectProducto").change(function () {
+                var productId = $(this).val();
+                if (productId) {
+                    $.ajax({
+                        url: '@Url.Action("GetProductDescription", "SolicitudUsuarios")',
+                        data: { id: productId },
+                        success: function (data) {
+                            $("#descripcionProducto").val(data.description);
+                            $("#unidadProducto").val(data.unidad);
+                        }
+                    });
+                } else {
+                    $("#descripcionProducto").val('');
+                    $("#unidadProducto").val('');
+                }
+            });
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/autonumeric@4.6.0/dist/autoNumeric.min.js"></script>
+    <script>
+        const autoNumericInstance = new AutoNumeric('#PrecioVentaInput', {
+            digitGroupSeparator: '.',
+            decimalCharacter: ',',
+            decimalPlaces: 2,
+            currencySymbol: '$',
+            currencySymbolPlacement: 'p',
+            modifyValueOnWheel: false,
+            unformatOnSubmit: true
+        });
+
+        // Actualiza el input hidden cuando el valor cambia
+        document.getElementById('PrecioVentaInput').addEventListener('input', () => {
+            const rawValue = autoNumericInstance.getNumber(); // Este es el valor limpio: 1200000.05
+            document.getElementById('PrecioVentaHidden').value = rawValue;
+        });
+    </script>
+
+    <script>
+        const autoNumericInstanceC = new AutoNumeric('#PrecioCostoInput', {
+            digitGroupSeparator: '.',
+            decimalCharacter: ',',
+            decimalPlaces: 2,
+            currencySymbol: '$',
+            currencySymbolPlacement: 'p',
+            modifyValueOnWheel: false,
+            unformatOnSubmit: true
+        });
+
+        // Actualiza el input hidden cuando el valor cambia
+        document.getElementById('PrecioCostoInput').addEventListener('input', () => {
+            const rawValue = autoNumericInstanceC.getNumber(); // Este es el valor limpio: 1200000.05
+            document.getElementById('PrecioCostoHidden').value = rawValue;
+        });
+    </script>
+}

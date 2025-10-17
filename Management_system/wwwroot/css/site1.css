@@ -1,0 +1,58 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+
+.nav-link.rounded-pill {
+    border: 1px solid #000;
+    border-radius: 20px;
+    background-color: #fff;
+    color: #000;
+}
+
+    .nav-link.rounded-pill:hover {
+        background-color: #0f268d;
+        color: #fff !important; /* Utilizamos !important para asegurarnos de que este estilo sobrescriba cualquier otro estilo de color */
+        border-color: #0f268d;
+    }
+
+.navbar-nav .nav-link {
+    font-weight: 320; /* Usa un peso más ligero para que se vea más delgado */
+}
+
+.navbar-brand {
+    font-weight: 400; /* Mantén el logo un poco más destacado */
+}
+
+@media (max-width: 576px) {
+    .navbar-toggler[aria-expanded="true"] ~ .navbar-collapse .nav-link {
+        border: none;
+    }
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    background-color: white;
+    padding: 10px 0;
+}

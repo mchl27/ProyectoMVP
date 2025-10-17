@@ -1,0 +1,226 @@
+﻿@{
+    ViewData["Title"] = "Configuración";
+    Layout = "~/Views/Shared/_Layout_main.cshtml";
+}
+
+<style>
+    .card {
+        border-radius: 15px;
+        transition: all 0.2s ease;
+    }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+
+    .card-title {
+        font-size: 1.40rem;
+        font-weight: 400;
+        margin-bottom: 0.75rem;
+        color: #333;
+        border-bottom: 1px solid #e5e5e5;
+        padding-bottom: 0.5rem;
+    }
+
+
+    .btn-primary {
+        background-color: #0f268d;
+        border-color: #0f268d;
+    }
+
+        .btn-primary:hover {
+            background-color: #0d1e6f;
+            border-color: #0d1e6f;
+        }
+
+
+    .title-main {
+        font-size: 1.6em;
+        color: #333;
+    }
+
+    .title-menu {
+        font-size: 1.4em;
+        color: #333;
+    }
+
+    .card-header-title {
+        font-size: 1.1em;
+        color: #333;
+    }
+
+    .lead {
+        font-size: 1.1rem;
+        font-weight: 300;
+    }
+
+    .lead-content {
+        font-size: 1.0rem;
+        font-weight: 300;
+    }
+</style>
+
+<p class="title-menu text-center">Configuración</p>
+<hr />
+
+<div class="container">
+    <div class="row">
+
+        @* 1. Option *@
+        @if (User.Identity.IsAuthenticated)
+        {
+            var userRole = User.FindFirst("Rol")?.Value;
+            if (userRole != null && (userRole == "Administrador" || userRole == "Super Usuario" || userRole == "Gerencia" || userRole == "Desarrollador" || userRole == "Soporte TI"))
+            {
+                <div class="col-md-4 mt-1">
+                    <div class="card shadow-lg rounded-4 text-center">
+                        <div class="card-body">
+                            <h5 class="card-title">Preferencias</h5>
+                            <p>Aquí puedes configurar las opciones de la aplicación.</p>
+                            <a href="/AuditorySecure/Index" class="btn btn-dark rounded-pill">Ir aAuditoria</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+
+        @* 2. Option *@
+        @if (User.Identity.IsAuthenticated)
+        {
+            var userRole = User.FindFirst("Rol")?.Value;
+            if (userRole != null && (userRole == "Administrador" || userRole == "Super Usuario" || userRole == "Gerencia" || userRole == "Desarrollador" || userRole == "Soporte TI"))
+            {
+                <div class="col-md-4 mt-1">
+                    <div class="card shadow-lg rounded-4 text-center">
+                        <div class="card-body">
+                            <h5 class="card-title">Preferencias</h5>
+                            <p class="card-text">Configurar las opciones generales del sistema.</p>
+                            <a href="/Areas/Index" class="btn btn-dark rounded-pill">Ir a Areas</a>
+                            <a href="/Cargoes/Index" class="btn btn-dark rounded-pill">Ir a Cargos</a>
+                            <a href="/Empresas/Index" class="btn btn-dark rounded-pill">Ir a Empresas</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+
+        @* 3. Option *@
+        @if (User.Identity.IsAuthenticated)
+        {
+            var userRole = User.FindFirst("Rol")?.Value;
+            if (userRole != null && (userRole == "Administrador" || userRole == "Super Usuario" || userRole == "Gerencia" || userRole == "Desarrollador" || userRole == "Soporte TI"))
+            {
+                <div class="col-md-4 mt-1">
+                    <div class="card shadow-lg rounded-4 text-center">
+                        <div class="card-body">
+                            <h5 class="card-title">Usuarios</h5>
+                            <p class="card-text">Administrar usuarios y roles del sistema.</p>
+                            <a href="/Rols/Index" class="btn btn-dark rounded-pill">Ir a Roles</a>
+                            <a href="/UserSecure/Index" class="btn btn-dark rounded-pill">Ir a Usuarios</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+
+        @* 4. Option *@
+        @if (User.Identity.IsAuthenticated)
+        {
+            var userRole = User.FindFirst("Rol")?.Value;
+            if (userRole != null && (userRole == "Administrador" || userRole == "Super Usuario" || userRole == "Gerencia" || userRole == "Desarrollador" || userRole == "Soporte TI" || userRole == "Editor de Informacion"))
+            {
+                <div class="col-md-4 mt-2">
+                    <div class="card shadow-lg rounded-4 text-center">
+                        <div class="card-body">
+                            <h5 class="card-title">Productos</h5>
+                            <p class="card-text">Gestionar productos del sistema.</p>
+                            <a href="/ProductosSecure/Index" class="btn btn-dark rounded-pill">Productos</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+
+        @* 5. Option *@
+        @if (User.Identity.IsAuthenticated)
+        {
+            var userRole = User.FindFirst("Rol")?.Value;
+            if (userRole != null && (userRole == "Administrador" || userRole == "Super Usuario" || userRole == "Gerencia" || userRole == "Desarrollador" || userRole == "Soporte TI" || userRole == "Editor de Informacion"))
+            {
+                <div class="col-md-4 mt-2">
+                    <div class="card shadow-lg rounded-4 text-center">
+                        <div class="card-body">
+                            <h2 class="card-title">Ventas</h2>
+                            <p class="card-text">Administrar clientes y vendedores del sistema.</p>
+                            <a href="/ClientesSecure/Index" class="btn btn-dark rounded-pill">Clientes</a>
+                            <a href="/Vendedores/Index" class="btn btn-dark rounded-pill">Vendedores</a>
+                            <a href="/ClientesSecure/ImportarDatos" class="btn btn-dark rounded-pill">Importar Datos</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+
+        @* 6. Option *@
+        @if (User.Identity.IsAuthenticated)
+        {
+            var userRole = User.FindFirst("Rol")?.Value;
+            var userArea = User.FindFirst("Area")?.Value;
+            if ((userRole != null && (userRole == "Administrador" || userRole == "Super Usuario" || userRole == "Gerencia" || userRole == "Desarrollador" || userRole == "Soporte TI" || userRole == "Editor de Informacion")) || (userArea != null || userArea == "Compras"))
+            {
+                <div class="col-md-4 mt-2">
+                    <div class="card shadow-lg rounded-4 text-center">
+                        <div class="card-body">
+                            <h2 class="card-title">Compras</h2>
+                            <p class="card-text">Administrar proveedores del sistema.</p>
+                            <a href="/ProveedoresSecure/Index" class="btn btn-dark rounded-pill">Proveedores</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+
+        @* 7. Option *@
+        @if (User.Identity.IsAuthenticated)
+        {
+            var userRole = User.FindFirst("Rol")?.Value;
+            if (userRole != null && (userRole == "Administrador" || userRole == "Super Usuario" || userRole == "Gerencia" || userRole == "Desarrollador" || userRole == "Soporte TI"))
+            {
+                <div class="col-md-4 mt-2">
+                    <div class="card shadow-lg rounded-4 text-center">
+                        <div class="card-body">
+                            <h2 class="card-title">Logística</h2>
+                            <p class="card-text">Administrar conductores del sistema.</p>
+                            <a href="/ConductoresSecure/Index" class="btn btn-dark rounded-pill">Conductores</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+
+
+       @*  @if (user.identity.isauthenticated)
+        {
+            var userrole = user.findfirst("rol")?.value;
+            if (userrole != null && (userrole == "administrador" || userrole == "super usuario" || userrole == "gerencia" || userrole == "desarrollador" || userrole == "soporte ti"))
+            {
+                <div class="col-md-6 mt-2">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title">modulo compras</h2>
+                            <p>aquí puedes configurar las opciones del modulo de compras.</p>
+                            <a href="/solicituds/index" class="btn btn-primary">solicitudes</a>
+                            <a href="/main/index" class="btn btn-primary">seguimiento de solicitudes</a>
+                            <a href="/main/index" class="btn btn-primary">recepción de mercancia</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        } *@
+    </div>
+
+</div>
+
+
+

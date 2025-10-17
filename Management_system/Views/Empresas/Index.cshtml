@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Management_system.Models.Empresa>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout_main.cshtml";
+}
+
+<p>
+    <a asp-action="Configuration" asp-controller="Main" class="btn btn-secondary">Volver</a>
+</p>
+
+<h1>Index</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Create New</a>
+</p>
+
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                            Nombre
+                        </th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Nombre)
+                            </td>
+                            <td>
+                                <a class="btn btn-info" asp-action="Edit" asp-route-id="@item.IdEmpresa">Edit</a>
+                                <a class="btn btn-success" asp-action="Details" asp-route-id="@item.IdEmpresa">Details</a>
+                                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.IdEmpresa"
+                                   onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

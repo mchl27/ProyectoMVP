@@ -1,0 +1,524 @@
+﻿@model SolicitudCompraPDFViewModel
+
+@{
+    ViewData["Title"] = "Solicitud PDF";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>PDF Solicitud - @Model.Solicitudes.Consecutivo</title>
+    <style>
+        body {
+        font-family: Arial, sans-serif;
+        font-size: 12px;
+        margin: 20px;
+        }
+
+        .header {
+        text-align: center;
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        }
+
+        .table {
+        width: 100%;
+        border-collapse: collapse;
+        }
+
+        .table th, .table td {
+        border: 1px solid #000;
+        padding: 8px;
+        text-align: center;
+        vertical-align: middle;
+        }
+
+        .table th {
+        background-color: #f2f2f2;
+        }
+
+        .totals {
+        margin-top: 20px;
+        text-align: right;
+        }
+
+
+        .styled-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 12px;
+        }
+
+        .styled-table th, .styled-table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+        }
+
+        .styled-table th {
+        background-color: #000000;
+        color: white;
+        font-weight: bold;
+        text-align: center;
+        }
+
+        .styled-table tbody tr:nth-child(even) {
+        background-color: #f2f2f2;
+        }
+
+        .styled-table tbody tr:hover {
+        background-color: #ddd;
+        }
+
+    </style>
+
+</head>
+<body>
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        var userEmpresa = User.FindFirst("Empresa")?.Value;
+
+        if (userEmpresa != null && (userEmpresa != null && userEmpresa == "UNIVERSAL"))
+        {
+
+            <div style="width: 48%; display: inline-block; vertical-align: top;">
+                <img src="~/img/0. logo geu.png" alt="Logo Empresa" height="50">
+                <br>
+                <strong>UNIVERSAL DE CAUCHOS HURTADO S.A.S</strong>
+                <br>
+                <strong>Nit:</strong> 830.085.540-1
+                <br>
+                <strong>Dirección:</strong> Carrera 29 # 10 - 25
+                <br>
+                <strong>Ciudad:</strong> Bogotá D.C Colombia
+            </div>
+        }
+        else if (userEmpresa != null && (userEmpresa != null && userEmpresa == "IMSOIND"))
+        {
+            <div style="width: 48%; display: inline-block; vertical-align: top;">
+                <img src="~/img/0. logo geu.png" alt="Logo Empresa" height="50">
+                <br>
+                <strong>IMPORTACIONES Y SOLUCIONES INDUSTRIALES S.A.S</strong>
+                <br>
+                <strong>Nit:</strong> 901.203.038-7
+                <br>
+                <strong>Dirección:</strong> Carrera 29 # 10 - 25
+                <br>
+                <strong>Ciudad:</strong> Bogotá D.C Colombia
+            </div>
+        }
+        else if (userEmpresa != null && (userEmpresa != null && userEmpresa == "INCOLDEX"))
+        {
+            <div style="width: 48%; display: inline-block; vertical-align: top;">
+                <img src="~/img/0. logo geu.png" alt="Logo Empresa" height="50">
+                <br>
+                <strong>INDUSTRIA COLOMBIANA DE EXTRUSIONES SAS</strong>
+                <br>
+                <strong>Nit:</strong> 900.533.212-7
+                <br>
+                <strong>Dirección:</strong> Carrera 29 # 10 - 25
+                <br>
+                <strong>Ciudad:</strong> Bogotá D.C Colombia
+            </div>
+        }
+    }
+
+
+    <div style="width: 48%; display: inline-block; vertical-align: top;">
+        <img src="~/img/1. Logo UDC.png" alt="Logo Empresa" height="60">
+        <br>
+        <strong>UNIVERSAL DE CAUCHOS HURTADO S.A.S</strong>
+        <br>
+        <strong>Nit:</strong> 830.085.540-1
+        <br>
+        <strong>Dirección:</strong> Carrera 29 # 10 - 25
+        <br>
+        <strong>Ciudad:</strong> Bogotá D.C Colombia
+    </div>
+
+    <div style="width: 50%; display: inline-block; text-align: right; vertical-align: top; padding-top: 20px;">
+        <strong>@Model.Solicitudes.IdEmpresaNavigation.Nombre - SOLICITUD:</strong> @Model.Solicitudes.ConsecutivoPorEmpresa
+    </div>
+
+    <hr />
+
+    <div style="width: 48%; display: inline-block;">
+        <strong>Fecha:</strong> @Model.Solicitudes.Fecha
+        <br>
+        <strong>Estado:</strong> @Model.Solicitudes.Estado
+    </div>
+
+    <div style="width: 50%; display: inline-block; text-align: right;">
+        <strong>Vendedor:</strong> @Model.Solicitudes.IdVendedorNavigation.Nombre
+        <br>
+        <strong>Usuario:</strong> @Model.Solicitudes.IdUsuarioNavigation.Username
+    </div>
+
+    <hr />
+
+    <div style="width: 48%; display: inline-block;">
+        <h3>Datos Cliente</h3>
+        <strong>Nit:</strong> @Model.Solicitudes.IdClienteNavigation.Nit
+        <br>
+        <strong>Cliente:</strong> @Model.Solicitudes.IdClienteNavigation.Nombre
+        <br>
+        <strong>Ciudad:</strong> @Model.Solicitudes.IdClienteNavigation.Ciudad
+        <br>
+        <strong>Dirección:</strong> @Model.Solicitudes.IdClienteNavigation.Direccion
+        <br>
+        <strong>Telefono:</strong> @Model.Solicitudes.IdClienteNavigation.Telefono
+        <br>
+        <strong>Correo Electronico:</strong> @Model.Solicitudes.IdClienteNavigation.Email
+    </div>
+
+    <div style="width: 48%; display: inline-block;">
+        <h3>Datos Proveedor</h3>
+        <strong>Nit:</strong> @Model.Solicitudes.IdProveedorNavigation.Nit
+        <br>
+        <strong>Cliente:</strong> @Model.Solicitudes.IdProveedorNavigation.Nombre
+        <br>
+        <strong>Ciudad:</strong> @Model.Solicitudes.IdProveedorNavigation.Ciudad
+        <br>
+        <strong>Dirección:</strong> @Model.Solicitudes.IdProveedorNavigation.Direccion
+        <br>
+        <strong>Telefono:</strong> @Model.Solicitudes.IdProveedorNavigation.Telefono
+        <br>
+        <strong>Correo Electronico:</strong> @Model.Solicitudes.IdProveedorNavigation.Email
+    </div>
+
+    <hr />
+
+    <div style="width: 32%; display: inline-block;">
+        <strong>Fecha Entrega:</strong> @Model.Solicitudes.FechaEntrega
+    </div>
+    <div style="width: 32%; display: inline-block;">
+        <strong>Negociación:</strong> @Model.Solicitudes.Negociacion
+    </div>
+    <div style="width: 32%; display: inline-block;">
+        <strong>Observaciones:</strong> @Model.Solicitudes.Observaciones
+    </div>
+
+    <hr />
+
+    <h3>Detalles de la Solicitud</h3>
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <th>Referencia</th>
+                <th>Descripción</th>
+                <th>Ud.</th>
+                <th>Observación</th>
+                <th>Cantidad</th>
+                <th>Costo</th>
+                <th>Venta</th>
+                <th>Rentabilidad</th>
+                <th>Alerta</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var detalle in Model.SolicitudDetalles)
+            {
+                <tr>
+                    <td>@detalle.IdProductoNavigation.Referencia</td>
+                    <td>@detalle.IdProductoNavigation.Descripcion</td>
+                    <td>@detalle.IdProductoNavigation.Unidad</td>
+                    <td>@detalle.Observaciones</td>
+                    <td>@detalle.Cantidad</td>
+                    <td>@string.Format("{0:C}", detalle.PrecioCosto)</td>
+                    <td>@string.Format("{0:C}", detalle.PrecioVenta)</td>
+                    <td>@String.Format("{0:0.##}%", detalle.Rentabilidad * 100)</td>
+                    <td>
+                        @if (detalle.Rentabilidad < 0.35M)
+                        {
+                            <span style="color: red;"><i class="fas fa-exclamation-circle"></i> Rentabilidad baja</span>
+                        }
+                        else
+                        {
+                            <span style="color: green;"><i class="fas fa-check-circle"></i> Rentabilidad OK</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @{
+        decimal subtotal = Model.SolicitudDetalles.Sum(sd => (decimal)(sd.PrecioCosto * sd.Cantidad));
+        decimal iva = subtotal * 0.19M;
+        decimal total = subtotal + iva;
+    }
+
+    <div class="totals">
+        <strong>Subtotal:</strong> @string.Format("{0:C}", subtotal)<br>
+        <strong>IVA:</strong> @string.Format("{0:C}", iva)<br>
+        <strong>Total:</strong> @string.Format("{0:C}", total)
+    </div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+@* 
+
+
+
+@{
+    ViewData["Title"] = "Detalle Solicitud";
+    Layout = "~/Views/Shared/_Layout_main.cshtml";
+}
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
+<style>
+    .fixed-width-btn {
+        width: 50px;
+    }
+
+    .alert-custom {
+        color: red;
+        font-size: 1.2em;
+        display: none;
+        margin-top: 10px;
+    }
+
+    .card {
+        border-radius: 15px;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #333;
+        border-bottom: 1px solid #e5e5e5;
+        padding-bottom: 0.5rem;
+        text-transform: uppercase;
+    }
+
+    input[type="submit"] {
+        width: 150px;
+    }
+
+
+    .table {
+        background-color: #ffffff;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+        .table th {
+            /* background-color: #343a40;
+                    color: #ffffff; */
+            text-align: center;
+            font-weight: 600;
+            vertical-align: middle;
+            font-size: 1rem;
+        }
+
+        .table td {
+            text-align: center;
+            vertical-align: middle;
+            font-size: 0.95rem;
+            color: #495057;
+        }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #f2f2f2;
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: #e9ecef;
+    }
+
+    .title-main {
+        font-size: 1.6em;
+        color: #333;
+    }
+
+    .title-menu {
+        font-size: 1.4em;
+        color: #333;
+    }
+
+    .card-header-title {
+        font-size: 1.1em;
+        color: #333;
+    }
+
+    .lead {
+        font-size: 1.1rem;
+        font-weight: 300;
+    }
+
+    .lead-content {
+        font-size: 1.0rem;
+        font-weight: 300;
+    }
+
+    .btn {
+        /* background-color: #007bff;
+                            border-color: #007bff; */
+        font-weight: 500;
+        padding: 5px 15px;
+        border-radius: 20px;
+        transition: background-color 0.3s ease;
+    }
+
+</style>
+
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+
+            <div class="card shadow-sm p-3 mb-2">
+                <h3 class="text-center"><span class="text-black">SOLICITUD: @Model.Solicitudes.Consecutivo</span></h3>
+                <hr />
+                <div class="row">
+                    <div class="col-md-6">
+                        <strong>Fecha:</strong> @Model.Solicitudes.Fecha<br>
+                        <strong>Estado:</strong> <span class="badge bg-success">@Model.Solicitudes.Estado</span>
+                    </div>
+                    <div class="col-md-6 text-md-end">
+                        <strong>Vendedor:</strong> @Model.Solicitudes.IdVendedorNavigation.Nombre
+                        <br>
+                        <strong>Usuario:</strong> @Model.Solicitudes.IdUsuarioNavigation.Username
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="card shadow-sm p-3 mb-2">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <h5 class="mb-3">Datos del Cliente</h5>
+                            <div class="col-md-12">
+                                <strong>Nombre:</strong> @Model.Solicitudes.IdClienteNavigation.Nombre<br>
+                            </div>
+                            <div class="col-md-6">
+                                <strong>Teléfono:</strong> @Model.Solicitudes.IdClienteNavigation.Telefono<br>
+                                <strong>Email:</strong> @Model.Solicitudes.IdClienteNavigation.Email<br>
+                            </div>
+                            <div class="col-md-6">
+                                <strong>Ciudad:</strong> @Model.Solicitudes.IdClienteNavigation.Ciudad<br>
+                                <strong>Dirección:</strong> @Model.Solicitudes.IdClienteNavigation.Direccion<br>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="row">
+                            <h5 class="mb-3">Datos Proveedor</h5>
+                            <div class="col-md-12">
+                                <strong>Nombre:</strong> @Model.Solicitudes.IdProveedorNavigation.Nombre<br>
+                            </div>
+                            <div class="col-md-6">
+                                <strong>Teléfono:</strong> @Model.Solicitudes.IdProveedorNavigation.Telefono<br>
+                                <strong>Email:</strong> @Model.Solicitudes.IdProveedorNavigation.Email<br>
+                            </div>
+                            <div class="col-md-6">
+                                <strong>Ciudad:</strong> @Model.Solicitudes.IdProveedorNavigation.Ciudad<br>
+                                <strong>Dirección:</strong> @Model.Solicitudes.IdProveedorNavigation.Direccion<br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr />
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <strong>Fecha Entrega:</strong> @Model.Solicitudes.FechaEntrega<br>
+                    </div>
+                    <div class="col-md-4">
+                        <strong>Negociación:</strong> @Model.Solicitudes.Negociacion<br>
+                    </div>
+                    <div class="col-md-4">
+                        <strong>Observaciones:</strong> @Model.Solicitudes.Observaciones<br>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card shadow-sm p-3 mb-2">
+                <div class="card-body">
+                    <h5 class="mb-3">Detalles de la Cotización</h5>
+
+                    <div class="table-responsive">
+                        <table id="detallesTabla" class="table table-striped">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>Referencia</th>
+                                    <th>Descripción</th>
+                                    <th>Ud.</th>
+                                    <th>Cantidad</th>
+                                    <th>Observaciones</th>
+                                    <th>Costo</th>
+                                    <th>Venta</th>
+                                    <th>Rentabilidad</th>
+                                    <th>Alerta</th>
+                                    <th>Link</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach (var detalle in Model.SolicitudDetalles)
+                                {
+                                    <tr>
+                                        <td>@detalle.IdProductoNavigation.Referencia</td>
+                                        <td>@detalle.IdProductoNavigation.Descripcion</td>
+                                        <td>@detalle.IdProductoNavigation.Unidad</td>
+                                        <td>@detalle.Cantidad</td>
+                                        <td>@detalle.Observaciones</td>
+                                        <td>@string.Format("{0:C}", detalle.PrecioCosto)</td>
+                                        <td>@string.Format("{0:C}", detalle.PrecioVenta)</td>
+                                        <td>@String.Format("{0:0.##}%", detalle.Rentabilidad * 100)</td>
+                                        <td>
+                                            @if (detalle.Rentabilidad < 0.3M)
+                                            {
+                                                <span style="color: red;"><i class="fas fa-exclamation-circle"></i> Rentabilidad baja</span>
+                                            }
+                                            else
+                                            {
+                                                <span style="color: green;"><i class="fas fa-check-circle"></i> Rentabilidad OK</span>
+                                            }
+                                        </td>
+                                        <td>@detalle.IdProductoNavigation.Link</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container mt-2 text-center">
+                <a asp-action="GenerarPDF" asp-route-id="@Model.Solicitudes.IdSolicitud" class="btn btn-success">
+                    <i class="fas fa-file-pdf"></i> Descargar PDF
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+ *@
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

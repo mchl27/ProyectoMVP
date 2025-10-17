@@ -1,0 +1,150 @@
+﻿@model Management_system.Models.Rutum
+
+@{
+    ViewData["Title"] = "Detalle Novedad Ruta";
+    Layout = "~/Views/Shared/_Layout_main.cshtml";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
+<style>
+    .card {
+        border-radius: 15px;
+    }
+
+    .card-header {
+        background-color: black;
+        color: white;
+        text-align: center;
+    }
+
+    .table th {
+        background-color: #f8f9fa;
+    }
+
+    .btn {
+        font-weight: 500;
+        padding: 5px 15px;
+        border-radius: 20px;
+        transition: background-color 0.3s ease;
+    }
+</style>
+
+<div class="container">
+    <a asp-action="ReviewIndex" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Volver
+    </a>
+</div>
+
+<div class="container mt-2">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card shadow-lg">
+                <div class="card-header">
+                    <h4 class="mb-0">Detalles de la Novedad Ruta</h4>
+                </div>
+                <div class="card-body">
+                    <h5 class="text-muted mb-3">Información General</h5>
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <th>Fecha Asignación:</th>
+                                <td>@Html.DisplayFor(model => model.FechaAsignacion)</td>
+                                <th>Fecha Actualización:</th>
+                                <td>@Html.DisplayFor(model => model.FechaActualizacion)</td>
+                            </tr>
+                            <tr>
+                                <th>Novedad:</th>
+                                @if (Model.IdNovedadGeneral != null)
+                                {
+                                    <td>@Html.DisplayFor(model => model.IdNovedadGeneralNavigation.Consecutivo)</td>
+                                }
+
+                                @if (Model.IdNovedadComercial != null)
+                                {
+                                    <td>@Html.DisplayFor(model => model.IdNovedadComercialNavigation.NumeroDocumento)</td>
+                                }
+
+                                @if (Model.IdNovedadCompras != null)
+                                {
+                                    <td>@Html.DisplayFor(model => model.IdNovedadComprasNavigation.Consecutivo)</td>
+                                }
+
+                                @if (Model.IdNovedadCompras == null && Model.IdNovedadComercial == null && Model.IdNovedadGeneral == null)
+                                {
+                                    <td>
+                                        No hay Novedad Error
+                                    </td>
+                                }
+                                <th>Empresa:</th>
+                                <td>
+                                    @if (Model.IdNovedadComercial != null)
+                                    {
+                                        @if (Model.IdNovedadComercialNavigation.IdCliente != null)
+                                        {
+                                            @Html.DisplayFor(model => model.IdNovedadComercialNavigation.IdClienteNavigation.Nombre)
+                                        }
+                                        else
+                                        {
+                                            @Html.DisplayFor(model => model.IdNovedadComercialNavigation.Empresa)
+                                        }
+                                    }
+                                    @Html.DisplayFor(model => model.IdNovedadComprasNavigation.Empresa)
+                                    @Html.DisplayFor(model => model.IdNovedadGeneralNavigation.Empresa)
+                                </td>
+                                
+                            </tr>
+                            <tr>
+                                <th>Conductor:</th>
+                                <td>@Html.DisplayFor(model => model.IdConductorNavigation.Nombre)</td>
+                                <th>Valor:</th>
+                                <td>@Html.DisplayFor(model => model.Valor)</td>
+                            </tr>
+                            <tr>
+                                <th>N° Guía:</th>
+                                <td>@Html.DisplayFor(model => model.NGuia)</td>
+                                <th>Estado:</th>
+                                <td>@Html.DisplayFor(model => model.Estado)</td>
+                            </tr>
+                            <tr>
+                                <th>Recibido:</th>
+                                <td>@Html.DisplayFor(model => model.Recibido)</td>
+                                <th>Causa:</th>
+                                <td>@Html.DisplayFor(model => model.Causa)</td>
+                            </tr>
+                            <tr>
+                                <th>Asignada por:</th>
+                                <td>@Html.DisplayFor(model => model.IdUsuarioNavigation.Nombre)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h5 class="text-muted mt-4">Observaciones</h5>
+                    <div class="border p-3 bg-light rounded">
+                        <p>@Html.DisplayFor(model => model.Observaciones)</p>
+                        <p>@Html.DisplayFor(model => model.Observaciones1)</p>
+                        <p>@Html.DisplayFor(model => model.Observaciones2)</p>
+                        <p>@Html.DisplayFor(model => model.Observaciones3)</p>
+                        <p>@Html.DisplayFor(model => model.ObservacionesLogistica)</p>
+                    </div>
+
+                    <h5 class="text-muted mt-4">Campos Adicionales</h5>
+                    <div class="border p-3 bg-light rounded">
+                        <p>Campo1: @Html.DisplayFor(model => model.Campo1)</p>
+                        <p>Campo2: @Html.DisplayFor(model => model.Campo2)</p>
+                        <p>Campo3: @Html.DisplayFor(model => model.Campo3)</p>
+                        <p>Campo4: @Html.DisplayFor(model => model.Campo4)</p>
+                        <p>Campo5: @Html.DisplayFor(model => model.Campo5)</p>
+                        <p>Campo6: @Html.DisplayFor(model => model.Campo6)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* <div class="text-center mt-2">
+    <a asp-action="GenerarPDF" asp-route-id="@Model.IdRuta" class="btn btn-success">
+        <i class="fas fa-file-pdf"></i> Descargar PDF
+    </a>
+</div> *@

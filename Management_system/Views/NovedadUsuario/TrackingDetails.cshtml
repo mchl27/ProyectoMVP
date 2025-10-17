@@ -1,0 +1,174 @@
+﻿@model Management_system.Models.Other.ViewModel.Logistica.LogisticaNViewModel
+@{
+    ViewData["Title"] = "Seguimiento";
+    Layout = "~/Views/Shared/_Layout_main.cshtml";
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+<style>
+    .icon-background {
+        width: 70px;
+        height: 70px;
+        background-color: #0f268d;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+        .icon-background.no-data {
+            background-color: white;
+        }
+
+    .icon {
+        color: white;
+        font-size: 35px;
+    }
+
+    .col-md-3 {
+        display: flex;
+        flex-direction: column; 
+        align-items: center;
+    }
+
+    .fixed-width-btn {
+        width: 80px;
+    }
+
+    .alert-custom {
+        color: red;
+        font-size: 1.2em;
+        display: none;
+        margin-top: 10px;
+    }
+
+        .alert-custom i {
+            margin-right: 5px;
+        }
+
+    .card {
+        border-radius: 15px;
+    }
+
+    .card-title {
+        font-size: 1.25rem;
+        font-weight: 500;
+        margin-bottom: 0.75rem;
+        color: #333;
+        border-bottom: 1px solid #e5e5e5;
+        padding-bottom: 0.5rem;
+    }
+
+    .btn {
+        /* background-color: #007bff;
+                                    border-color: #007bff; */
+        font-weight: 500;
+        padding: 5px 15px;
+        border-radius: 20px;
+        transition: background-color 0.3s ease;
+    }
+</style>
+
+<div class="container">
+    <a asp-action="TrackingIndex" asp-controller="NovedadUsuario" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Volver
+    </a>
+</div>
+
+<div class="row justify-content-center mt-1">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-around align-items-center">
+                    <div class="col-md-3 text-center mt-3">
+                        <div class="icon-background @Html.DisplayFor(model => model.Novedades.Fecha) == null ? " no-data" : "" )">
+                            <i class="fa fa-file-o icon" style="font-size: 35px;"></i>
+                        </div>
+                        <p class="card-text" style="font-size: 14px">@Html.DisplayFor(model => model.Novedades.Fecha)</p>
+                    </div>
+                    <div class="connector text-center mt-3">
+                        <i class="fa fa-long-arrow-right" style="font-size: 20px;"></i>
+                    </div>
+                    <div class="col-md-3 text-center mt-3">
+                        @if (Model.Rutas != null && Model.Rutas.FechaAsignacion != null)
+                        {
+                            <div class="icon-background">
+                                <i class="fa fa-shopping-cart icon" style="font-size: 35px;"></i>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="icon-background no-data">
+                                <i class="fa fa-shopping-cart icon" style="font-size: 35px;"></i>
+                            </div>
+                        }
+                        <p class="card-text" style="font-size: 14px">
+                        @Html.DisplayFor(model => model.Rutas.FechaAsignacion)
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h3 class="mt-3 text-center">Seguimiento</h3>
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card mt-3">
+            <div class="card-body">
+                <h4 class="card-title">1. Novedad</h4>
+                <p class="card-text">Id de Novedad: @Html.DisplayFor(model => model.Novedades.Consecutivo)</p>
+                <p class="card-text">Fecha de Novedad: @Html.DisplayFor(model => model.Novedades.Fecha)</p>
+                @if (@Html.DisplayFor(model => model.Novedades.IdNovedad) != null)
+                {
+                    <button class="btn btn-light">Información Cargada</button>
+                }
+                else
+                {
+                    <button class="btn btn-light">Sin datos</button>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card mt-3">
+            <div class="card-body">
+                <h4 class="card-title">2. Ruta</h4>
+                @if (Model.Rutas != null)
+                {
+                    <p class="card-text">Id Ruta: @Html.DisplayFor(model => model.Rutas.IdRuta)</p>
+                    <p class="card-text">Fecha de Asignación: @Html.DisplayFor(model => model.Rutas.FechaAsignacion)</p>
+                    <p class="card-text">Asignada por: @Html.DisplayFor(model => model.Rutas.IdUsuarioNavigation.Username)</p>
+                    <p class="card-text">Programado para el dia: @Html.DisplayFor(model => model.Rutas.FechaRuta)</p>
+                    <p class="card-text">Recibido: @Html.DisplayFor(model => model.Rutas.Recibido)</p>
+                    <p class="card-text">Estado: @Html.DisplayFor(model => model.Rutas.Estado)</p>
+
+                    <div class="card mt-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Datos Conductor:</h5>
+                            <p class="card-text">Cedula: @Html.DisplayFor(model => model.Rutas.IdConductorNavigation.Identificacion)</p>
+                            <p class="card-text">Nombre: @Html.DisplayFor(model => model.Rutas.IdConductorNavigation.Nombre)</p>
+                            <p class="card-text">Placa Vehiculo: @Html.DisplayFor(model => model.Rutas.IdConductorNavigation.PlacaVehiculo)</p>
+                        </div>
+                    </div>
+
+
+                    <div class="mt-2">
+                        <button class="btn btn-light">Información Cargada</button>
+                    </div>
+                }
+                else
+                {
+                    <p class="card-text">Sin datos de ruta</p>
+                    <button class="btn btn-light">Sin datos</button>
+                }
+            </div>
+        </div>
+    </div>
+</div>

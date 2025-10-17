@@ -1,0 +1,306 @@
+﻿@model SolicitudCompraDetailsViewModel
+
+@{
+    ViewData["Title"] = "Detalle Solicitud";
+    Layout = "~/Views/Shared/_Layout_main.cshtml";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
+<style>
+    .fixed-width-btn {
+        width: 50px;
+    }
+
+    .alert-custom {
+        color: red;
+        font-size: 1.2em;
+        display: none;
+        margin-top: 10px;
+    }
+
+    .card {
+        border-radius: 15px;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #333;
+        border-bottom: 1px solid #e5e5e5;
+        padding-bottom: 0.5rem;
+        text-transform: uppercase;
+    }
+
+    input[type="submit"] {
+        width: 150px;
+    }
+
+
+    .table {
+        background-color: #ffffff;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+        .table th {
+            /* background-color: #343a40;
+                    color: #ffffff; */
+            text-align: center;
+            font-weight: 600;
+            vertical-align: middle;
+            font-size: 1rem;
+        }
+
+        .table td {
+            text-align: center;
+            vertical-align: middle;
+            font-size: 0.95rem;
+            color: #495057;
+        }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #f2f2f2;
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: #e9ecef;
+    }
+
+    .title-main {
+        font-size: 1.6em;
+        color: #333;
+    }
+
+    .title-menu {
+        font-size: 1.4em;
+        color: #333;
+    }
+
+    .card-header-title {
+        font-size: 1.1em;
+        color: #333;
+    }
+
+    .lead {
+        font-size: 1.1rem;
+        font-weight: 300;
+    }
+
+    .lead-content {
+        font-size: 1.0rem;
+        font-weight: 300;
+    }
+
+    .btn {
+        /* background-color: #007bff;
+                            border-color: #007bff; */
+        font-weight: 500;
+        padding: 5px 15px;
+        border-radius: 20px;
+        transition: background-color 0.3s ease;
+    }
+
+</style>
+
+<div class="container">
+    <a asp-action="Index" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Volver
+    </a>
+</div>
+
+<div class="container mt-2">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+
+            <div class="card shadow-sm p-3 mb-2">
+                <h3 class="text-center"><span class="text-black">@Model.Solicitudes.IdEmpresaNavigation.Nombre - SOLICITUD: @Model.Solicitudes.ConsecutivoPorEmpresa</span></h3>
+                <hr />
+                <div class="row">
+                    <div class="col-md-6">
+                        <strong>Fecha:</strong> @Model.Solicitudes.Fecha<br>
+                        <strong>Estado:</strong> <span class="badge bg-success">@Model.Solicitudes.Estado</span>
+                    </div>
+                    <div class="col-md-6 text-md-end">
+                        <strong>Vendedor:</strong> @Model.Solicitudes.IdVendedorNavigation.Nombre
+                        <br>
+                        <strong>Usuario:</strong> @Model.Solicitudes.IdUsuarioNavigation.Username
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="card shadow-sm p-3 mb-2">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <h5 class="mb-3">Datos del Cliente</h5>
+                            <div class="col-md-12">
+                                <strong>Nombre:</strong> @Model.Solicitudes.IdClienteNavigation.Nombre<br>
+                            </div>
+                            <div class="col-md-6">
+                                <strong>Teléfono:</strong> @Model.Solicitudes.IdClienteNavigation.Telefono<br>
+                                <strong>Email:</strong> @Model.Solicitudes.IdClienteNavigation.Email<br>
+                            </div>
+                            <div class="col-md-6">
+                                <strong>Ciudad:</strong> @Model.Solicitudes.IdClienteNavigation.Ciudad<br>
+                                <strong>Dirección:</strong> @Model.Solicitudes.IdClienteNavigation.Direccion<br>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="row">
+                            <h5 class="mb-3">Datos Proveedor</h5>
+                            <div class="col-md-12">
+                                <strong>Nombre:</strong> @Model.Solicitudes.IdProveedorNavigation.Nombre<br>
+                            </div>
+                            <div class="col-md-6">
+                                <strong>Teléfono:</strong> @Model.Solicitudes.IdProveedorNavigation.Telefono<br>
+                                <strong>Email:</strong> @Model.Solicitudes.IdProveedorNavigation.Email<br>
+                            </div>
+                            <div class="col-md-6">
+                                <strong>Ciudad:</strong> @Model.Solicitudes.IdProveedorNavigation.Ciudad<br>
+                                <strong>Dirección:</strong> @Model.Solicitudes.IdProveedorNavigation.Direccion<br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr />
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <strong>Fecha Entrega:</strong> @Model.Solicitudes.FechaEntrega<br>
+                    </div>
+                    <div class="col-md-4">
+                        <strong>Negociación:</strong> @Model.Solicitudes.Negociacion<br>
+                    </div>
+                    <div class="col-md-4">
+                        <strong>Observaciones:</strong> @Model.Solicitudes.Observaciones<br>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card shadow-sm p-3 mb-2">
+                <div class="card-body">
+                    <h5 class="mb-3">Detalles de la Cotización</h5>
+
+                    <div class="table-responsive">
+                        <table id="detallesTabla" class="table table-striped">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>Referencia</th>
+                                    <th>Descripción</th>
+                                    <th>Ud.</th>
+                                    <th>Observación</th>
+                                    <th>Cantidad</th>
+                                    <th>Costo</th>
+                                    <th>Venta</th>
+                                    <th>Rentabilidad</th>
+                                    <th>Alerta</th>
+                                    <th>Link</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach (var detalle in Model.SolicitudDetalles)
+                                {
+                                    <tr>
+                                        <td>@detalle.IdProductoNavigation.Referencia</td>
+                                        <td>@detalle.IdProductoNavigation.Descripcion</td>
+                                        <td>@detalle.IdProductoNavigation.Unidad</td>
+                                        <td>@detalle.Observaciones</td>
+                                        <td>@detalle.Cantidad</td>
+                                        <td>@string.Format("{0:C}", detalle.PrecioCosto)</td>
+                                        <td>@string.Format("{0:C}", detalle.PrecioVenta)</td>
+                                        <td>@String.Format("{0:0.##}%", detalle.Rentabilidad * 100)</td>
+                                        <td>
+                                            @if (detalle.Rentabilidad < 0.35M)
+                                            {
+                                                <span style="color: red;"><i class="fas fa-exclamation-circle"></i> Rentabilidad baja</span>
+                                            }
+                                            else
+                                            {
+                                                <span style="color: green;"><i class="fas fa-check-circle"></i> Rentabilidad OK</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (!string.IsNullOrWhiteSpace(detalle?.IdProductoNavigation.Link))
+                                            {
+                                                <div class="mb-1">
+                                                    <span class="d-none link-text">@detalle.IdProductoNavigation.Link</span>
+                                                    <button type="button" class="btn btn-outline-secondary btn-sm copy-btn">
+                                                        <i class="fas fa-copy"></i> Copiar Link
+                                                    </button>
+                                                </div>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                            @{
+                                decimal subtotal = Model.SolicitudDetalles.Sum(sd => (decimal)(sd.PrecioCosto * sd.Cantidad));
+                                decimal iva = subtotal * 0.19M;
+                                decimal total = subtotal + iva;
+                            }
+                            <tfoot>
+                                <tr class="font-weight-bold">
+                                    <td colspan="8"></td>
+                                    <td>Subtotal:</td>
+                                    <td>@string.Format("{0:C}", subtotal)</td>
+                                </tr>
+                                <tr class="font-weight-bold">
+                                    <td colspan="8"></td>
+                                    <td>IVA (19%):</td>
+                                    <td>@string.Format("{0:C}", iva)</td>
+                                </tr>
+                                <tr class="font-weight-bold">
+                                    <td colspan="8"></td>
+                                    <td>Total:</td>
+                                    <td>@string.Format("{0:C}", total)</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container mt-2 text-center">
+                <a asp-action="GenerarPDF" asp-route-id="@Model.Solicitudes.IdSolicitud" class="btn btn-success">
+                    <i class="fas fa-file-pdf"></i> Descargar PDF
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).on('click', '.copy-btn', function () {
+            const text = $(this).siblings('.link-text').text().trim();
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(text).then(function () {
+                    // Cambiar ícono o texto temporalmente como feedback
+                    const original = $(this).html();
+                    $(this).html('<i class="fas fa-check"></i> Copiado');
+                    const btn = $(this);
+                    setTimeout(() => {
+                        btn.html(original);
+                    }, 1500);
+                }.bind(this)).catch(function (err) {
+                    alert('Error al copiar: ' + err);
+                });
+            } else {
+                alert('Tu navegador no soporta la función de copiar al portapapeles.');
+            }
+        });
+    </script>
+}

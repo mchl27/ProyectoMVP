@@ -1,0 +1,100 @@
+﻿@model Management_system.Models.Novedad
+
+@{
+    ViewData["Title"] = "Detalle Novedad";
+    Layout = "~/Views/Shared/_Layout_main.cshtml";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
+<style>
+    .card {
+        border-radius: 15px;
+    }
+
+    .card-header {
+        background-color: black;
+        color: white;
+        text-align: center;
+    }
+
+    .table th {
+        background-color: #f8f9fa;
+    }
+
+    .btn {
+        font-weight: 500;
+        padding: 5px 15px;
+        border-radius: 20px;
+        transition: background-color 0.3s ease;
+    }
+</style>
+
+<div class="container">
+    <a asp-action="Index" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Volver
+    </a>
+</div>
+
+<div class="container mt-2">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card shadow-lg">
+                <div class="card-header">
+                    <h4 class="mb-0">Detalles de la Novedad de Ruta</h4>
+                </div>
+                <div class="card-body">
+                    <h5 class="text-muted mb-3">Información General</h5>
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <th>Consecutivo:</th>
+                                <td>@Html.DisplayFor(model => model.Consecutivo)</td>
+                                <th>Fecha Creación:</th>
+                                <td>@Html.DisplayFor(model => model.Fecha)</td>
+                            </tr>
+                            <tr>
+                                <th>Fecha Salida:</th>
+                                <td>@Html.DisplayFor(model => model.FechaSalida)</td>
+                                <th>Tipo de Novedad:</th>
+                                <td>@Html.DisplayFor(model => model.TipoNovedad)</td>
+                            </tr>
+                            <tr>
+                                <th>Empresa:</th>
+                                <td>@Html.DisplayFor(model => model.Empresa)</td>
+                                <th>Dirección:</th>
+                                <td>@Html.DisplayFor(model => model.Direccion)</td>
+                            </tr>
+                            <tr>
+                                <th>Ciudad / Barrio:</th>
+                                <td>@Html.DisplayFor(model => model.CiudadBarrio)</td>
+                                <th>Contacto:</th>
+                                <td>@Html.DisplayFor(model => model.Contacto)</td>
+                            </tr>
+                            <tr>
+                                <th>Teléfono:</th>
+                                <td>@Html.DisplayFor(model => model.Telefono)</td>
+                                <th>Usuario:</th>
+                                <td>@Html.DisplayFor(model => model.IdUsuarioNavigation.Username)</td>
+                            </tr>
+                            <tr>
+                                <th>Estado:</th>
+                                <td>@Html.DisplayFor(model => model.Estado)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h5 class="text-muted mt-4">Observaciones</h5>
+                    <div class="border p-3 bg-light rounded">
+                        <p class="mb-0">@Html.DisplayFor(model => model.Observaciones)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="text-center mt-2">
+    <a asp-action="GenerarPDF" asp-route-id="@Model.IdNovedad" class="btn btn-success fixed-width-btn">
+        <i class="fas fa-file-pdf"></i> Descargar PDF
+    </a>
+</div>

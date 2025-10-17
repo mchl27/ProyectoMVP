@@ -1,0 +1,106 @@
+﻿@model Management_system.Models.Others.Analyze.AnalyzeCompraViewModel
+
+@{
+    ViewData["Title"] = "Análisis de Compras";
+    Layout = "~/Views/Shared/_Layout_PDF.cshtml";
+}
+
+<style>
+    .col-usuario {
+        width: 50%;
+    }
+
+    .col-cantidad {
+        width: 50%;
+    }
+</style>
+
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <div class="card-title text-center">
+                <h1>Análisis de Compras</h1>
+            </div>
+            <p>Total de solicitudes: @Model.TotalCompras</p>
+
+            <div class="text-center">
+                @if (!string.IsNullOrEmpty(ViewBag.ChartImage))
+                {
+                    <img src="@ViewBag.ChartImage" alt="Solicitudes por Mes Gráfico" class="img-fluid" />
+                }
+            </div>
+
+            <div class="col-md-6">
+                <h2>Compras por Usuarios</h2>
+                <table class="table table-striped table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th class="col-usuario">Usuario</th>
+                            <th class="col-cantidad">Cantidad de Compras</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.ComprasPorUsuario != null)
+                        {
+                            @foreach (var item in Model.ComprasPorUsuario)
+                            {
+                                <tr>
+                                    <td class="col-usuario">@item.Usuario</td>
+                                    <td class="col-cantidad">@item.Count</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-md-6">
+                <h2>Compras por Asesor</h2>
+                <table class="table table-striped table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th class="col-usuario">Asesor</th>
+                            <th class="col-cantidad">Cantidad de Compras</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.ComprasPorAsesor != null)
+                        {
+                            @foreach (var item in Model.ComprasPorAsesor)
+                            {
+                                <tr>
+                                    <td class="col-usuario">@item.Asesor</td>
+                                    <td class="col-cantidad">@item.Count</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-md-6">
+                <h2>Compras por Proveedor</h2>
+                <table class="table table-striped table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th class="col-usuario">Proveedor</th>
+                            <th class="col-cantidad">Cantidad de Compras</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.ComprasPorProveedor != null)
+                        {
+                            @foreach (var item in Model.ComprasPorProveedor)
+                            {
+                                <tr>
+                                    <td class="col-usuario">@item.Proveedor</td>
+                                    <td class="col-cantidad">@item.Count</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

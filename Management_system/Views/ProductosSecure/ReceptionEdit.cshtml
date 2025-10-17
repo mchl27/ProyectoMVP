@@ -1,0 +1,179 @@
+﻿@model Management_system.Models.Producto
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout_main.cshtml";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
+<style>
+    .fixed-width-btn {
+        width: 80px;
+    }
+
+    .alert-custom {
+        color: red;
+        font-size: 1.2em;
+        display: none;
+        margin-top: 10px;
+    }
+
+        .alert-custom i {
+            margin-right: 5px;
+        }
+
+    .card {
+        border-radius: 15px;
+    }
+
+    .card-title {
+        font-size: 1.25rem;
+        font-weight: 500;
+        margin-bottom: 0.75rem;
+        color: #333;
+        border-bottom: 1px solid #e5e5e5;
+        padding-bottom: 0.5rem;
+    }
+</style>
+
+<div class="container">
+    <a asp-action="ReceptionIndex" class="btn btn-secondary">Volver</a>
+</div>
+
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title text-center">Informacion Producto</h4>
+            <form asp-action="ReceptionEdit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="IdProducto" />
+                <div class="form-group">
+                    <label asp-for="Empresa" class="control-label">Empresa</label>
+                    <input asp-for="Empresa" class="form-control" readonly />
+                    <span asp-validation-for="Empresa" class="text-danger"></span>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Referencia" class="control-label">Referencia</label>
+                            <input asp-for="Referencia" class="form-control" id="Referencia" readonly />
+                            <span asp-validation-for="Referencia" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Descripcion" class="control-label">Descripción</label>
+                            <input asp-for="Descripcion" class="form-control" readonly />
+                            <span asp-validation-for="Descripcion" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Unidad" class="control-label">Unidad</label>
+                            <input asp-for="Unidad" class="form-control" readonly />
+                            <span asp-validation-for="Unidad" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Estado" class="control-label">Estado</label>
+                            <input asp-for="Estado" class="form-control" readonly />
+                            <span asp-validation-for="Estado" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Proveedor" class="control-label">Ultimo Proveedor</label>
+                            <input asp-for="Proveedor" class="form-control" readonly />
+                            <span asp-validation-for="Proveedor" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="UltimoIngreso" class="control-label">Ultima Fecha ingreso</label>
+                            <input asp-for="UltimoIngreso" class="form-control" readonly />
+                            <span asp-validation-for="UltimoIngreso" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Precio" class="control-label">Ultimo Precio</label>
+                            <input asp-for="Precio" class="form-control" readonly />
+                            <span asp-validation-for="Precio" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                
+
+                <div class="card mt-2">
+                    <div class="card-body">
+                        <h4 class="card-title text-center">Adjuntar Plano</h4>
+                        <div class="row">
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="fileUpload" class="control-label">Subir Archivo</label>
+                                    <input type="file" id="fileUpload" name="fileUpload" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label asp-for="Link" class="control-label">Link Plano</label>
+                                    <input asp-for="Link" class="form-control" readonly />
+                                    <span asp-validation-for="Link" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group mt-1 text-center">
+                    <button type="submit" class="btn btn-primary">Guardar Información</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        document.getElementById('fileUpload').addEventListener('change', function () {
+            var formData = new FormData();
+            var referencia = document.getElementById('Referencia').value; // Obtener la referencia del producto
+            formData.append('file', this.files[0]);
+            formData.append('referencia', referencia); // Agregar la referencia al formData
+
+            fetch('@Url.Action("UploadFileEdit")', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.fileName) {
+                        document.getElementById('Link').value = data.filePath;
+                    } else {
+                        alert('Error uploading file');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error uploading file: ' + error.message);
+                });
+        });
+    </script>
+}

@@ -1,0 +1,88 @@
+﻿@model IEnumerable<Management_system.Models.NovedadComercial>
+
+@{
+    ViewData["Title"] = "Análisis de Solicitudes";
+    Layout = "~/Views/Shared/_Layout_PDF_Novedad.cshtml";
+}
+
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        page-break-inside: auto;
+    }
+    thead {
+        display: table-header-group;
+    }
+    tfoot {
+        display: table-footer-group;
+    }
+    tr {
+        page-break-inside: avoid;
+        page-break-after: auto;
+    }
+    th, td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: left;
+    }
+</style>
+
+
+
+<div class="container mt-2">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title text-center">Novedades Comerciales de Hoy</h4>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>FECHA DE SOLICITUD</th>
+                                    <th>TIPO DE DOCUMENTO </th>
+                                    <th>N° DOCUMENTO</th>
+                                    <th>TIPO SERVICIO</th>
+                                    <th>FECHA SALIDA</th>
+                                    <th>EMPRESA</th>
+                                    <th>CLIENTE</th>
+                                    <th>SOLICITADO POR</th>
+                                    <th>AREA</th>
+                                    <th>PAGO</th>
+                                    <th>OBSERVACIONES</th>
+                                    <!-- Add more columns as needed -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var novedad in Model)
+                                {
+                                    <tr>
+                                        <td>@novedad.Fecha</td>
+                                        <td>@novedad.TipoDocumento</td>
+                                        <td>@novedad.NumeroDocumento</td>
+                                        <td>@novedad.TipoServicio</td>
+                                        <td>@novedad.FechaSalida</td>
+                                        <td>@novedad.IdUsuarioNavigation.IdEmpresaNavigation.Nombre</td>
+                                        @if (novedad.IdClienteNavigation != null)
+                                        {
+                                            <td>@novedad.IdClienteNavigation.Nombre</td>
+                                        }
+                                        else
+                                        {
+                                            <td>@novedad.Empresa</td>
+                                        }
+                                        <td>@novedad.IdUsuarioNavigation.Username</td>
+                                        <td>@novedad.IdUsuarioNavigation.IdAreaNavigation.Nombre</td>
+                                        <td>@novedad.TipoPago</td>
+                                        <td>@novedad.Observaciones1</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

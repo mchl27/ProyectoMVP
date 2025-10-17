@@ -1,0 +1,447 @@
+﻿@model Management_system.Models.Others.Analyze.AnalyzeSolicitudViewModel
+
+@{
+    ViewData["Title"] = "Análisis de Solicitudes";
+    Layout = "~/Views/Shared/_Layout_main.cshtml";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
+<style>
+    .fixed-width-btn {
+        width: 80px;
+    }
+
+    .alert-custom {
+        color: red;
+        font-size: 1.2em;
+        display: none;
+        margin-top: 10px;
+    }
+
+    .card {
+        border-radius: 15px;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #333;
+        border-bottom: 1px solid #e5e5e5;
+        padding-bottom: 0.5rem;
+        text-transform: uppercase;
+    }
+
+    input[type="submit"] {
+        width: 150px;
+    }
+
+
+    .title-main {
+        font-size: 1.6em;
+        color: #333;
+    }
+
+    .title-menu {
+        font-size: 1.4em;
+        color: #333;
+    }
+
+    .card-header-title {
+        font-size: 1.1em;
+        color: #333;
+    }
+
+    .lead {
+        font-size: 1.1rem;
+        font-weight: 300;
+    }
+
+    .lead-content {
+        font-size: 1.0rem;
+        font-weight: 300;
+    }
+
+    .btn {
+        /* background-color: #007bff;
+                        border-color: #007bff; */
+        font-weight: 500;
+        padding: 5px 15px;
+        border-radius: 20px;
+        transition: background-color 0.3s ease;
+    }
+
+
+
+
+    .table {
+        background-color: #ffffff;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+        .table th {
+            /* background-color: #343a40;
+                color: #ffffff; */
+            text-align: center;
+            font-weight: 600;
+            vertical-align: middle;
+            font-size: 1rem;
+        }
+
+        .table td {
+            text-align: center;
+            vertical-align: middle;
+            font-size: 0.95rem;
+            color: #495057;
+        }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #f2f2f2;
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: #e9ecef;
+    }
+
+    #productosChart {
+        width: 100% !important;
+        height: auto !important;
+        max-height: 500px; /* Ajusta la altura máxima según necesidad */
+    }
+
+</style>
+
+
+<div class="container">
+    <a asp-action="Solicitud" asp-controller="Main" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Volver
+    </a>
+</div>
+
+
+<div class="container mt-2">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card shadow-lg rounded-4 p-3">
+                <div class="card-body">
+                    <p class="text-center title-menu">Analisis de Solicitudes</p>
+
+                    <hr />
+                    <p>Total de solicitudes: @Model.TotalSolicitudes</p>
+
+                    <form id="chartForm" method="post" asp-action="DownloadPDF" asp-controller="SolicitudUsuarios">
+                        <input type="hidden" name="asesor" value="@ViewBag.Asesor" />
+                        <input type="hidden" name="usuario" value="@ViewBag.Usuario" />
+                        <button type="submit" class="btn btn-primary">Descargar PDF</button>
+                    </form>
+
+                    <form method="get" asp-action="AnalyzeSolicitud" asp-controller="SolicitudUsuarios">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label for="asesor">Asesor</label>
+                                    <select name="asesor" id="asesor" class="form-control">
+                                        <option value="">Todos</option>
+                                        @if (Model.Asesores != null)
+                                        {
+                                            @foreach (var asesor in Model.Asesores)
+                                            {
+                                                <option value="@asesor">@asesor</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label for="usuario">Usuario</label>
+                                    <select name="usuario" id="usuario" class="form-control">
+                                        <option value="">Todos</option>
+                                        @if (Model.Usuarios != null)
+                                        {
+                                            @foreach (var usuario in Model.Usuarios)
+                                            {
+                                                <option value="@usuario">@usuario</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <div class="form-group text-center">
+                                    <button type="submit" class="btn btn-primary">Filtrar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card shadow-lg rounded-4 p-3 mt-2">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5 class="text-center">Solicitudes por mes Cantidad</h5>
+                            <canvas id="solicitudesChartCantidad" width="400" height="200"></canvas>
+                        </div>
+                        <div class="col-md-6">
+                            <h5 class="text-center">Solicitudes por mes Precio</h5>
+                            <canvas id="ventasChart" width="400" height="200"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card shadow-lg rounded-4 p-3 mt-2">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h5 class="text-center">Top 20 Productos Más Solicitados</h5>
+                            <div style="width: 100%; max-width: 900px; height: auto; margin: auto; position: relative;">
+                                <canvas id="productosChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card shadow-lg rounded-4 p-3 mt-2">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5 class="text-center">Top 10 Proveedores más Solicitados</h5>
+                            <div style="width: 100%; max-width: 600px; height: 400px; margin: auto; position: relative; display: flex; justify-content: center; align-items: center;">
+                                <canvas id="comprasPorProveedorChart"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <h5 class="text-center">Top 10 Clientes más vendidos</h5>
+                            <div style="width: 100%; max-width: 600px; height: 400px; margin: auto; position: relative; display: flex; justify-content: center; align-items: center;">
+                                <canvas id="comprasPorClienteChart"></canvas>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="card shadow-lg rounded-4 p-3 mt-2">
+                <div class="card-body">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5 class="text-center">Solicitudes por Usuario</h5>
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th class="col-usuario">Usuario</th>
+                                            <th class="col-cantidad">Cantidad de Solicitudes</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model.SolicitudesPorUsuario != null)
+                                        {
+                                            @foreach (var item in Model.SolicitudesPorUsuario)
+                                            {
+                                                <tr>
+                                                    <td class="col-usuario">@item.Usuario</td>
+                                                    <td class="col-cantidad">@item.Count</td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <h5 class="text-center">Solicitudes por Asesor</h5>
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th class="col-asesor">Asesor</th>
+                                            <th class="col-cantidad">Cantidad de Solicitudes</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model.SolicitudesPorAsesor != null)
+                                        {
+                                            @foreach (var item in Model.SolicitudesPorAsesor)
+                                            {
+                                                <tr>
+                                                    <td class="col-asesor">@item.Asesor</td>
+                                                    <td class="col-cantidad">@item.Count</td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var solicitudesData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.SolicitudesPorMes));
+        var ventasData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.VentasPorMes));
+
+        // Extraer etiquetas y datos de solicitudes por mes
+        var labels = solicitudesData.map(function (item) {
+            return item.Year + '-' + ('0' + item.Month).slice(-2);
+        });
+
+        var dataSolicitudes = solicitudesData.map(function (item) {
+            return item.Count;
+        });
+
+        var dataVentas = ventasData.map(function (item) {
+            return item.TotalVentas;
+        });
+
+        // Gráfico de Solicitudes
+        var ctx1 = document.getElementById('solicitudesChartCantidad').getContext('2d');
+        new Chart(ctx1, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Solicitudes por Mes',
+                    data: dataSolicitudes,
+                    borderColor: 'rgba(15, 38, 141, 1)',
+                    backgroundColor: 'rgba(15, 38, 141, 0.2)',
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.1
+                }]
+            },
+            options: {
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+
+        // Gráfico de Ventas
+        var ctx2 = document.getElementById('ventasChart').getContext('2d');
+        new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Ventas por Mes',
+                    data: dataVentas,
+                    backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+
+
+
+        // Grafico Productos
+        document.addEventListener("DOMContentLoaded", function () {
+            var ctx = document.getElementById("productosChart").getContext("2d");
+
+            var productos = @Html.Raw(Json.Serialize(Model.ProductosMasSolicitados.Select(p => p.Referencia)));
+            var cantidades = @Html.Raw(Json.Serialize(Model.ProductosMasSolicitados.Select(p => p.TotalCantidad)));
+
+            if (!productos.length || !cantidades.length) {
+                console.error("No hay datos para mostrar en la gráfica.");
+                return;
+            }
+
+            new Chart(ctx, {
+                type: "bar",
+                data: {
+                    labels: productos,
+                    datasets: [{
+                        label: "Cantidad Solicitada",
+                        data: cantidades,
+                        backgroundColor: "rgba(54, 162, 235, 0.5)",
+                        borderColor: "rgba(54, 162, 235, 1)",
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false, // ✅ Evita crecimiento infinito
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        x: {
+                            ticks: { autoSkip: false, maxRotation: 45, minRotation: 45 }
+                        },
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+
+
+        // Proveedor
+        document.addEventListener("DOMContentLoaded", function () {
+            var ctx = document.getElementById("comprasPorProveedorChart").getContext("2d");
+
+            var data = {
+                labels: @Html.Raw(Json.Serialize(Model.ComprasPorProveedor.Select(c => c.Proveedor))),
+                datasets: [{
+                    label: "Total Comprado",
+                    data: @Html.Raw(Json.Serialize(Model.ComprasPorProveedor.Select(c => c.TotalComprado))),
+                    backgroundColor: [
+                        "#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF",
+                        "#FF9F40", "#FFCD56", "#C9CBCF", "#76A1E0", "#A6A6A6"
+                    ]
+                }]
+            };
+
+            new Chart(ctx, {
+                type: "pie",
+                data: data
+            });
+        });
+
+
+        // Cliente
+        document.addEventListener("DOMContentLoaded", function () {
+            var ctx = document.getElementById("comprasPorClienteChart").getContext("2d");
+
+            var data = {
+                labels: @Html.Raw(Json.Serialize(Model.ComprasPorCliente.Select(c => c.Cliente))),
+                datasets: [{
+                    label: "Total Comprado",
+                    data: @Html.Raw(Json.Serialize(Model.ComprasPorCliente.Select(c => c.TotalComprado))),
+                    backgroundColor: [
+                        "#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF",
+                        "#FF9F40", "#FFCD56", "#C9CBCF", "#76A1E0", "#A6A6A6"
+                    ]
+                }]
+            };
+
+            new Chart(ctx, {
+                type: "pie",
+                data: data
+            });
+        });
+    </script>
+}

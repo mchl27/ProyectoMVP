@@ -1,0 +1,86 @@
+﻿@model Management_system.Models.Others.Analyze.AnalyzeSolicitudViewModel
+
+@{
+    ViewData["Title"] = "Análisis de Solicitudes";
+    Layout = "~/Views/Shared/_Layout_PDF.cshtml";
+}
+
+<style>
+    .col-usuario,
+    .col-asesor,
+    .col-proveedor {
+        width: 50%;
+    }
+
+    .col-cantidad {
+        width: 50%;
+    }
+</style>
+
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <div class="card-title">
+                <h1>Análisis de Solicitudes</h1>
+            </div>
+            <p>Total de solicitudes: @Model.TotalSolicitudes</p>
+
+            <div>
+                @if (!string.IsNullOrEmpty(ViewBag.ChartImage))
+                {
+                    <img src="@ViewBag.ChartImage" alt="Solicitudes por Mes Gráfico" />
+                }
+            </div>
+
+            <div class="col-md-6">
+                <h2>Solicitudes por Usuarios</h2>
+                <table class="table table-striped table-bordered">
+                    <thead class="thead-dark">
+                    <thead>
+                        <tr>
+                            <th class="col-usuario">Usuario</th>
+                            <th class="col-cantidad">Cantidad de Solicitudes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.SolicitudesPorUsuario != null)
+                        {
+                            @foreach (var item in Model.SolicitudesPorUsuario)
+                            {
+                                <tr>
+                                    <td class="col-usuario">@item.Usuario</td>
+                                    <td class="col-cantidad">@item.Count</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-md-6">
+                <h2>Solicitudes por Asesor</h2>
+                <table class="table table-striped table-bordered">
+                    <thead class="thead-dark">
+                    <thead>
+                        <tr>
+                            <th class="col-asesor">Asesor</th>
+                            <th class="col-cantidad">Cantidad de Solicitudes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.SolicitudesPorAsesor != null)
+                        {
+                            @foreach (var item in Model.SolicitudesPorAsesor)
+                            {
+                                <tr>
+                                    <td class="col-asesor">@item.Asesor</td>
+                                    <td class="col-cantidad">@item.Count</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

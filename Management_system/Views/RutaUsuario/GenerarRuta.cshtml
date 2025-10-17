@@ -1,0 +1,200 @@
+﻿@model SearchViewModel
+
+@{
+    ViewData["Title"] = "Generar Ruta";
+    Layout = "~/Views/Shared/_Layout_main.cshtml";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
+<style>
+    .fixed-width-btn {
+        width: 60px;
+    }
+
+    .alert-custom {
+        color: red;
+        font-size: 1.2em;
+        display: none;
+        margin-top: 10px;
+    }
+
+    .card {
+        border-radius: 15px;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #333;
+        border-bottom: 1px solid #e5e5e5;
+        padding-bottom: 0.5rem;
+        text-transform: uppercase;
+    }
+
+    input[type="submit"] {
+        width: 180px;
+    }
+
+
+    .title-main {
+        font-size: 1.6em;
+        color: #333;
+    }
+
+    .title-menu {
+        font-size: 1.4em;
+        color: #333;
+    }
+
+    .title-Submenu {
+        font-size: 1.3em;
+        color: #333;
+    }
+
+    .card-header-title {
+        font-size: 1.1em;
+        color: #333;
+    }
+
+    .lead {
+        font-size: 1.1rem;
+        font-weight: 300;
+    }
+
+    .lead-content {
+        font-size: 1.0rem;
+        font-weight: 300;
+    }
+
+    .btn {
+        /* background-color: #007bff;
+                                    border-color: #007bff; */
+        font-weight: 500;
+        padding: 5px 15px;
+        border-radius: 20px;
+        transition: background-color 0.3s ease;
+    }
+
+
+
+    .table {
+        background-color: #ffffff;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+        .table th {
+            /* background-color: #343a40;
+                            color: #ffffff; */
+            text-align: center;
+            font-weight: 600;
+            vertical-align: middle;
+            font-size: 1rem;
+        }
+
+        .table td {
+            text-align: center;
+            vertical-align: middle;
+            font-size: 0.95rem;
+            color: #495057;
+        }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #f2f2f2;
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: #e9ecef;
+    }
+
+</style>
+
+
+<div class="container">
+    <a asp-action="Logistica" asp-controller="Main" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Volver
+    </a>
+</div>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 text-center">
+            
+        </div>
+        <div class="col-md-3 text-center">
+        </div>
+    </div>
+</div>
+
+<div class="container mt-2">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <p class="text-center title-menu">Consultar Ruta Logística</p>
+
+                    <hr />
+                    <form asp-action="SearchResults" method="post">
+
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label for="FechaSalida" class="control-label card-header-title">Fecha Salida:</label>
+                                    <input type="date" id="FechaSalida" name="FechaSalida" class="form-control lead-content" required />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="IdConductor" class="control-label card-header-title">Conductor:</label>
+                                    <select id="IdConductor" name="IdConductor" class="form-control lead-content" required>
+                                        @foreach (var conductor in Model.Conductores)
+                                        {
+                                            <option value="@conductor.IdConductor" class="lead-content">@conductor.Nombre</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-1 text-center d-flex align-items-end justify-content-center">
+                                <div class="">
+                                    <button type="submit" class="btn btn-success">Buscar</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6 mb-3 mx-auto">
+            <div class="card rounded-4 h-100">
+                <div class="card-body text-center">
+                    <div class="mb-3">
+                        <i class="fas fa-calendar-alt fa-3x text-primary"></i>
+                    </div>
+                    <h4 class="card-title fw-normal text-capitalize">Programar Ruta</h4>
+                    <p class="card-text text-muted">Permite programar la ruta, con fechas y conductor.</p>
+                    <a asp-action="Create" asp-controller="RutaUsuario" class="btn btn-primary px-4 rounded-pill">
+                        <i class="fas fa-map-marked-alt me-2"></i> Programar
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<style>
+    .pagination {
+        justify-content: center;
+    }
+</style>

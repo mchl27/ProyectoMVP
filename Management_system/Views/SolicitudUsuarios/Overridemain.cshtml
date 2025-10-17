@@ -1,0 +1,242 @@
+﻿@model SolicitudesIndexViewModel
+
+@{
+    ViewData["Title"] = "Solicitudes";
+    Layout = "~/Views/Shared/_Layout_main.cshtml";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
+<style>
+
+    .fixed-width-btn {
+        width: 50px;
+    }
+
+    .alert-custom {
+        color: red;
+        font-size: 1.2em;
+        display: none;
+        margin-top: 10px;
+    }
+
+    .card {
+        border-radius: 15px;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #333;
+        border-bottom: 1px solid #e5e5e5;
+        padding-bottom: 0.5rem;
+        text-transform: uppercase;
+    }
+
+    input[type="submit"] {
+        width: 150px;
+    }
+
+    .table {
+        background-color: #ffffff;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+        .table th {
+            /* background-color: #343a40;
+                color: #ffffff; */
+            text-align: center;
+            font-weight: 600;
+            vertical-align: middle;
+            font-size: 1rem;
+        }
+
+        .table td {
+            text-align: center;
+            vertical-align: middle;
+            font-size: 0.95rem;
+            color: #495057;
+        }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #f2f2f2;
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: #e9ecef;
+    }
+
+
+    .title-main {
+        font-size: 1.6em;
+        color: #333;
+    }
+
+    .title-menu {
+        font-size: 1.4em;
+        color: #333;
+    }
+
+    .card-header-title {
+        font-size: 1.1em;
+        color: #333;
+    }
+
+    .lead {
+        font-size: 1.1rem;
+        font-weight: 300;
+    }
+
+    .lead-content {
+        font-size: 1.0rem;
+        font-weight: 300;
+    }
+
+    .btn {
+        /* background-color: #007bff;
+                        border-color: #007bff; */
+        font-weight: 500;
+        padding: 5px 15px;
+        border-radius: 20px;
+        transition: background-color 0.3s ease;
+    }
+
+</style>
+
+<p>
+    <a asp-action="Solicitud" asp-controller="Main" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Volver
+    </a>
+</p>
+
+<div class="col-12">
+    <nav>
+        <ul class="pagination justify-content-center">
+            <li class="page-item @(Model.Pagination.PageNumber == 1 ? "disabled" : "")">
+                <a class="page-link" asp-action="Overridemain" asp-route-pageNumber="@(Model.Pagination.PageNumber - 1)" asp-route-pageSize="@Model.Pagination.PageSize" asp-route-searchString="@ViewData["CurrentFilter"]">Anterior</a>
+            </li>
+            @for (int i = 1; i <= Model.Pagination.TotalPages; i++)
+            {
+                <li class="page-item @(i == Model.Pagination.PageNumber ? "active" : "") page-number" data-page="@i" style="display: @(i > 5 ? "none" : "inline-block")">
+                    <a class="page-link" asp-action="Overridemain" asp-route-pageNumber="@i" asp-route-pageSize="@Model.Pagination.PageSize" asp-route-searchString="@ViewData["CurrentFilter"]">@i</a>
+                </li>
+            }
+            <li class="page-item @(Model.Pagination.PageNumber == Model.Pagination.TotalPages ? "disabled" : "")">
+                <a class="page-link" asp-action="Overridemain" asp-route-pageNumber="@(Model.Pagination.PageNumber + 1)" asp-route-pageSize="@Model.Pagination.PageSize" asp-route-searchString="@ViewData["CurrentFilter"]">Siguiente</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+<div class="container">
+    <div class="card mt-3">
+        <div class="card-body">
+
+            <div class="mt-1">
+                <p class="text-center title-menu">Solicitudes</p>
+                <hr />
+
+                <h5>Busqueda</h5>
+            </div>
+
+            <form method="get" action="@Url.Action("Overridemain", "SolicitudUsuarios")" class="form-inline">
+                <div class="form-group row">
+                    <div class="col-md-4">
+                        <label for="searchCriteria" class="mr-2">Criterio de búsqueda</label>
+                        <select class="form-control" id="searchCriteria" name="searchCriteria">
+                            <option value="">Seleccionar Criterio</option>
+                            <option value="Consecutivo">Consecutivo</option>
+                            <option value="Cliente">Cliente</option>
+                            <option value="Proveedor">Proveedor</option>
+                            <option value="Vendedor">Vendedor</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="searchTerm" class="mr-2">Término de búsqueda</label>
+                        <input type="text" class="form-control" id="searchTerm" name="searchTerm">
+                    </div>
+                    <div class="col-md-2">
+                        <label for="fecha" class="mr-2">Fecha</label>
+                        <input type="date" class="form-control" id="fecha" name="fecha">
+                    </div>
+                    <div class="col-md-2 text-center align-self-center">
+                        <button type="submit" class="btn btn-primary">Buscar</button>
+                    </div>
+                </div>
+            </form>
+
+            <div class="table-responsive mt-3">
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Consecutivo</th>
+                            <th>Fecha</th>
+                            <th>Cliente</th>
+                            <th>Proveedor</th>
+                            <th>Usuario</th>
+                            <th>Empresa</th>
+                            <th>Vendedor</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Solicitudes)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.Consecutivo)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Fecha)</td>
+                                <td>@Html.DisplayFor(modelItem => item.IdClienteNavigation.Nombre)</td>
+                                <td>@Html.DisplayFor(modelItem => item.IdProveedorNavigation.Nombre)</td>
+                                <td>@Html.DisplayFor(modelItem => item.IdUsuarioNavigation.Username)</td>
+                                <td>@Html.DisplayFor(modelItem => item.IdUsuarioNavigation.IdEmpresaNavigation.Nombre)</td>
+                                <td>@Html.DisplayFor(modelItem => item.IdVendedorNavigation.Nombre)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Estado)</td>
+                                <td>
+                                    @{
+                                        // Check if the status is "Override".
+                                        if (item.Estado == "Anulado")
+                                        {
+                                        // If "Canceled", deactivate the "Edit" button.
+                                            <button type="button" class="btn btn-danger btn-sm fixed-width-btn" disabled>
+                                                <i class="fas fa-ban"></i>
+                                            </button>
+                                        }
+                                        else
+                                        {
+                                            // If is not "Override", normal link to edit.
+                                            <a asp-action="Override" asp-route-id="@item.IdSolicitud" class="btn btn-danger btn-sm fixed-width-btn">
+                                                <i class="fas fa-ban"></i>
+                                            </a>
+                                        }
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-12">
+                <nav>
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item @(Model.Pagination.PageNumber == 1 ? "disabled" : "")">
+                            <a class="page-link" asp-action="Overridemain" asp-route-pageNumber="@(Model.Pagination.PageNumber - 1)" asp-route-pageSize="@Model.Pagination.PageSize" asp-route-searchString="@ViewData["CurrentFilter"]">Anterior</a>
+                        </li>
+                        @for (int i = 1; i <= Model.Pagination.TotalPages; i++)
+                        {
+                            <li class="page-item @(i == Model.Pagination.PageNumber ? "active" : "") page-number" data-page="@i" style="display: @(i > 5 ? "none" : "inline-block")">
+                                <a class="page-link" asp-action="Overridemain" asp-route-pageNumber="@i" asp-route-pageSize="@Model.Pagination.PageSize" asp-route-searchString="@ViewData["CurrentFilter"]">@i</a>
+                            </li>
+                        }
+                        <li class="page-item @(Model.Pagination.PageNumber == Model.Pagination.TotalPages ? "disabled" : "")">
+                            <a class="page-link" asp-action="Overridemain" asp-route-pageNumber="@(Model.Pagination.PageNumber + 1)" asp-route-pageSize="@Model.Pagination.PageSize" asp-route-searchString="@ViewData["CurrentFilter"]">Siguiente</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+        </div>
+    </div>
+</div>

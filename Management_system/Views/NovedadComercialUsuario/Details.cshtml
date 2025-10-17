@@ -1,0 +1,148 @@
+﻿@model Management_system.Models.NovedadComercial
+
+@{
+    ViewData["Title"] = "Detalle Novedad Comercial";
+    Layout = "~/Views/Shared/_Layout_main.cshtml";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
+<style>
+    .fixed-width-btn {
+        width: 80px;
+    }
+
+    .alert-custom {
+        color: red;
+        font-size: 1.2em;
+        display: none;
+        margin-top: 10px;
+    }
+
+    .card {
+        border-radius: 15px;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #333;
+        border-bottom: 1px solid #e5e5e5;
+        padding-bottom: 0.5rem;
+        text-transform: uppercase;
+    }
+
+    input[type="submit"] {
+        width: 150px;
+    }
+
+
+    .title-main {
+        font-size: 1.6em;
+        color: #333;
+    }
+
+    .title-menu {
+        font-size: 1.4em;
+        color: #333;
+    }
+
+    .card-header-title {
+        font-size: 1.1em;
+        color: #333;
+    }
+
+    .lead {
+        font-size: 1.1rem;
+        font-weight: 300;
+    }
+
+    .lead-content {
+        font-size: 1.0rem;
+        font-weight: 300;
+    }
+
+    .btn {
+        /* background-color: #007bff;
+                        border-color: #007bff; */
+        font-weight: 500;
+        padding: 5px 15px;
+        border-radius: 20px;
+        transition: background-color 0.3s ease;
+    }
+
+</style>
+
+
+<div class="container">
+    <a asp-action="Index" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Volver
+    </a>
+</div>
+
+
+
+<div class="container mt-2">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card shadow-lg">
+                <div class="card-header bg-black text-white text-center">
+                    <h4 class="mb-0">Detalles de la Solicitud</h4>
+                </div>
+
+                <div class="card-body">
+                    <h5 class="text-muted mb-3">Información General</h5>
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <th>Fecha:</th>
+                                <td>@Html.DisplayFor(model => model.Fecha)</td>
+                                <th>Tipo de Servicio:</th>
+                                <td>@Html.DisplayFor(model => model.TipoServicio)</td>
+                            </tr>
+                            <tr>
+                                <th>Tipo Documento:</th>
+                                <td>@Html.DisplayFor(model => model.TipoDocumento)</td>
+                                <th>N° Documento:</th>
+                                <td>@Html.DisplayFor(model => model.NumeroDocumento)</td>
+                            </tr>
+                            <tr>
+                                <th>Tipo de Pago:</th>
+                                <td>@Html.DisplayFor(model => model.TipoPago)</td>
+                                <th>Cliente:</th>
+                                <td>
+                                    @if (Model.IdClienteNavigation != null)
+                                    {
+                                        @Html.DisplayFor(model => model.IdClienteNavigation.Nombre)
+                                    }
+                                    else
+                                    {
+                                        @Html.DisplayFor(model => model.Empresa)
+                                    }
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Dirección:</th>
+                                <td>@Html.DisplayFor(model => model.Direccion)</td>
+                                <th>Usuario:</th>
+                                <td>@Html.DisplayFor(model => model.IdUsuarioNavigation.Username)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h5 class="text-muted mt-4">Observaciones</h5>
+                    <div class="border p-3 bg-light rounded">
+                        <p class="mb-0">@Html.DisplayFor(model => model.Observaciones1)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="text-center mt-2">
+    <a asp-action="GenerarPDF" asp-route-id="@Model.IdNovedadComercial" class="btn btn-success fixed-width-btn">
+        <i class="fas fa-file-pdf"></i>
+    </a>
+</div>

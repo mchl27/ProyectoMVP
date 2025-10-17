@@ -1,0 +1,414 @@
+﻿@model Management_system.Models.NovedadComercial
+
+@{
+    ViewData["Title"] = "Crear Novedad Comercial";
+    Layout = "~/Views/Shared/_Layout_main.cshtml";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
+<style>
+    .fixed-width-btn {
+        width: 60px;
+    }
+
+    .alert-custom {
+        color: red;
+        font-size: 1.2em;
+        display: none;
+        margin-top: 10px;
+    }
+
+    .card {
+        border-radius: 15px;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #333;
+        border-bottom: 1px solid #e5e5e5;
+        padding-bottom: 0.5rem;
+        text-transform: uppercase;
+    }
+
+    input[type="submit"] {
+        width: 180px;
+    }
+
+
+    .title-main {
+        font-size: 1.6em;
+        color: #333;
+    }
+
+    .title-menu {
+        font-size: 1.4em;
+        color: #333;
+    }
+
+    .card-header-title {
+        font-size: 1.1em;
+        color: #333;
+    }
+
+    .lead {
+        font-size: 1.1rem;
+        font-weight: 300;
+    }
+
+    .lead-content {
+        font-size: 1.0rem;
+        font-weight: 300;
+    }
+
+    .btn {
+        /* background-color: #007bff;
+                        border-color: #007bff; */
+        font-weight: 500;
+        padding: 5px 15px;
+        border-radius: 20px;
+        transition: background-color 0.3s ease;
+    }
+
+
+
+    .table {
+        background-color: #ffffff;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+        .table th {
+            /* background-color: #343a40;
+                color: #ffffff; */
+            text-align: center;
+            font-weight: 600;
+            vertical-align: middle;
+            font-size: 1rem;
+        }
+
+        .table td {
+            text-align: center;
+            vertical-align: middle;
+            font-size: 0.95rem;
+            color: #495057;
+        }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #f2f2f2;
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: #e9ecef;
+    }
+
+</style>
+
+
+<div class="container">
+    <a asp-action="Logistica" asp-controller="Main" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Volver
+    </a>
+</div>
+
+
+<div class="container mt-2">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <p class="text-center title-menu">Creación Novedad Comercial</p>
+                    <hr />
+                    <form asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label asp-for="TipoDocumento" class="control-label card-header-title">Tipo Documento</label>
+                                    <select asp-for="TipoDocumento" class="form-control lead-content" required>
+                                        <option value="" class="lead-content">Seleccionar Documento</option>
+                                        <option value="FACTURA" class="lead-content">FACTURA</option>
+                                        <option value="REMISION" class="lead-content">REMISION</option>
+                                        <option value="FACTURA CON NOVEDAD" class="lead-content">FACTURA CON NOVEDAD</option>
+                                        <option value="REMISION CON NOVEDAD" class="lead-content">REMISION CON NOVEDAD</option>
+                                    </select>
+                                    <span asp-validation-for="TipoDocumento" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label asp-for="NumeroDocumento" class="control-label card-header-title">N° Documento</label>
+                                    <input asp-for="NumeroDocumento" class="form-control lead-content" required />
+                                    <span asp-validation-for="NumeroDocumento" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label asp-for="TipoServicio" class="control-label card-header-title">Tipo de Servicio</label>
+                                    <select asp-for="TipoServicio" class="form-control lead-content" required>
+                                        <option value="" class="lead-content">Seleccionar Servicio</option>
+                                        <option value="COBRO" class="lead-content">COBRO</option>
+                                        <option value="LLEVAR MERCANCIA" class="lead-content">LLEVAR MERCANCIA</option>
+                                        <option value="RADICAR DOCUMENTO" class="lead-content">RADICAR DOCUMENTO</option>
+                                        <option value="RECOGER MERCANCIA" class="lead-content">RECOGER MERCANCIA</option>
+                                        <option value="RECOGER DEVOLUCION" class="lead-content">RECOGER DEVOLUCIÓN</option>
+                                        <option value="TRANSPORTADORA" class="lead-content">TRANSPORTADORA</option>
+                                    </select>
+                                    <span asp-validation-for="TipoServicio" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label asp-for="FechaSalida" class="control-label card-header-title">Fecha Salida</label>
+                                    <input asp-for="FechaSalida" class="form-control lead-content" type="date" required />
+                                    <span asp-validation-for="FechaSalida" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                        <div class="row">
+
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                var userRole = User.FindFirst("Rol")?.Value;
+                                var userEmpresa = User.FindFirst("Empresa")?.Value;
+
+                                if ((userRole != null && (userRole == "Administrador" || userRole == "Super Usuario" || userRole == "Gerencia" || userRole == "Desarrollador" || userRole == "Soporte TI")) || (userEmpresa != null && userEmpresa == "UNIVERSAL"))
+                                {
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="searchNombreC" class="control-label card-header-title">Buscar Cliente</label>
+
+                                            <div class="input-group">
+                                                <span class="input-group-text">
+                                                    <i class="fas fa-search"></i>
+                                                </span>
+                                                <input type="text" id="searchNombreC" class="form-control lead-content"
+                                                       placeholder="Ingresa Nit o Nombre del Cliente" required />
+                                            </div>
+                                            
+                                            @* <input type="text" id="searchNombreC" class="form-control lead-content" /> *@
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label asp-for="IdCliente" class="control-label card-header-title">Cliente</label>
+                                            <select asp-for="IdCliente" class="form-control lead-content" id="selectCliente" required>
+                                                <option value="" class="lead-content">Seleccionar Cliente</option>
+                                            </select>
+                                            <span asp-validation-for="IdCliente" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label asp-for="Direccion" class="control-label card-header-title">Dirección</label>
+                                            <input asp-for="Direccion" class="form-control lead-content" />
+                                            <span asp-validation-for="Direccion" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label asp-for="TipoPago" class="control-label card-header-title">Tipo de Pago</label>
+                                            <select asp-for="TipoPago" class="form-control lead-content" required>
+                                                <option value="" class="lead-content">Seleccionar Pago</option>
+                                                <option value="CHEQUE" class="lead-content">CHEQUE</option>
+                                                <option value="CONTRAENTREGA" class="lead-content">CONTRAENTREGA</option>
+                                                <option value="CREDITO" class="lead-content">CRÉDITO</option>
+                                                <option value="EFECTIVO" class="lead-content">EFECTIVO</option>
+                                                <option value="TRANSFERENCIA" class="lead-content">TRANSFERENCIA</option>
+                                            </select>
+                                            <span asp-validation-for="TipoPago" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="Empresa" class="control-label card-header-title">Empresa</label>
+                                            <input asp-for="Empresa" class="form-control lead-content" required />
+                                            <span asp-validation-for="Empresa" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="Direccion" class="control-label card-header-title">Dirección</label>
+                                            <input asp-for="Direccion" class="form-control lead-content" />
+                                            <span asp-validation-for="Direccion" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="TipoPago" class="control-label card-header-title">Tipo de Pago</label>
+                                            <select asp-for="TipoPago" class="form-control lead-content" required>
+                                                <option value="" class="lead-content">Seleccionar Pago</option>
+                                                <option value="CHEQUE" class="lead-content">CHEQUE</option>
+                                                <option value="CONTRAENTREGA" class="lead-content">CONTRAENTREGA</option>
+                                                <option value="CREDITO" class="lead-content">CRÉDITO</option>
+                                                <option value="EFECTIVO" class="lead-content">EFECTIVO</option>
+                                                <option value="TRANSFERENCIA" class="lead-content">TRANSFERENCIA</option>
+                                            </select>
+                                            <span asp-validation-for="TipoPago" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                }
+                            }
+
+                            
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label asp-for="Observaciones1" class="control-label card-header-title">Observaciones</label>
+                                    <input asp-for="Observaciones1" class="form-control lead-content" required />
+                                    <span asp-validation-for="Observaciones1" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="IdUsuario" class="control-label card-header-title">Usuario</label>
+                                    <select asp-for="IdUsuario" class="form-control lead-content" asp-items="ViewBag.IdUsuario" required></select>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        
+                        <div class="form-group mt-3 text-center">
+                            <input type="submit" value="Agregar Novedad" class="btn btn-primary" />
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container mt-2">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <p class="text-center title-menu">Listado de Novedades de hoy</p>
+                    <hr />
+
+                    <div>
+                        <form asp-action="DownloadNovedadesDeHoyPDF" method="post">
+                            <div class="text-center mt-1">
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fas fa-file-pdf"></i> Descargar Listado
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th class="text-center">Acciones</th>
+                                    <th class="text-center">Fecha</th>
+                                    <th class="text-center">Tipo Documento</th>
+                                    <th class="text-center">N° Documento</th>
+                                    <th class="text-center">Cliente</th>
+                                    <th class="text-center">Tipo Servicio</th>
+                                    <th class="text-center">Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var novedad in (List<Management_system.Models.NovedadComercial>)ViewData["NovedadesDeHoy"])
+                                {
+                                    <tr>
+                                        <td>
+                                            @{
+                                                // Check if the status is "Override".
+                                                if (novedad.Estado == "Anulado" || novedad.Estado == "Programada" || novedad.Estado == "Cerrada" || novedad.Estado == "Editada" || novedad.Estado == "Urgente")
+                                                {
+                                                    // If "Canceled", deactivate the "Edit" button.
+                                                    // <button type="button" class="btn btn-primary btn-sm fixed-width-btn" disabled>Editar</button>
+                                                    <p class="text-center">No hay Acciones para Realizar.</p>
+                                                }
+                                                else
+                                                {
+                                                    // If is not "Override", normal link to edit
+                                                    <a asp-action="Edit" asp-route-id="@novedad.IdNovedadComercial" class="btn btn-primary fixed-width-btn">
+                                                        <i class="fa fa-edit"></i>
+                                                    </a>
+                                                    <a asp-action="Delete" asp-route-id="@novedad.IdNovedadComercial" class="btn btn-danger fixed-width-btn">
+                                                        <i class="fas fa-trash"></i>
+                                                    </a>
+                                                    <a asp-action="GenerarPDF" asp-route-id="@novedad.IdNovedadComercial" class="btn btn-success fixed-width-btn">
+                                                        <i class="fas fa-file-pdf"></i>
+                                                    </a>
+                                                }
+                                            }
+                                            
+                                        </td>
+                                        <td>@novedad.Fecha</td>
+                                        <td>@novedad.TipoDocumento</td>
+                                        <td>@novedad.NumeroDocumento</td>
+                                        @if (novedad.IdClienteNavigation != null)
+                                        {
+                                            <td>@novedad.IdClienteNavigation.Nombre</td>
+                                        }else{
+                                            <td>@novedad.Empresa</td>
+                                        }
+                                        <td>@novedad.TipoServicio</td>
+                                        <td>@novedad.Estado</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                        @if (!((List<Management_system.Models.NovedadComercial>)ViewData["NovedadesDeHoy"]).Any())
+                        {
+                            <p class="text-center">No hay novedades creadas hoy.</p>
+                        }
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $("#searchNombreC").on("input", function () {
+                var query = $(this).val();
+                if (query.length > 2) { // Buscar después de que el usuario haya ingresado al menos 3 caracteres
+                    $.ajax({
+                        url: '@Url.Action("SearchCliente", "NovedadComercialUsuario")',
+                        data: { term: query },
+                        success: function (data) {
+                            var select = $("#selectCliente");
+                            select.empty();
+                            select.append($("<option>").val("").text("Seleccione un cliente"));
+                            $.each(data, function (index, item) {
+                                select.append($("<option>").val(item.value).text(item.text));
+                            });
+                        }
+                    });
+                }
+            });
+
+        });
+    </script>
+}

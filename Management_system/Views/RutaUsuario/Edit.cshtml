@@ -1,0 +1,352 @@
+﻿@model Management_system.Models.Rutum
+
+@{
+    ViewData["Title"] = "Editar Novedad Ruta";
+    Layout = "~/Views/Shared/_Layout_main.cshtml";
+}
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
+<style>
+    .fixed-width-btn {
+        width: 60px;
+    }
+
+    .alert-custom {
+        color: red;
+        font-size: 1.2em;
+        display: none;
+        margin-top: 10px;
+    }
+
+    .card {
+        border-radius: 15px;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #333;
+        border-bottom: 1px solid #e5e5e5;
+        padding-bottom: 0.5rem;
+        text-transform: uppercase;
+    }
+
+    input[type="submit"] {
+        width: 180px;
+    }
+
+
+    .title-main {
+        font-size: 1.6em;
+        color: #333;
+    }
+
+    .title-menu {
+        font-size: 1.4em;
+        color: #333;
+    }
+
+    .title-Submenu {
+        font-size: 1.3em;
+        color: #333;
+    }
+
+    .card-header-title {
+        font-size: 1.1em;
+        color: #333;
+    }
+
+    .lead {
+        font-size: 1.1rem;
+        font-weight: 300;
+    }
+
+    .lead-content {
+        font-size: 1.0rem;
+        font-weight: 300;
+    }
+
+    .btn {
+        /* background-color: #007bff;
+                                    border-color: #007bff; */
+        font-weight: 500;
+        padding: 5px 15px;
+        border-radius: 20px;
+        transition: background-color 0.3s ease;
+    }
+
+
+
+    .table {
+        background-color: #ffffff;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+        .table th {
+            /* background-color: #343a40;
+                            color: #ffffff; */
+            text-align: center;
+            font-weight: 600;
+            vertical-align: middle;
+            font-size: 1rem;
+        }
+
+        .table td {
+            text-align: center;
+            vertical-align: middle;
+            font-size: 0.95rem;
+            color: #495057;
+        }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #f2f2f2;
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: #e9ecef;
+    }
+
+</style>
+
+
+<div class="container">
+    <a asp-action="Index" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Volver
+    </a>
+</div>
+
+<div class="container mt-2">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="IdRuta" />
+                <div class="form-group">
+                    <input asp-for="FechaAsignacion" type="hidden" class="form-control lead-content" readonly />
+                    <span asp-validation-for="FechaAsignacion" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <input asp-for="IdUsuario" class="form-control lead-content" type="hidden" asp-items="ViewBag.IdUsuario" readonly />
+                    <span asp-validation-for="IdUsuario" class="text-danger"></span>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <p class="text-center title-menu">Detalles Ruta</p>
+                        <hr />
+                        <div class="col-md-12">
+                            <div class="row">
+                                @if (Model.IdNovedadComercial != null)
+                                {
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="IdNovedadComercial" class="control-label card-header-title">Novedad Comercial</label>
+                                            <select asp-for="IdNovedadComercial" class="form-control lead-content" asp-items="ViewBag.IdNovedadComercial" readonly></select>
+                                            <span asp-validation-for="IdNovedadComercial" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="control-label card-header-title">Empresa</label>
+                                            <input type="text" class="form-control lead-content" value="@ViewData["NovedadComercialEmpresa"]" readonly></input>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="control-label card-header-title">Numero Documento</label>
+                                            <input type="text" class="form-control lead-content" value="@ViewData["NovedadComercialUsuario"]" readonly></input>
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                }
+
+                                @if (Model.IdNovedadCompras != null)
+                                {
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="IdNovedadCompras" class="control-label card-header-title">Novedad Compras</label>
+                                            <select asp-for="IdNovedadCompras" class="form-control lead-content" asp-items="ViewBag.IdNovedadCompras" readonly></select>
+                                            <span asp-validation-for="IdNovedadCompras" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="control-label card-header-title">Empresa</label>
+                                            <input type="text" class="form-control lead-content" value="@ViewData["NovedadComprasEmpresa"]" readonly></input>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="control-label card-header-title">Solicitado Por:</label>
+                                            <input type="text" class="form-control lead-content" value="@ViewData["NovedadComprasUsuario"]" readonly></input>
+                                        </div>
+                                    </div>
+                                    
+                                }
+
+                                @if (Model.IdNovedadGeneral != null)
+                                {
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="IdNovedadGeneral" class="control-label card-header-title">Novedad General</label>
+                                            <select asp-for="IdNovedadGeneral" class="form-control lead-content" asp-items="ViewBag.IdNovedadGeneral" readonly></select>
+                                            <span asp-validation-for="IdNovedadGeneral" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="control-label card-header-title">Empresa</label>
+                                            <input type="text" class="form-control lead-content" value="@ViewData["NovedadGeneralEmpresa"]" readonly></input>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="control-label card-header-title">Solicitado Por:</label>
+                                            <input type="text" class="form-control lead-content" value="@ViewData["NovedadGeneralUsuario"]" readonly></input>
+                                        </div>
+                                    </div>
+                                    
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="card mt-2">
+                    <div class="card-body">
+                        <p class="text-center title-menu">Datos</p>
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="IdConductor" class="control-label card-header-title">Asignado a</label>
+                                    <select asp-for="IdConductor" class="form-control lead-content" asp-items="ViewBag.IdConductor" required></select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="FechaRuta" class="control-label card-header-title">Fecha de Servicio</label>
+                                    <input asp-for="FechaRuta" class="form-control lead-content" type="date" readonly />
+                                    <span asp-validation-for="FechaRuta" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="Campo1" class="control-label card-header-title">Valor</label>
+                                    <input asp-for="Campo1" class="form-control lead-content" />
+                                    <span asp-validation-for="Campo1" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="Observaciones1" class="control-label card-header-title">Efectividad</label>
+                                    <select asp-for="Observaciones1" class="form-control lead-content" required>
+                                        <option value="EFECTIVO">EFECTIVO</option>
+                                        <option value="NO EFECTIVO">NO EFECTIVO</option>
+                                    </select>
+                                    <span asp-validation-for="Observaciones1" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="Recibido" class="control-label card-header-title">Recibido</label>
+                                    <select asp-for="Recibido" class="form-control lead-content" required>
+                                        <option value="RECIBIDO">RECIBIDO</option>
+                                        <option value="NO RECIBIDO">NO RECIBIDO</option>
+                                    </select>
+                                    <span asp-validation-for="Recibido" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="Causa" class="control-label card-header-title">Causa</label>
+                                    <select asp-for="Causa" class="form-control lead-content">
+                                        <option value="" class="lead-content">Seleccionar Causa</option>
+                                        <option value="ASESOR RADICA O ENTREGA" class="lead-content">ASESOR RADICA O ENTREGA</option>
+                                        <option value="CARRO VARADO" class="lead-content">CARRO VARADO</option>
+                                        <option value="CIERRE FACTURACION" class="lead-content">CIERRE FACTURACION</option>
+                                        <option value="CLIENTE NO TIENE EL PAGO" class="lead-content">CLIENTE NO TIENE EL PAGO</option>
+                                        <option value="COMERCIAL NO PASA FACTURA" class="lead-content">COMERCIAL NO PASA FACTURA</option>
+                                        <option value="CONDUCTOR ENFERMO" class="lead-content">CONDUCTOR ENFERMO</option>
+                                        <option value="DEMORA EN RECIBIR EL PEDIDO" class="lead-content">DEMORA EN RECIBIR EL PEDIDO</option>
+                                        <option value="DEVOLUCION MERCANCIA" class="lead-content">DEVOLUCION MERCANCIA</option>
+                                        <option value="DIRECCION INCORRECTA" class="lead-content">DIRECCIÓN INCORRECTA</option>
+                                        <option value="DOCUMENTACION INCOMPLETA" class="lead-content">DOCUMENTACIÓN INCOMPLETA</option>
+                                        <option value="INGRESO NO AUTORIZADO" class="lead-content">INGRESO NO AUTORIZADO</option>
+                                        <option value="LLEGA TARDE" class="lead-content">LLEGA TARDE</option>
+                                        <option value="NO ENVIAN ORDEN DE COMPRA" class="lead-content">NO ENVIAN ORDEN DE COMPRA</option>
+                                        <option value="NO HAY AUTORIZACION" class="lead-content">NO HAY AUTORIZACION</option>
+                                        <option value="NO LLEGA MATERIAL DE PROVEEDOR" class="lead-content">NO LLEGA MATERIAL DE PROVEEDOR</option>
+                                        <option value="NO RADICAN FACTURA" class="lead-content">NO RADICAN FACTURA</option>
+                                        <option value="NO SALE MATERIAL DE PRODUCCIONclass=" lead-content"">NO SALE MATERIAL DE PRODUCCION</option>
+                                        <option value="NO SE ALCANZA A ENTREGAR" class="lead-content">NO SE ALCANZA A ENTREGAR </option>
+                                        <option value="NO SE ENCONTRABA EL CLIENTE" class="lead-content">NO SE ENCONTRABA EL CLIENTE</option>
+                                        <option value="NO TRABAJA CLIENTE" class="lead-content">NO TRABAJA CLIENTE</option>
+                                        <option value="PERDIDA DE MERCANCIA" class="lead-content">PERDIDA DE MERCANCIA</option>
+                                        <option value="PINCHASO DE CARRO" class="lead-content">PINCHASO DE CARRO</option>
+                                        <option value="TRAFICO EN LA VIA" class="lead-content">TRAFICO EN LA VIA</option>
+                                        <option value="PLANILLA PARAFISCALES" class="lead-content">PLANILLA PARAFISCALES</option>
+                                    </select>
+                                    <span asp-validation-for="Causa" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="NGuia" class="control-label card-header-title">N° de Guía</label>
+                                    <input asp-for="NGuia" class="form-control lead-content" />
+                                    <span asp-validation-for="NGuia" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="Observaciones" class="control-label card-header-title">Observaciones Generales</label>
+                                    <input asp-for="Observaciones" class="form-control lead-content" />
+                                    <span asp-validation-for="Observaciones" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="Estado" class="control-label card-header-title">Estado</label>
+                                    <select asp-for="Estado" class="form-control lead-content" required>
+                                        <option value="Cerrada">Cerrada</option>
+                                    </select>
+                                    <span asp-validation-for="Estado" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group mt-2 text-center">
+                            <input type="submit" value="Cerrar Ruta" class="btn btn-success" />
+                        </div>
+
+                    </div>
+                </div>
+                
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

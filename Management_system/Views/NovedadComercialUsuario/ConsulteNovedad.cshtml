@@ -1,0 +1,67 @@
+﻿@model SearchCViewModel
+
+@{
+    ViewData["Title"] = "Generar Ruta";
+    Layout = "~/Views/Shared/_Layout_main.cshtml";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
+<style>
+    .fixed-width-btn {
+        width: 80px;
+    }
+
+    .alert-custom {
+        color: red;
+        font-size: 1.2em;
+        display: none;
+        margin-top: 10px;
+    }
+
+        .alert-custom i {
+            margin-right: 5px;
+        }
+
+    .card {
+        border-radius: 15px;
+    }
+
+    .card-title {
+        font-size: 1.25rem;
+        font-weight: 500;
+        margin-bottom: 0.75rem;
+        color: #333;
+        border-bottom: 1px solid #e5e5e5;
+        padding-bottom: 0.5rem;
+    }
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-1 text-center">
+            <a asp-action="Logistica" asp-controller="Main" class="btn btn-secondary">Volver</a>
+        </div>
+    </div>
+</div>
+
+
+<div class="card mt-3">
+    <div class="card-body">
+        <h4 class="card-title text-center">Consultar Ruta Logística</h4>
+        <div class="mt-1">
+            <h5>Busqueda</h5>
+        </div>
+
+        <form asp-action="SearchResults" method="post">
+            <div class="form-group">
+                <label for="Fecha" class="control-label">Fecha Salida:</label>
+                <input type="date" id="Fecha" name="Fecha" class="form-control" required />
+            </div>
+            <div class="text-center mt-2">
+                <button type="submit" class="btn btn-success">Buscar</button>
+            </div>
+        </form>
+    </div>
+</div>
+

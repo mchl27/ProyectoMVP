@@ -1,0 +1,288 @@
+﻿@{
+    ViewData["Title"] = "Index";
+
+}
+
+<style>
+    .contenedor-principal {
+        position: relative;
+        background-size: cover;
+        background-position: center;
+        padding: 20px; /* Ajustamos el relleno */
+        text-align: center;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+        display: flex; /* Cambiamos el display a flex para alinear los contenedores secundarios */
+        flex-wrap: wrap; /* Permitimos que los contenedores secundarios se envuelvan */
+        justify-content: space-around; /* Ajustamos la distribución de los contenedores secundarios */
+    }
+    
+    .bienvenida {
+        position: relative;
+        z-index: 2;
+    }
+
+        .bienvenida h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        .bienvenida p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        .bienvenida button {
+            font-size: 1.2em;
+        }
+
+
+    .contenedor-principal {
+        padding: 50px 0; /* Reducir el espacio entre los contenedores */
+        text-align: left;
+    }
+
+    .contenedor-principal button {
+        background-color: #0f268d;
+    }
+
+    .texto-izquierda {
+        background-color: #fff;
+        padding: 20px;
+    }
+
+    .palabras-derecha {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .palabra {
+        margin: 10px;
+        padding: 10px 20px;
+        border: 2px solid #404040;
+        border-radius: 20px;
+        background-color: #fff;
+        color: #404040;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+        .palabra:hover {
+            background-color: #0f268d;
+            color: #fff;
+        }
+
+    .contenedor-principal a {
+        background-color: #0f268d;
+        color: white !important;
+    }
+
+        .contenedor-principal a:hover {
+                background-color: #0f268d !important;
+                color: white !important;
+        }
+
+</style>
+
+    <div class="contenedor-principal">
+        <div class="container">
+            <div class="row align-items-start">
+                <div class="col-md-6">
+                    <div class="texto-izquierda">
+                    <h2>Fase 1</h2> <h5>(11 de Junio)</h5>
+                        <p>En la primera etapa de nuestro proyecto, nos adentraremos en la solicitud de compras, donde se involucran tres áreas clave: Comercial, Compras y Recepción. Cada una de estas áreas desempeña un papel fundamental en el proceso:</p>
+                        <ul>
+                            <li><strong>Área Comercial y Bodega:</strong> Esta área se encarga de identificar las necesidades y requerimientos de los clientes internos.</li>
+                            <li><strong>Área de Compras:</strong> La función principal de esta área es gestionar el proceso de adquisición de productos o servicios, desde la solicitud inicial hasta la entrega final, asegurando la obtención de los mejores precios y condiciones.</li>
+                            <li><strong>Área de Recepción:</strong> Una vez realizada la compra, esta área se encarga de recibir y verificar los productos o servicios entregados, garantizando que cumplan con los estándares de calidad y especificaciones solicitadas.</li>
+                        </ul>
+                        <p>El trabajo coordinado entre estas áreas es esencial para asegurar una gestión eficiente y efectiva de las solicitudes de compra, optimizando los procesos y garantizando la satisfacción de todas las partes involucradas.</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="palabras-derecha">
+                        <div class="palabra">
+                            Bodega
+                        </div>
+                        <div class="palabra">
+                            Comercial
+                        </div>
+                        <div class="palabra">
+                            Compras
+                        </div>
+                        <div class="palabra">
+                            Contabilidad
+                        </div>
+                        <div class="palabra">
+                            Logistica
+                        </div>
+                        <div class="palabra">
+                            Recepción de mercancía
+                        </div>
+                        <!-- Agrega más palabras aquí si lo deseas -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="contenedor-principal">
+        <div class="container">
+            <div class="row align-items-start">
+                <div class="col-md-6">
+                    <div class="texto-izquierda">
+                        <h2>Fase 2</h2> <h5>(3 de Junio)</h5>
+                        <p>En la tercera fase de nuestro proyecto, nos enfocaremos en los procesos de logística y comercial para gestionar las novedades de ruta, el seguimiento de las facturas y el despacho de productos. Estos procesos son vitales para garantizar la eficiencia y la efectividad en la distribución de productos y servicios:</p>
+                        <ul>
+                            <li><strong>Gestión de Novedades de Ruta:</strong> Esta actividad implica el registro y seguimiento de cualquier cambio o novedad en las rutas de distribución, como modificaciones en los horarios de entrega, cambios en las direcciones de los clientes o actualizaciones en los pedidos. Es crucial mantener una comunicación fluida y precisa para garantizar que los productos lleguen a su destino de manera oportuna.</li>
+                            <li><strong>Seguimiento de Facturas:</strong> Este proceso consiste en monitorear el estado de las facturas emitidas a los clientes, asegurando su correcta emisión, envío y recepción por parte de los destinatarios. Un seguimiento eficiente de las facturas contribuye a mantener un flujo de efectivo constante y a evitar retrasos en los pagos.</li>
+                            <li><strong>Despacho de Productos:</strong> Aquí se gestiona la preparación y envío de los productos solicitados por los clientes, coordinando el embalaje, la carga y el transporte para garantizar la entrega segura y puntual. Es esencial optimizar los procesos de despacho para cumplir con los plazos de entrega y mantener la satisfacción del cliente.</li>
+                        </ul>
+                        <p>La integración efectiva de los procesos de logística y comercial en esta fase permite una coordinación fluida y eficiente de las actividades relacionadas con la distribución de productos y servicios, mejorando la experiencia del cliente y fortaleciendo la reputación de la empresa en el mercado.</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="palabras-derecha">
+                        <div class="palabra">
+                            Bodega
+                        </div>
+                        <div class="palabra">
+                            Calidad
+                        </div>
+                        <div class="palabra">
+                            Compras
+                        </div>
+                        <div class="palabra">
+                            Comercial
+                        </div>
+                        <div class="palabra">
+                            Logistica
+                        </div>
+                        <!-- Agrega más palabras aquí si lo deseas -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="contenedor-principal">
+        <div class="container">
+            <div class="row align-items-start">
+                <div class="col-md-6">
+                    <div class="texto-izquierda">
+                        <h2>Fase 3</h2>
+                        <p>En la segunda etapa de nuestro proyecto, nos enfocaremos en los procesos de sistemas, mantenimiento, mantenimiento locativo y talento humano para la solicitud y préstamos de herramientas. Cada uno de estos departamentos desempeña un papel crucial en la gestión de activos y recursos, mejorando la eficiencia y la trazabilidad de la información:</p>
+                        <ul>
+                            <li><strong>Departamento de Sistemas:</strong> Este departamento se encarga de gestionar y mantener los sistemas informáticos de la organización, asegurando que estén operativos y actualizados para respaldar las operaciones diarias. Además, facilita el acceso a herramientas y recursos digitales necesarios para el trabajo.</li>
+                            <li><strong>Departamento de Mantenimiento:</strong> Su función principal es garantizar el mantenimiento adecuado de las herramientas y equipos físicos, realizando inspecciones regulares, reparaciones y reemplazos cuando sea necesario para mantenerlos en óptimas condiciones de funcionamiento.</li>
+                            <li><strong>Departamento de Mantenimiento Locativo:</strong> Este departamento se encarga del mantenimiento y la gestión de las instalaciones físicas de la organización, incluyendo edificios, infraestructuras y áreas comunes, asegurando un entorno de trabajo seguro y funcional para todos los empleados.</li>
+                            <li><strong>Departamento de Talento Humano:</strong> Su rol es gestionar el capital humano de la organización, incluyendo el reclutamiento, la formación, el desarrollo y la gestión del desempeño del personal. Además, se encarga de coordinar la asignación de herramientas y recursos necesarios para el desarrollo de las actividades laborales.</li>
+                        </ul>
+                        <p>Mejorar la trazabilidad de la información en estos procesos es fundamental para optimizar la gestión de activos y recursos, garantizando su disponibilidad cuando sea necesario y facilitando la toma de decisiones informadas para mejorar la eficiencia operativa.</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="palabras-derecha">
+                        <div class="palabra">
+                            Sistemas
+                        </div>
+                        <div class="palabra">
+                            Mantenimiento Locativo
+                        </div>
+                        <div class="palabra">
+                            Mantenimiento de equipos
+                        </div>
+                        <div class="palabra">
+                            Talento Humano
+                        </div>
+                        <!-- Agrega más palabras aquí si lo deseas -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="contenedor-principal">
+        <div class="container">
+            <div class="row align-items-start">
+                <div class="col-md-6">
+                    <div class="texto-izquierda">
+                        <h2>Fase 4</h2>
+                        <p>En la cuarta fase de nuestro proyecto, nos concentraremos en los procesos de talento humano para gestionar la solicitud de permisos, así como el seguimiento y gestión de otros documentos relacionados. Estos procesos son fundamentales para garantizar una administración eficiente y transparente de los recursos humanos:</p>
+                        <ul>
+                            <li><strong>Solicitud de Permisos:</strong> Este proceso implica la solicitud y aprobación de permisos por parte de los empleados para ausencias temporales, como vacaciones, licencias médicas, días personales, entre otros. Proporcionar un sistema claro y eficaz para la presentación y gestión de estas solicitudes es esencial para mantener la productividad y la satisfacción de los empleados.</li>
+                            <li><strong>Seguimiento de Permisos:</strong> Una vez que se presentan las solicitudes de permisos, es necesario realizar un seguimiento adecuado para garantizar que se gestionen y aprueben de manera oportuna. Esto implica mantener registros precisos de las solicitudes, su estado actual y las fechas de vencimiento, para evitar conflictos de programación y asegurar una cobertura adecuada en el lugar de trabajo.</li>
+                            <li><strong>Gestión de Otros Documentos:</strong> Además de los permisos, el departamento de talento humano también se encarga de gestionar una variedad de otros documentos relacionados con el personal, como contratos de trabajo, evaluaciones de desempeño, registros de capacitación, entre otros. Mantener una organización efectiva de estos documentos garantiza el cumplimiento normativo y facilita la toma de decisiones informadas en materia de recursos humanos.</li>
+                        </ul>
+                        <p>La implementación de procesos claros y eficientes en esta fase permite al departamento de talento humano administrar de manera efectiva las solicitudes de permisos y otros documentos relacionados con el personal, promoviendo un ambiente laboral justo, equitativo y satisfactorio para todos los empleados.</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="palabras-derecha">
+                        <div class="palabra">
+                            Talento Humano
+                        </div>
+                        <div class="palabra">
+                            Todos los procesos
+                        </div>
+                        <!-- Agrega más palabras aquí si lo deseas -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+@* NAVIDAD TEMA *@
+<div>
+    @* <style>
+    .snowflake {
+    color: #87CEEB;
+    font-family: sans-serif;
+    font-size: 1.5em;
+    position: fixed;
+    top: -2em;
+    z-index: 1000;
+    user-select: none;
+    pointer-events: none;
+    animation: fall linear infinite;
+    }
+
+    @@keyframes fall {
+    0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+    }
+
+    100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0.2;
+    }
+    }
+    </style>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const snowflakeCount = 50;
+
+    for (let i = 0; i < snowflakeCount; i++) {
+    let snowflake = document.createElement("div");
+    snowflake.className = "snowflake";
+    snowflake.innerHTML = "❄";
+
+    snowflake.style.left = Math.random() * 100 + "vw";
+    snowflake.style.animationDuration = Math.random() * 5 + 5 + "s";
+    snowflake.style.fontSize = Math.random() * 10 + 10 + "px";
+
+    document.body.appendChild(snowflake);
+    }
+    });
+    </script> *@
+</div>
+
+    
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/js/bootstrap.bundle.min.js"></script>

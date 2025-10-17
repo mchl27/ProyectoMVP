@@ -1,0 +1,189 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
+<style>
+    .fixed-width-btn {
+        width: 80px;
+    }
+
+    .alert-custom {
+        color: red;
+        font-size: 1.2em;
+        display: none;
+        margin-top: 10px;
+    }
+
+    .card {
+        border-radius: 15px;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #333;
+        border-bottom: 1px solid #e5e5e5;
+        padding-bottom: 0.5rem;
+        text-transform: uppercase;
+    }
+
+    input[type="submit"] {
+        width: 150px;
+    }
+
+
+    .title-main {
+        font-size: 1.6em;
+        color: #333;
+    }
+
+    .title-menu {
+        font-size: 1.4em;
+        color: #333;
+    }
+
+    .card-header-title {
+        font-size: 1.1em;
+        color: #333;
+    }
+
+    .lead {
+        font-size: 1.1rem;
+        font-weight: 300;
+    }
+
+    .lead-content {
+        font-size: 1.0rem;
+        font-weight: 300;
+    }
+
+    .btn {
+        /* background-color: #007bff;
+        border-color: #007bff; */
+        font-weight: 500;
+        padding: 5px 15px;
+        border-radius: 20px;
+        transition: background-color 0.3s ease;
+    }
+
+</style>
+
+<div class="container mt-7">
+    <div class="text-center mb-4">
+        <h1 class="display-4">Iniciar Sesión</h1>
+        <p class="lead">Por favor, ingresa tus credenciales para acceder a tu cuenta.</p>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form method="post" asp-controller="Home" asp-action="Login">
+                <div class="mb-3">
+                    <label for="nombreUsuario" class="form-label card-header-title">Nombre de usuario:</label>
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i class="fas fa-user"></i>
+                        </span>
+                        <input type="text" class="form-control lead-content" name="nombreUsuario" id="nombreUsuario"
+                               placeholder="Ingresa tu nombre de usuario" required />
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="contrasena" class="form-label card-header-title">Contraseña:</label>
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i class="fas fa-lock"></i>
+                        </span>
+                        <input type="password" class="form-control lead-content" name="contrasena" id="contrasena"
+                               placeholder="Ingresa tu contraseña" required />
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-dark w-100">
+                    <i class="fas fa-sign-in-alt"></i> Ingresar
+                </button>
+                <div asp-validation-summary="All" class="text-danger mt-2"></div>
+            </form>
+            <div class="text-center mt-4">
+                <p>¿Olvidaste tu contraseña? <a href="#">Recupérala aquí</a></p>
+                <p>¿No tienes una cuenta? <a href="#">Regístrate ahora</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* <div class="login-container row no-gutters">
+    <div class="col-md-12 login-form">
+
+        <div class="text-center mb-4">
+            <h1>Iniciar Sesión</h1>
+            <p class="lead">Bienvenido de nuevo, por favor ingresa tus datos.</p>
+        </div>
+
+        <form method="post" asp-controller="Home" asp-action="Login">
+            <div class="mb-3">
+                <label for="nombreUsuario" class="form-label">Nombre de usuario:</label>
+                <input type="text" class="form-control" name="nombreUsuario" id="nombreUsuario" required />
+            </div>
+            <div class="mb-3">
+                <label for="contrasena" class="form-label">Contraseña:</label>
+                <input type="password" class="form-control" name="contrasena" id="contrasena" required />
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Ingresar</button>
+            <div asp-validation-summary="All" class="text-danger mt-2"></div>
+        </form>
+
+        <div class="text-center mt-4">
+            <p>¿Olvidaste tu contraseña? <a href="#">Recupérala aquí</a></p>
+            <p>¿No tienes una cuenta? <a href="#">Regístrate ahora</a></p>
+        </div>
+    </div>
+</div>
+ *@
+
+@* NAVIDAD TEMA *@
+<div>
+    @* <style>
+    .snowflake {
+    color: #87CEEB;
+    font-family: sans-serif;
+    font-size: 1.5em;
+    position: fixed;
+    top: -2em;
+    z-index: 1000;
+    user-select: none;
+    pointer-events: none;
+    animation: fall linear infinite;
+    }
+
+    @@keyframes fall {
+    0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+    }
+
+    100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0.2;
+    }
+    }
+    </style>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const snowflakeCount = 50;
+
+    for (let i = 0; i < snowflakeCount; i++) {
+    let snowflake = document.createElement("div");
+    snowflake.className = "snowflake";
+    snowflake.innerHTML = "❄";
+
+    snowflake.style.left = Math.random() * 100 + "vw";
+    snowflake.style.animationDuration = Math.random() * 5 + 5 + "s";
+    snowflake.style.fontSize = Math.random() * 10 + 10 + "px";
+
+    document.body.appendChild(snowflake);
+    }
+    });
+    </script> *@
+</div>

@@ -1,0 +1,152 @@
+﻿@model Management_system.Models.RecepcionMercancium
+
+@{
+    ViewData["Title"] = "Agregar Recepcion";
+    Layout = "~/Views/Shared/_Layout_main.cshtml";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
+<style>
+    .fixed-width-btn {
+        width: 80px;
+    }
+
+    .alert-custom {
+        color: red;
+        font-size: 1.2em;
+        display: none;
+        margin-top: 10px;
+    }
+
+    .card {
+        border-radius: 15px;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #333;
+        border-bottom: 1px solid #e5e5e5;
+        padding-bottom: 0.5rem;
+        text-transform: uppercase;
+    }
+
+    input[type="submit"] {
+        width: 150px;
+    }
+
+
+    .title-main {
+        font-size: 1.6em;
+        color: #333;
+    }
+
+    .title-menu {
+        font-size: 1.4em;
+        color: #333;
+    }
+
+    .card-header-title {
+        font-size: 1.1em;
+        color: #333;
+    }
+
+    .lead {
+        font-size: 1.1rem;
+        font-weight: 300;
+    }
+
+    .lead-content {
+        font-size: 1.0rem;
+        font-weight: 300;
+    }
+
+    .btn {
+        /* background-color: #007bff;
+                        border-color: #007bff; */
+        font-weight: 500;
+        padding: 5px 15px;
+        border-radius: 20px;
+        transition: background-color 0.3s ease;
+    }
+
+</style>
+
+
+<div class="container">
+    <a asp-action="ReviewIndex" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Volver
+    </a>
+</div>
+
+
+
+<div class="container mt-2">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <p class="text-center title-menu">Recepción Mercancia</p>
+
+                    <hr />
+                    <form asp-action="Reception">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="form-group">
+                            <input asp-for="IdCompra" class="form-control" value="@ViewData["IdCompra"]" readonly type="hidden" />
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="FechaRecepcion" class="control-label">Fecha de Recepción</label>
+                                    <input asp-for="FechaRecepcion" class="form-control" type="text" readonly value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" />
+                                    <span asp-validation-for="FechaRecepcion" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="IdUsuario" class="control-label">Usuario</label>
+                                    <select asp-for="IdUsuario" class="form-control" asp-items="ViewBag.IdUsuario" required></select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="Observaciones" class="control-label">Observaciones</label>
+                                    <input asp-for="Observaciones" class="form-control" />
+                                    <span asp-validation-for="Observaciones" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        @* <div class="form-group">
+                            <label asp-for="Estado" class="control-label">Estado</label>
+                            <select asp-for="Estado" class="form-control" required>
+                                <option value="">Seleccionar Estado</option>
+                                <option value="Recibida">Recibida</option>
+                                <option value="Parcial">Parcial</option>
+                                <option value="Rechazada">Rechazada</option>
+                                <option value="Mercancia">Mercancía devuelta</option>
+                            </select>
+                            <span asp-validation-for="Estado" class="text-danger"></span>
+                        </div> *@
+
+                        <div class="card mt-3">
+                            <div class="card-body text-center">
+                                <input type="submit" value="Validar Productos" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

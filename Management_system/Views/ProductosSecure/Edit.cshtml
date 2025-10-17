@@ -1,0 +1,248 @@
+﻿@model Management_system.Models.Producto
+
+@{
+    ViewData["Title"] = "Editar Producto";
+    Layout = "~/Views/Shared/_Layout_main.cshtml";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
+<style>
+    .fixed-width-btn {
+        width: 80px;
+    }
+
+    .alert-custom {
+        color: red;
+        font-size: 1.2em;
+        display: none;
+        margin-top: 10px;
+    }
+
+    .card {
+        border-radius: 15px;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #333;
+        border-bottom: 1px solid #e5e5e5;
+        padding-bottom: 0.5rem;
+        text-transform: uppercase;
+    }
+
+    input[type="submit"] {
+        width: 150px;
+    }
+
+
+    .title-main {
+        font-size: 1.6em;
+        color: #333;
+    }
+
+    .title-menu {
+        font-size: 1.4em;
+        color: #333;
+    }
+
+    .card-header-title {
+        font-size: 1.1em;
+        color: #333;
+    }
+
+    .lead {
+        font-size: 1.1rem;
+        font-weight: 300;
+    }
+
+    .lead-content {
+        font-size: 1.0rem;
+        font-weight: 300;
+    }
+
+    .btn {
+        /* background-color: #007bff;
+                            border-color: #007bff; */
+        font-weight: 500;
+        padding: 5px 15px;
+        border-radius: 20px;
+        transition: background-color 0.3s ease;
+    }
+
+</style>
+
+<div class="container">
+    <a asp-action="Index" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Volver
+    </a>
+</div>
+
+<div class="container mt-2">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <p class="text-center title-menu">Editar Producto</p>
+
+                    <hr />
+                    <form asp-action="Edit">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="IdProducto" />
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="IdEmpresa" class="control-label card-header-title">Empresa</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-building"></i>
+                                        </span>
+                                        <select asp-for="IdEmpresa" class="form-control lead-content" asp-items="ViewBag.IdEmpresa" required></select>
+                                        <span asp-validation-for="IdEmpresa" class="text-danger lead-content"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="Descripcion" class="control-label card-header-title">Descripcion</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-align-left"></i>
+                                        </span>
+                                        <input asp-for="Descripcion" class="form-control lead-content" placeholder="Ingresa descripción del producto" required required />
+                                        <span asp-validation-for="Descripcion" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="Referencia" class="control-label card-header-title">Referencia</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-barcode"></i>
+                                        </span>
+                                        <input asp-for="Referencia" class="form-control lead-content" id="Referencia" placeholder="Ingresa referencia del producto" required required />
+                                        <span asp-validation-for="Referencia" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="Unidad" class="control-label card-header-title">Unidad</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-cube"></i>
+                                        </span>
+                                        <select asp-for="Unidad" class="form-control lead-content" required>
+                                            <option value="Unidad" class="lead-content">Unidad</option>
+                                            <option value="Juego" class="lead-content">Juego</option>
+                                            <option value="Galon" class="lead-content">Galón</option>
+                                            <option value="Kilogramo" class="lead-content">Kilogramo</option>
+                                            <option value="Metro" class="">Metro</option>
+                                            <option value="Centimetro cuadrado" class="lead-content">Centimetro cuadrado</option>
+                                            <option value="Pie" class="lead-content">Pie</option>
+                                        </select>
+                                        <span asp-validation-for="Unidad" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="Estado" class="control-label card-header-title">Estado</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-circle-notch"></i>
+                                        </span>
+                                        <select asp-for="Estado" class="form-control lead-content" required>
+                                            <option value="Activo" class="lead-content">Activo</option>
+                                        </select>
+                                        <span asp-validation-for="Estado" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Link" class="control-label card-header-title">Link Plano</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="fas fa-link"></i>
+                                </span>
+                                <input asp-for="Link" class="form-control lead-content" id="Link" placeholder="Ingresa link del producto a crear" readonly />
+                                <span asp-validation-for="Link" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Proveedor" class="control-label card-header-title">Ultimo Proveedor</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="fas fa-truck"></i>
+                                </span>
+                                <input asp-for="Proveedor" class="form-control lead-content" placeholder="Ingresa sugerencia del proveedor" />
+                                <span asp-validation-for="Proveedor" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="UltimoIngreso" class="control-label card-header-title">Ultima Fecha ingreso</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </span>
+                                <input asp-for="UltimoIngreso" class="form-control lead-content" placeholder="Ingresa fecha del ultimo ingreso Helisa" />
+                                <span asp-validation-for="UltimoIngreso" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Precio" class="control-label card-header-title">Ultimo Precio</label>
+                            <<div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="fas fa-dollar-sign"></i>
+                                </span>
+                                <input asp-for="Precio" class="form-control lead-content" placeholder="Ingresa precio del ultimo ingreso Helisa" />
+                                <span asp-validation-for="Precio" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group mt-2 text-center">
+                            <button type="submit" class="btn btn-primary">Editar Producto</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var referenciaInput = document.getElementById("Referencia");
+            var linkInput = document.getElementById("Link");
+
+            function updateLink() {
+                var referencia = referenciaInput.value;
+                var basePath = "\\\\udc_he01\\SISTEMA DE GESTION\\03 GESTION COMERCIAL\\DOCUMENTOS COMPARTIDOS\\PLANOS\\";
+
+                if (referencia) {
+                    linkInput.value = basePath + referencia;
+                } else {
+                    linkInput.value = "";
+                }
+            }
+
+            referenciaInput.addEventListener("input", updateLink);
+
+            // Initialize link value based on current reference
+            updateLink();
+        });
+    </script>
+}

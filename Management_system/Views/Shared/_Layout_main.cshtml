@@ -1,0 +1,356 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Sistema de Gestión</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site1.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/purchase_request.styles.css" asp-append-version="true" />
+    <link rel="icon" href="~/img/1. Logo UDC.png" type="image/x-icon">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            display: flex;
+        }
+
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background: #000000;  /*  343a40 */
+            color: white;
+            transition: 0.3s;
+            position: fixed;
+        }
+
+            .sidebar .nav-link {
+                color: white;
+                border-radius: 7px;
+            }
+
+                .sidebar .nav-link:hover {
+                    background: #ffffff;
+                    color: black;
+                }
+
+            .sidebar.collapsed {
+                width: 70px;
+            }
+
+        .main-content {
+            margin-left: 250px;
+            transition: 0.3s;
+            width: 100%;
+            padding: 20px;
+        }
+
+        .collapsed + .main-content {
+            margin-left: 70px;
+        }
+
+        .user-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .toggle-btn {
+            /* position: fixed; */
+            top: 15px;
+            left: 250px;
+            background: none;
+            border: none;
+            color: black;
+            font-size: 24px;
+            cursor: pointer;
+            transition: left 0.3s ease-in-out;
+            z-index: 1100; /* Para que siempre esté visible */
+        }
+
+        .sidebar.collapsed ~ .toggle-btn {
+            left: 70px;
+        }
+
+
+        .sidebar.collapsed .nav-link i {
+            margin-right: 0;
+        }
+
+        .sidebar.collapsed .nav-link span {
+            display: none;
+        }
+
+        .sidebar.collapsed + .toggle-btn {
+            left: 80px;
+        }
+
+        }
+
+        .title-main {
+            font-size: 1.8em;
+            color: #333;
+        }
+
+        .title-menu {
+            font-size: 1.6em; /* Tamaño de letra grande */
+            color: #333; /* Color de texto suave */
+            font-weight: normal; /* Eliminamos la negrita, para que no sea un título pesado */
+            /* text-align: center; */ /* Centrar el texto si lo deseas */
+        }
+
+        .card-header-title1 {
+            font-size: 1.2em;
+            color: #333;
+        }
+
+        .no-transition {
+            transition: none !important;
+        }
+
+        .lead {
+            font-size: 1.1rem;
+            font-weight: 300;
+        }
+    </style>
+
+    <script>
+        // Verificar si el usuario está autenticado
+        var isAuthenticated = @Html.Raw(User.Identity.IsAuthenticated.ToString().ToLower());
+
+        if (!isAuthenticated) {
+            window.location.href = '/Home/Index';
+        }
+
+        // Manejador para el estado del sidebar
+        window.addEventListener('DOMContentLoaded', function () {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('main-content');
+
+            // Restaurar estado guardado
+            if (localStorage.getItem('sidebar-collapsed') === 'true') {
+                sidebar.classList.add('collapsed');
+                mainContent.classList.add('collapsed');
+            }
+
+            // Quitar la clase que evita la transición después de aplicar el estado
+            requestAnimationFrame(() => {
+                sidebar.classList.remove('no-transition');
+            });
+
+            // Configurar el botón de toggle
+            document.querySelector('.toggle-btn').addEventListener('click', function () {
+                sidebar.classList.toggle('collapsed');
+                mainContent.classList.toggle('collapsed');
+
+                localStorage.setItem('sidebar-collapsed', sidebar.classList.contains('collapsed'));
+            });
+        });
+    </script>
+
+</head>
+<body>
+
+    <nav class="sidebar no-transition" id="sidebar">
+        
+        <ul class="nav flex-column p-3">
+
+            <li class="nav-item">
+                <a class="nav-link" asp-area="" asp-controller="Main" asp-action="Index">
+                    <i class="fas fa-home me-2"></i> <span>Inicio</span>
+                </a>
+            </li>
+
+            @* 1. Option *@
+            @if (User.Identity.IsAuthenticated)
+            {
+                var userRole = User.FindFirst("Rol")?.Value;
+                var userArea = User.FindFirst("Area")?.Value;
+
+                if ((userRole != null && (userRole == "Administrador" || userRole == "Super Usuario" || userRole == "Gerencia" || userRole == "Desarrollador" || userRole == "Soporte TI")) || (userArea != null && userArea == "Comercial" || userArea == "Mostrador"))
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Main" asp-action="Comercial">
+                            <i class="fas fa-briefcase me-2"></i> <span>Comercial</span>
+                        </a>
+                    </li>
+
+                }
+            }
+
+            @* 2. Option *@
+            @if (User.Identity.IsAuthenticated)
+            {
+                var userRole = User.FindFirst("Rol")?.Value;
+                var userEmpresa = User.FindFirst("Empresa")?.Value;
+
+                if ((userRole != null && (userRole == "Administrador" || userRole == "Super Usuario" || userRole == "Gerencia" || userRole == "Desarrollador" || userRole == "Soporte TI")) || (userEmpresa != null && userEmpresa == "UNIVERSAL"))
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Main" asp-action="Solicitud">
+                            <i class="fas fa-shopping-cart me-2"></i> <span>Solicitud Compra</span>
+                        </a>
+                    </li>
+                }
+            }
+
+            @* 3. Option *@
+            @if (User.Identity.IsAuthenticated)
+            {
+                var userRole = User.FindFirst("Rol")?.Value;
+                var userArea = User.FindFirst("Area")?.Value;
+
+                if ((userRole != null && (userRole == "Administrador" || userRole == "Super Usuario" || userRole == "Gerencia" || userRole == "Desarrollador" || userRole == "Soporte TI")) || (userArea != null && userArea == "Compras"))
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Main" asp-action="Compras">
+                            <i class="fas fa-shopping-bag me-2"></i> <span>Compras</span>
+                        </a>
+                    </li>
+                }
+            }
+            
+            @* 4. Option *@
+            @if (User.Identity.IsAuthenticated)
+            {
+                var userRole = User.FindFirst("Rol")?.Value;
+                var userArea = User.FindFirst("Area")?.Value;
+
+                if ((userRole != null && (userRole == "Administrador" || userRole == "Super Usuario" || userRole == "Gerencia" || userRole == "Desarrollador" || userRole == "Soporte TI")) || (userArea != null && userArea == "Contabilidad" || userArea == "Compras" || userArea == "Gerencia"))
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Main" asp-action="Contabilidad">
+                            <i class="fas fa-calculator me-2"></i> <span>Contabilidad</span>
+                        </a>
+                    </li>
+                }
+            }
+
+            @* 5. Option *@
+            <li class="nav-item">
+                <a class="nav-link" asp-area="" asp-controller="Main" asp-action="Logistica">
+                    <i class="fas fa-truck me-2"></i> <span>Logística</span>
+                </a>
+            </li>
+
+            @* 6. Option *@
+            @if (User.Identity.IsAuthenticated)
+            {
+                var userRole = User.FindFirst("Rol")?.Value;
+                var userArea = User.FindFirst("Area")?.Value;
+
+                if ((userRole != null && (userRole == "Administrador" || userRole == "Super Usuario" || userRole == "Gerencia" || userRole == "Desarrollador" || userRole == "Soporte TI")) || (userArea != null && userArea == "Recepción de Mercancia" || userArea == "Compras"))
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Main" asp-action="RecepcionMercancia">
+                            <i class="fas fa-box me-2"></i> <span>Recepción Mercancía</span>
+                        </a>
+                    </li>
+
+
+                }
+            }
+
+            @* 7. Option *@
+            @if (User.Identity.IsAuthenticated)
+            {
+                var userRole = User.FindFirst("Rol")?.Value;
+                var userArea = User.FindFirst("Area")?.Value;
+
+                if ((userRole != null && (userRole == "Administrador" || userRole == "Super Usuario" || userRole == "Gerencia" || userRole == "Desarrollador" || userRole == "Soporte TI")) || (userArea != null && userArea == "Desarollo" || userArea == "T.I"))
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Main" asp-action="TalentoHumano">
+                            <i class="fas fa-users me-2"></i> <span>Talento Humano</span>
+                        </a>
+                    </li>
+                }
+            }
+
+
+            @* 7. Option *@
+            @if (User.Identity.IsAuthenticated)
+            {
+                var userRole = User.FindFirst("Rol")?.Value;
+                var userArea = User.FindFirst("Area")?.Value;
+
+                if ((userRole != null && (userRole == "Administrador" || userRole == "Super Usuario" || userRole == "Gerencia" || userRole == "Desarrollador" || userRole == "Soporte TI")) || (userArea != null && userArea == "Desarollo" || userArea == "T.I"))
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Main" asp-action="Tarea">
+                            <i class="fas fa-tasks me-2"></i> <span>Tareas</span>
+                        </a>
+                    </li>
+                }
+            }
+
+
+            @* 8. Option *@
+            @if (User.Identity.IsAuthenticated)
+            {
+                var userRole = User.FindFirst("Rol")?.Value;
+                var userArea = User.FindFirst("Area")?.Value;
+                if ((userRole != null && (userRole == "Administrador" || userRole == "Super Usuario" || userRole == "Gerencia" || userRole == "Desarrollador" || userRole == "Soporte TI" || userRole == "Editor de Informacion")) || (userArea != null && userArea == "Compras"))
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Main" asp-action="Configuration">
+                            <i class="fas fa-cog me-2"></i> <span>Configuración</span>
+                        </a>
+                    </li>
+                    
+                }
+            }
+            
+        </ul>
+
+    </nav>
+
+    <main class="main-content" id="main-content">
+        
+        <div class="user-info">
+            <div class="row align-items-center">
+                <div class="col-md-1">
+                    <button class="toggle-btn" onclick="toggleSidebar()">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+
+                <div class="col-md-5">
+                    <div class="card-header-title1">Sistema de Gestión Empresarial</div>
+                </div>
+
+                <div class="col-md-6 d-flex justify-content-end align-items-center">
+                    <div class="me-3">
+                        <strong>Usuario:</strong> @User.Identity.Name
+                    </div>
+                    <div class="me-3">
+                        <strong>Rol:</strong> @User.FindFirst("Rol")?.Value
+                    </div>
+                    <div class="me-3">
+                        <strong>Empresa:</strong> @User.FindFirst("Empresa")?.Value
+                    </div>
+                    @* rounded-pill *@
+                    <a class="nav-link text-dark ms-2" 
+                       style="transition: background-color 0.3s, color 0.3s, border-color 0.3s; text-align:center;"
+                       asp-area=""
+                       asp-controller="Home"
+                       asp-action="Logout">Cerrar Sesión</a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="container">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+    </main>
+
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

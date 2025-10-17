@@ -1,0 +1,156 @@
+﻿@model CompraViewDetalle
+
+@{
+    ViewData["Title"] = "Consulte Details";
+    Layout = "~/Views/Shared/_Layout_main.cshtml";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
+<p>
+    <a asp-action="Compras" asp-controller="Main" class="btn btn-secondary">Volver</a>
+</p>
+
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <div class="mt-1">
+                <h2 class="card-title">Listado de Ordenes de Compra</h2>
+                <h3>Busqueda</h3>
+            </div>
+            <form method="get" action="@Url.Action("ConsulteDetails", "ComprasUsuarios")" class="form-inline">
+                <div class="form-group row">
+                    <div class="col-md-4">
+                        <label for="searchCriteria" class="mr-2">Criterio de búsqueda</label>
+                        <select class="form-control" id="searchCriteria" name="searchCriteria">
+                            <option value="">Seleccionar Criterio</option>
+                            <option value="Consecutivo">Orden de Compra</option>
+                            <option value="Solicitud">Solicitud</option>
+                            <option value="Vendedor">Vendedor</option>
+                            <option value="Proveedor">Proveedor</option>
+                            <option value="Usuario">Usuario</option>
+                            <option value="Estado">Estado</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="searchTerm" class="mr-2">Término de búsqueda</label>
+                        <input type="text" class="form-control" id="searchTerm" name="searchTerm">
+                    </div>
+                    <div class="col-md-2">
+                        <label for="fecha" class="mr-2">Fecha</label>
+                        <input type="date" class="form-control" id="fecha" name="fecha">
+                    </div>
+                    <div class="col-md-1 text-center d-flex align-items-end justify-content-center">
+                        <button type="submit" class="btn btn-primary">Buscar</button>
+                    </div>
+                    <div class="col-md-1 text-center d-flex align-items-end justify-content-center">
+                        <a asp-action="ExportExcelD" class="btn btn-success">Exportar</a>
+                    </div>
+                </div>
+            </form>
+
+            <div class="table-responsive mt-2">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Consecutivo</th>
+                            <th>Fecha Solicitud</th>
+                            <th>OC</th>
+                            <th>Fecha Compra</th>
+                            <th>Fecha Entrega</th>
+                            <th>Estado Compra</th>
+                            <th>Alerta</th>
+                            <th>Observaciones Compra</th>
+                            <th>Vendedor</th>
+                            <th>Proveedor</th>
+                            <th>Referencia</th>
+                            <th>Descripción</th>
+                            <th>Cantidad</th>
+                            <th>Estado Solicitud</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var solicitud in Model.Solicitudes)
+                        {
+                            var compras = Model.Compras.Where(c => c.IdSolicitud == solicitud.IdSolicitud).ToList();
+                            var detalles = Model.SolicitudDetalles.Where(d => d.IdSolicitud == solicitud.IdSolicitud).ToList();
+
+                            if (compras.Any())
+                            {
+                                foreach (var compra in compras)
+                                {
+                                    foreach (var detalle in detalles)
+                                    {
+                                        <tr>
+                                            <td>@solicitud.Consecutivo</td>
+                                            <td>@solicitud.Fecha</td>
+                                            <td>@compra?.OrdenCompra</td>
+                                            <td>@compra?.FechaCompra</td>
+                                            <td>@compra?.FechaEntrega</td>
+                                            <td>@compra?.Estado</td>
+                                            <td>
+                                                @{
+                                                    if (compra.Estado == "Recibido")
+                                                    {
+                                                        <i class="fas fa-check-circle" style="color: green;"></i> @("Recibido")
+                                                    }
+                                                    else
+                                                    {
+                                                        DateTime fechaEntrega = Convert.ToDateTime(compra.FechaEntrega);
+                                                        TimeSpan diasRestantes = fechaEntrega.Subtract(DateTime.Today);
+
+                                                        if (diasRestantes.TotalDays > 1)
+                                                        {
+                                                            <i class="fas fa-check-circle" style="color: green;"></i> @($"Faltan {diasRestantes.TotalDays:N1} días")
+                                                        }
+                                                        else if (diasRestantes.TotalDays <= 1 && diasRestantes.TotalDays >= 0)
+                                                        {
+                                                            <i class="fas fa-exclamation-circle" style="color: orange;"></i> @($"Falta 1 día")
+                                                        }
+                                                        else
+                                                        {
+                                                            <i class="fas fa-times-circle" style="color: red;"></i> @($"Se pasó la fecha")
+                                                        }
+                                                    }
+                                                }
+                                            </td>
+                                            <td>@compra?.ObservacionesPago</td>
+                                            <td>@compra?.IdSolicitudNavigation.IdVendedorNavigation.Nombre</td>
+                                            <td>@compra?.IdSolicitudNavigation.IdProveedorNavigation.Nombre</td>
+                                            <td>@detalle.IdProductoNavigation.Referencia</td>
+                                            <td>@detalle.IdProductoNavigation.Descripcion</td>
+                                            <td>@detalle.Cantidad</td>
+                                            <td>@solicitud.Estado</td>
+                                        </tr>
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                foreach (var detalle in detalles)
+                                {
+                                    <tr>
+                                        <td>@solicitud.Consecutivo</td>
+                                        <td>@solicitud.Fecha</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>@solicitud.IdVendedorNavigation.Nombre</td>
+                                        <td>@solicitud.IdProveedorNavigation.Nombre</td>
+                                        <td>@detalle.IdProductoNavigation.Referencia</td>
+                                        <td>@detalle.IdProductoNavigation.Descripcion</td>
+                                        <td>@detalle.Cantidad</td>
+                                        <td>@solicitud.Estado</td>
+                                    </tr>
+                                }
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

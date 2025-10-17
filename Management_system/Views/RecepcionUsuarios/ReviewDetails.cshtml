@@ -1,0 +1,260 @@
+﻿@{
+    ViewData["Title"] = "Detalle Compra";
+    Layout = "~/Views/Shared/_Layout_main.cshtml";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
+<style>
+    .fixed-width-btn {
+        width: 50px;
+    }
+
+    .alert-custom {
+        color: red;
+        font-size: 1.2em;
+        display: none;
+        margin-top: 10px;
+    }
+
+    .card {
+        border-radius: 15px;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #333;
+        border-bottom: 1px solid #e5e5e5;
+        padding-bottom: 0.5rem;
+        text-transform: uppercase;
+    }
+
+    input[type="submit"] {
+        width: 150px;
+    }
+
+
+    .table {
+        background-color: #ffffff;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+        .table th {
+            /* background-color: #343a40;
+                    color: #ffffff; */
+            text-align: center;
+            font-weight: 600;
+            vertical-align: middle;
+            font-size: 1rem;
+        }
+
+        .table td {
+            text-align: center;
+            vertical-align: middle;
+            font-size: 0.95rem;
+            color: #495057;
+        }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #f2f2f2;
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: #e9ecef;
+    }
+
+    .title-main {
+        font-size: 1.6em;
+        color: #333;
+    }
+
+    .title-menu {
+        font-size: 1.4em;
+        color: #333;
+    }
+
+    .card-header-title {
+        font-size: 1.1em;
+        color: #333;
+    }
+
+    .lead {
+        font-size: 1.1rem;
+        font-weight: 300;
+    }
+
+    .lead-content {
+        font-size: 1.0rem;
+        font-weight: 300;
+    }
+
+    .btn {
+        /* background-color: #007bff;
+                            border-color: #007bff; */
+        font-weight: 500;
+        padding: 5px 15px;
+        border-radius: 20px;
+        transition: background-color 0.3s ease;
+    }
+
+</style>
+
+<div class=" container">
+    <a asp-action="ReviewIndex" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Volver
+    </a>
+</div>
+
+
+<div class="container mt-2">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+
+                <div class="card-body">
+                    <p class="text-center title-menu ">Detalle Orden de Compra# @ViewData["OrdenCompra"]</p>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Fecha:</label>
+                                <p>@ViewData["Fecha"]</p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Solicitud:</label>
+                                <p>@ViewData["Consecutivo"]</p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Usuario:</label>
+                                <p>@ViewData["IdUsuario"]</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Vendedor:</label>
+                                <p>@ViewData["IdVendedor"]</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Proveedor:</label>
+                                <p>@ViewData["IdProveedor"]</p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Estado:</label>
+                                <p>@ViewData["Estado"]</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Observacion:</label>
+                                <p>@ViewData["Observacion"]</p>
+                            </div>
+                        </div>
+                    </div>
+                        
+                    <hr/>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Orden de Compra:</label>
+                                <p>@ViewData["OrdenCompra"]</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Fecha de Creacion:</label>
+                                <p>@ViewData["FechaCompra"]</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Fecha estimada de entrega:</label>
+                                <p>@ViewData["FechaEntrega"]</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Usuario:</label>
+                                <p>@ViewData["IdUsuarioC"]</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Estado:</label>
+                                <p>@ViewData["EstadoC"]</p>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <label class="control-label">Observaciones:</label>
+                                <p>@ViewData["ObservacionesC"]</p>
+                            </div>
+                        </div>
+                    </div>
+                            
+
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>Solicitud</th>
+                                    <th>Referencia</th>
+                                    <th>Producto</th>
+                                    <th>Cantidad</th>
+                                    <th>Observaciones</th>
+                                    <th>Precio Costo</th>
+                                    <th>Precio Venta</th>
+                                    <th>Rentabilidad</th>
+                                    <th>Link Plano</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var detalle in ViewData["SolicitudDetalles"] as List<SolicitudDetalle>)
+                                {
+                                    <tr>
+                                        <td>@detalle.IdSolicitud</td>
+                                        <td>@detalle.IdProductoNavigation.Referencia</td>
+                                        <td>@detalle.IdProductoNavigation.Descripcion</td>
+                                        <td>@detalle.Cantidad</td>
+                                        <td>@detalle.Observaciones</td>
+                                        <td>@string.Format("{0:C}", detalle.PrecioCosto)</td>
+                                        <td>@string.Format("{0:C}", detalle.PrecioVenta)</td>
+                                        <td>@String.Format("{0:0.##}%", detalle.Rentabilidad * 100)</td>
+                                        <td>@detalle.IdProductoNavigation.Link</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,171 @@
+﻿@model Management_system.Models.RecepcionDetalle
+@{
+    ViewData["Title"] = "Editar Producto";
+    Layout = "~/Views/Shared/_Layout_main.cshtml";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
+<style>
+    .fixed-width-btn {
+        width: 80px;
+    }
+
+    .alert-custom {
+        color: red;
+        font-size: 1.2em;
+        display: none;
+        margin-top: 10px;
+    }
+
+    .card {
+        border-radius: 15px;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #333;
+        border-bottom: 1px solid #e5e5e5;
+        padding-bottom: 0.5rem;
+        text-transform: uppercase;
+    }
+
+    input[type="submit"] {
+        width: 150px;
+    }
+
+
+    .title-main {
+        font-size: 1.6em;
+        color: #333;
+    }
+
+    .title-menu {
+        font-size: 1.4em;
+        color: #333;
+    }
+
+    .card-header-title {
+        font-size: 1.1em;
+        color: #333;
+    }
+
+    .lead {
+        font-size: 1.1rem;
+        font-weight: 300;
+    }
+
+    .lead-content {
+        font-size: 1.0rem;
+        font-weight: 300;
+    }
+
+    .btn {
+        /* background-color: #007bff;
+                                border-color: #007bff; */
+        font-weight: 500;
+        padding: 5px 15px;
+        border-radius: 20px;
+        transition: background-color 0.3s ease;
+    }
+
+</style>
+
+<div class="container">
+    <a asp-action="EditDetalle" asp-route-idSolicitud="@ViewData["IdSolicitud"]" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Volver
+    </a>
+</div>
+
+<div class="container mt-2">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <p class="text-center title-menu">Editar Producto</p>
+
+                    <hr />
+                    <form asp-action="EditProductoEdit">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" name="idSolicitud" value="@ViewBag.IdSolicitud" />
+                        <input type="hidden" asp-for="IdRecepcionDetalle" />
+
+
+                        <div class="form-group">
+                            <input asp-for="IdRecepcion" class="form-control" type="hidden" readonly />
+                            <span asp-validation-for="IdRecepcion" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <input asp-for="IdSolicitudDetalle" class="form-control" type="hidden" readonly />
+                            <span asp-validation-for="IdSolicitudDetalle" class="text-danger"></span>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="ProductoReferencia" class="control-label">Referencia del Producto</label>
+                                    <input type="text" id="ProductoReferencia" class="form-control" value="@ViewData["Referencia"]" readonly />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="ProductoDescripcion" class="control-label">Descripción del Producto</label>
+                                    <input type="text" id="ProductoDescripcion" class="form-control" value="@ViewData["Descripcion"]" readonly />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="CantidadReferencia" class="control-label">Cantidad del Producto</label>
+                                    <input type="text" id="CantidadReferencia" class="form-control" value="@ViewData["Cantidad"]" readonly />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="CantidadRecibida" class="control-label">Cantidad Recibida</label>
+                                    <input asp-for="CantidadRecibida" class="form-control" required />
+                                    <span asp-validation-for="CantidadRecibida" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="EstadoProducto" class="control-label">Estado</label>
+                                    <select asp-for="EstadoProducto" class="form-control" required>
+                                        <option value="">Seleccionar Estado</option>
+                                        <option value="Aceptado">Aceptado</option>
+                                        <option value="Novedad">Novedad</option>
+                                        <option value="Rechazado">Rechazado</option>
+                                    </select>
+                                    <span asp-validation-for="EstadoProducto" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="Observaciones" class="control-label">Observaciones</label>
+                                    <input asp-for="Observaciones" class="form-control" />
+                                    <span asp-validation-for="Observaciones" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group text-center mt-3">
+                            <button type="submit" value="CreateProducto" class="btn btn-primary">Editar Producto</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

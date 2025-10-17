@@ -1,0 +1,145 @@
+﻿@model Management_system.Models.CompraDetalle
+
+@{
+    ViewData["Title"] = "Agregar Producto";
+    Layout = "~/Views/Shared/_Layout_main.cshtml";
+}
+
+<div>
+    <a asp-action="Analyze" asp-route-idSolicitud="@ViewData["IdSolicitud"]" class="btn btn-secondary">Volver</a>
+</div>
+
+<div class="container mt-1">
+    <div class="row justify-content-center">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title text-center mt-3">Articulo</h4>
+                <form asp-action="AnalyzeCreate">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" name="idSolicitud" value="@ViewBag.IdSolicitud" />
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label asp-for="IdCompra" class="control-label">Id Compra</label>
+                                <input asp-for="IdCompra" class="form-control" value="@ViewData["Compra"]" readonly />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="OrdenCompra" class="control-label">Orden de Compra</label>
+                                <input type="text" id="OrdenCompra" class="form-control" value="@ViewData["OrdenCompra"]" readonly />
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label asp-for="IdSolicitudDetalle" class="control-label">Id Solicitud</label>
+                                <input asp-for="IdSolicitudDetalle" class="form-control" value="@ViewData["SolicitudDetalle"]" readonly />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="Consecutivo" class="control-label">Consecutivo</label>
+                                <input type="text" id="Consecutivo" class="form-control" value="@ViewData["Consecutivo"]" readonly />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="ProveedorSugerido" class="control-label">Proveedor Sugerido</label>
+                                <input type="text" id="ProveedorSugerido" class="form-control" value="@ViewData["ProveedorSugerido"]" readonly />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="ProveedorFinal" class="control-label">Proveedor Final</label>
+                                <input type="text" id="ProveedorFinal" class="form-control" value="@ViewData["ProveedorFinal"]" readonly />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="ProductoReferencia" class="control-label">Referencia del Producto</label>
+                                <input type="text" id="ProductoReferencia" class="form-control" value="@ViewData["Referencia"]" readonly />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="ProductoReferencia" class="control-label">Descripción del Producto</label>
+                                <input type="text" id="ProductoReferencia" class="form-control" value="@ViewData["Descripcion"]" readonly />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="ProductoReferencia" class="control-label">Cantidad</label>
+                                <input type="text" id="ProductoReferencia" class="form-control" value="@ViewData["Cantidad"]" readonly />
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label asp-for="ProveedorSugerido" class="control-label">Proveedor Sugerido</label>
+                                        <input asp-for="ProveedorSugerido" class="form-control" required />
+                                        <span asp-validation-for="ProveedorSugerido" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label asp-for="PrecioUnitario" class="control-label">Precio</label>
+                                        <input asp-for="PrecioUnitario" class="form-control" required />
+                                        <span asp-validation-for="PrecioUnitario" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label asp-for="Cantidad" class="control-label">Cantidad</label>
+                                        <input asp-for="Cantidad" class="form-control" required />
+                                        <span asp-validation-for="Cantidad" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label asp-for="ProveedorSugerido1" class="control-label">Proveedor Sugerido</label>
+                                        <input asp-for="ProveedorSugerido1" class="form-control" />
+                                        <span asp-validation-for="ProveedorSugerido1" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label asp-for="PrecioUnitario1" class="control-label">Precio</label>
+                                        <input asp-for="PrecioUnitario1" class="form-control" />
+                                        <span asp-validation-for="PrecioUnitario1" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label asp-for="Cantidad1" class="control-label">Cantidad</label>
+                                        <input asp-for="Cantidad1" class="form-control" />
+                                        <span asp-validation-for="Cantidad1" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group text-center mt-3">
+                        <button type="submit" value="CreateProducto" class="btn btn-primary">Agregar Producto</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

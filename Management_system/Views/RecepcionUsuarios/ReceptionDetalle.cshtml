@@ -1,0 +1,350 @@
+﻿@model Management_system.Models.ReceptionViewModel
+
+@{
+    ViewData["Title"] = "Recepcionar Productos";
+    Layout = "~/Views/Shared/_Layout_main.cshtml";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
+<style>
+    .fixed-width-btn {
+        width: 50px;
+    }
+
+    .alert-custom {
+        color: red;
+        font-size: 1.2em;
+        display: none;
+        margin-top: 10px;
+    }
+
+    .card {
+        border-radius: 15px;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #333;
+        border-bottom: 1px solid #e5e5e5;
+        padding-bottom: 0.5rem;
+        text-transform: uppercase;
+    }
+
+    input[type="submit"] {
+        width: 150px;
+    }
+
+
+    .table {
+        background-color: #ffffff;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+        .table th {
+            /* background-color: #343a40;
+                    color: #ffffff; */
+            text-align: center;
+            font-weight: 600;
+            vertical-align: middle;
+            font-size: 1rem;
+        }
+
+        .table td {
+            text-align: center;
+            vertical-align: middle;
+            font-size: 0.95rem;
+            color: #495057;
+        }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #f2f2f2;
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: #e9ecef;
+    }
+
+    .title-main {
+        font-size: 1.6em;
+        color: #333;
+    }
+
+    .title-menu {
+        font-size: 1.4em;
+        color: #333;
+    }
+
+    .card-header-title {
+        font-size: 1.1em;
+        color: #333;
+    }
+
+    .lead {
+        font-size: 1.1rem;
+        font-weight: 300;
+    }
+
+    .lead-content {
+        font-size: 1.0rem;
+        font-weight: 300;
+    }
+
+    .btn {
+        /* background-color: #007bff;
+                            border-color: #007bff; */
+        font-weight: 500;
+        padding: 5px 15px;
+        border-radius: 20px;
+        transition: background-color 0.3s ease;
+    }
+</style>
+
+<div class="container mt-2">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+
+            <div class="card shadow-sm p-3 mb-2">
+                <h3 class="text-center"><span class="text-black">Detalles Recepción No.@Model.NuevaRecepcion.IdRecepcion</span></h3>
+                <hr/>
+                <div class="row">
+                    <div class="col-md-6">
+                        <strong>Fecha:</strong> @Model.NuevaRecepcion.FechaRecepcion<br>
+                    </div>
+                    <div class="col-md-6 text-md-end">
+                        <strong>Recibido por:</strong> @Model.NuevaRecepcion.IdUsuarioNavigation.Nombre<br>
+                    </div>
+                </div>
+
+                <hr />
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5 class="mb-3">Solicitud</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>Fecha:</strong> @Model.NuevaSolicitud.Fecha<br>
+                            </div>
+                            <div class="col-md-6">
+                                <strong>Solicitud:</strong> @Model.NuevaSolicitud.Consecutivo<br>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>Usuario:</strong> @Model.NuevaSolicitud.IdUsuarioNavigation.Username<br>
+                            </div>
+                            <div class="col-md-6">
+                                <strong>Vendedor:</strong> @Model.NuevaSolicitud.IdVendedorNavigation.Nombre<br>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>Proveedor:</strong> @Model.NuevaSolicitud.IdProveedorNavigation.Nombre<br>
+                            </div>
+                            <div class="col-md-6">
+                                <strong>Estado:</strong> <span class="badge bg-success"> @Model.NuevaSolicitud.Estado</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 ">
+                        <h5 class="mb-3">Orden de Compra</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>Fecha O.C:</strong> @Model.NuevaCompra.FechaCompra<br>
+                            </div>
+                            <div class="col-md-6">
+                                <strong>Fecha Entrega:</strong> @Model.NuevaCompra.FechaEntrega<br>
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>O.C:</strong> @Model.NuevaCompra.OrdenCompra<br>
+                            </div>
+                            <div class="col-md-6">
+                                <strong>Usuario:</strong> @Model.NuevaCompra.IdUsuarioNavigation.Nombre<br>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>Estado:</strong> <span class="badge bg-success"> @Model.NuevaCompra.Estado</span>
+                            </div>
+                            <div class="col-md-6">
+                            </div>
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="card shadow-sm p-3 mb-2">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>O.C</th>
+                                    <th>Referencia</th>
+                                    <th>Producto</th>
+                                    <th>Observaciones</th>
+                                    <th>Cantidad Solicitada</th>
+                                    <th>Cantidad Recibida</th>
+                                    <th>Diferencia</th>
+                                    <th>Total Entregado</th>
+                                    <th>Estado del Producto</th>
+                                    <th>Observaciones Recepción</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var detalle in Model.DetallesSolicitud)
+                                {
+                                    var recepciones = Model.DetallesRecepcion
+                                    .Where(rd => rd.IdSolicitudDetalleNavigation.IdSolicitudDetalle == detalle.IdSolicitudDetalle)
+                                    .ToList();
+
+                                    // 🔹 SUMAMOS TODAS LAS RECEPCIONES DEL MISMO PRODUCTO
+                                    decimal totalEntregado = recepciones.Sum(rd => rd.CantidadRecibida ?? 0);
+
+                                    if (recepciones.Count > 0)
+                                    {
+                                        foreach (var recepcionDetalle in recepciones)
+                                        {
+                                            <tr>
+                                                <td>@(Model.NuevaCompra?.OrdenCompra ?? "N/A")</td>
+                                                <td>@detalle.IdProductoNavigation.Referencia</td>
+                                                <td>@detalle.IdProductoNavigation.Descripcion</td>
+                                                <td>@detalle.Observaciones</td>
+                                                <td>@detalle.Cantidad</td>
+                                                <td>@(recepcionDetalle.CantidadRecibida ?? 0)</td>
+                                                <td>
+                                                    @{
+                                                        decimal cantidadSolicitada = detalle.Cantidad ?? 0;
+                                                        decimal diferencia = cantidadSolicitada - totalEntregado;
+
+                                                        if (diferencia == 0)
+                                                        {
+                                                            <span>Completo</span>
+                                                        }
+                                                        else if (diferencia > 0)
+                                                        {
+                                                            <span>@diferencia Pendiente</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span>@Math.Abs(diferencia) De más</span>
+                                                        }
+                                                    }
+                                                </td>
+                                                <td>@totalEntregado</td> <!-- 🔹 Se muestra la suma total -->
+                                                <td>
+                                                    @recepcionDetalle.EstadoProducto
+                                                    <span>
+                                                        @if (recepcionDetalle.EstadoProducto == "Aceptado")
+                                                        {
+                                                            <i class="fas fa-check-circle" style="color: green;"></i>
+                                                        }
+                                                        else if (recepcionDetalle.EstadoProducto == "Novedad")
+                                                        {
+                                                            <i class="fas fa-exclamation-circle" style="color: orange;"></i>
+                                                        }
+                                                        else if (recepcionDetalle.EstadoProducto == "Rechazado")
+                                                        {
+                                                            <i class="fas fa-times-circle" style="color: red;"></i>
+                                                        }
+                                                    </span>
+                                                </td>
+                                                <td>@recepcionDetalle.Observaciones</td>
+                                                <td>
+                                                    @{
+                                                        bool esEditable1 = (string)Model.NuevaRecepcion.Estado != "Anulado" && (string)Model.NuevaRecepcion.Estado != "Recibida";
+                                                    }
+                                                    <a asp-action="ReceptionProducto" asp-route-idsolicitud="@Model.NuevaSolicitud.IdSolicitud" asp-route-idSolicitudDetalle="@detalle.IdSolicitudDetalle" asp-route-idRecepcion="@Model.NuevaRecepcion.IdRecepcion" class="btn btn-success btn-sm fixed-width-btn @(esEditable1 ? "" : "disabled")">
+                                                        <i class="fas fa-check-circle"></i>
+                                                    </a>
+                                                    <a asp-action="ReceptionEdit" asp-route-idsolicitud="@Model.NuevaSolicitud.IdSolicitud" asp-route-id="@recepcionDetalle.IdRecepcionDetalle" class="btn btn-primary btn-sm fixed-width-btn @(esEditable1 ? "" : "disabled")">
+                                                        <i class="fas fa-edit"></i>
+                                                    </a>
+                                                    <a asp-action="ReceptionDelete" asp-route-idsolicitud="@Model.NuevaSolicitud.IdSolicitud" asp-route-id="@recepcionDetalle.IdRecepcionDetalle" class="btn btn-danger btn-sm fixed-width-btn @(esEditable1 ? "" : "disabled")">
+                                                        <i class="fas fa-trash"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td>@(Model.NuevaCompra?.OrdenCompra ?? "N/A")</td>
+                                            <td>@detalle.IdProductoNavigation.Referencia</td>
+                                            <td>@detalle.IdProductoNavigation.Descripcion</td>
+                                            <td>@detalle.Observaciones</td>
+                                            <td>@detalle.Cantidad</td>
+                                            <td>Pendiente</td>
+                                            <td>Pendiente</td>
+                                            <td>0</td>
+                                            <td>Pendiente</td>
+                                            <td>Sin observaciones</td>
+                                            <td>
+                                                @{
+                                                    bool esEditable2 = (string)Model.NuevaRecepcion.Estado != "Anulado" && (string)Model.NuevaRecepcion.Estado != "Recibida";
+                                                }
+                                                <a asp-action="ReceptionProducto" asp-route-idsolicitud="@Model.NuevaSolicitud.IdSolicitud" asp-route-idSolicitudDetalle="@detalle.IdSolicitudDetalle" asp-route-idRecepcion="@Model.NuevaRecepcion.IdRecepcion" class="btn btn-success btn-sm fixed-width-btn @(esEditable2 ? "" : "disabled")">
+                                                    <i class="fas fa-check-circle"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <form id="updateStatusForm" asp-action="UpdateStatus" method="post">
+                        <input type="hidden" name="idRecepcion" value="@Model.NuevaRecepcion.IdRecepcion" />
+                        <div class="form-group">
+                            <label for="nuevoEstado" class="card-header-title">Estado</label>
+                            <select name="nuevoEstado" class="form-control lead-content" required>
+                                <option value="Recibida">Recibida</option>
+                                <option value="Parcial">Parcial</option>
+                                <option value="En revision">En revisión</option>
+                                <option value="Rechazada">Rechazada</option>
+                            </select>
+                        </div>
+                        <div class="form-group text-center mt-3">
+                            @{
+                                bool esEditable = (string)Model.NuevaRecepcion.Estado != "Anulado" && (string)Model.NuevaRecepcion.Estado != "Recibida";
+                            }
+                            <button type="submit" class="btn btn-secondary" @(esEditable ? "" : "disabled")>Guardar y Salir</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        function guardarYSalir() {
+            document.getElementById("updateStatusForm").submit();
+        }
+    </script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

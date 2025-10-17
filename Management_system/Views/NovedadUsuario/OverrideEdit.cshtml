@@ -1,0 +1,241 @@
+﻿@model Management_system.Models.Novedad
+
+@{
+    ViewData["Title"] = "Anular Novedad";
+    Layout = "~/Views/Shared/_Layout_main.cshtml";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
+<style>
+    .fixed-width-btn {
+        width: 60px;
+    }
+
+    .alert-custom {
+        color: red;
+        font-size: 1.2em;
+        display: none;
+        margin-top: 10px;
+    }
+
+    .card {
+        border-radius: 15px;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #333;
+        border-bottom: 1px solid #e5e5e5;
+        padding-bottom: 0.5rem;
+        text-transform: uppercase;
+    }
+
+    input[type="submit"] {
+        width: 180px;
+    }
+
+
+    .title-main {
+        font-size: 1.6em;
+        color: #333;
+    }
+
+    .title-menu {
+        font-size: 1.4em;
+        color: #333;
+    }
+
+    .card-header-title {
+        font-size: 1.1em;
+        color: #333;
+    }
+
+    .lead {
+        font-size: 1.1rem;
+        font-weight: 300;
+    }
+
+    .lead-content {
+        font-size: 1.0rem;
+        font-weight: 300;
+    }
+
+    .btn {
+        /* background-color: #007bff;
+                                        border-color: #007bff; */
+        font-weight: 500;
+        padding: 5px 15px;
+        border-radius: 20px;
+        transition: background-color 0.3s ease;
+    }
+
+
+
+    .table {
+        background-color: #ffffff;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+        .table th {
+            /* background-color: #343a40;
+                                color: #ffffff; */
+            text-align: center;
+            font-weight: 600;
+            vertical-align: middle;
+            font-size: 1rem;
+        }
+
+        .table td {
+            text-align: center;
+            vertical-align: middle;
+            font-size: 0.95rem;
+            color: #495057;
+        }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #f2f2f2;
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: #e9ecef;
+    }
+
+</style>
+
+
+<div class="container">
+    <a asp-action="OverrideIndex" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Volver
+    </a>
+</div>
+
+<div class="container mt-2">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <p class="text-center title-menu">Anular Novedad General</p>
+                    <hr />
+                    <form asp-action="OverrideEdit">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="IdNovedad" />
+
+
+                        <div class="form-group">
+                            <input asp-for="Fecha" type="hidden" class="form-control" readonly />
+                            <span asp-validation-for="Fecha" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="IdUsuario" type="hidden" class="form-control" asp-items="ViewBag.IdUsuario" readonly />
+                            <span asp-validation-for="IdUsuario" class="text-danger"></span>
+                        </div>
+
+
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="FechaSalida" class="control-label card-header-title">Fecha Salida</label>
+                                    <input asp-for="FechaSalida" class="form-control lead-content" type="date" readonly />
+                                    <span asp-validation-for="FechaSalida" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="TipoNovedad" class="control-label card-header-title">Tipo de Novedad</label>
+                                    <select asp-for="TipoNovedad" class="form-control lead-content" readonly>
+                                        <option value="" class="lead-content">Seleccionar Novedad</option>
+                                        <option value="RECOGER" class="lead-content">RECOGER</option>
+                                        <option value="ENTREGAR" class="lead-content">ENTREGAR</option>
+                                    </select>
+                                    <span asp-validation-for="TipoNovedad" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="Empresa" class="control-label card-header-title"></label>
+                                    <input asp-for="Empresa" class="form-control lead-content" readonly />
+                                    <span asp-validation-for="Empresa" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label asp-for="Direccion" class="control-label card-header-title">Dirección</label>
+                                    <input asp-for="Direccion" class="form-control lead-content" readonly />
+                                    <span asp-validation-for="Direccion" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label asp-for="CiudadBarrio" class="control-label card-header-title">Ciudad / Barrio</label>
+                                    <input asp-for="CiudadBarrio" class="form-control lead-content" readonly />
+                                    <span asp-validation-for="CiudadBarrio" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label asp-for="Contacto" class="control-label card-header-title">Contacto</label>
+                                    <input asp-for="Contacto" class="form-control lead-content" readonly />
+                                    <span asp-validation-for="Contacto" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label asp-for="Telefono" class="control-label card-header-title">Telefono</label>
+                                    <input asp-for="Telefono" class="form-control lead-content" readonly />
+                                    <span asp-validation-for="Telefono" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label asp-for="Observaciones" class="control-label card-header-title"></label>
+                                    <textarea asp-for="Observaciones" class="form-control lead-content" rows="2" cols="50" readonly></textarea>
+                                    <span asp-validation-for="Observaciones" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label asp-for="Estado" class="control-label card-header-title">Estado de la novedad</label>
+                                    <select asp-for="Estado" class="form-control lead-content" required>
+                                        <option value="" class="lead-content">Seleccionar Estado</option>
+                                        <option value="Abierta" class="lead-content">Abierta</option>
+                                        <option value="Anulado" class="lead-content">Anulado</option>
+                                    </select>
+                                    <span asp-validation-for="Estado" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label asp-for="Observaciones1" class="control-label">Observación Administrador</label>
+                                    <input asp-for="Observaciones1" class="form-control" required />
+                                    <span asp-validation-for="Observaciones1" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        
+
+                        <div class="form-group mt-2 text-center">
+                            <input type="submit" value="Anular Novedad" class="btn btn-danger" />
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

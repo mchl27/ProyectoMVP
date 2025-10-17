@@ -1,0 +1,107 @@
+﻿@model IEnumerable<Management_system.Models.NovedadComercial>
+
+@{
+    ViewData["Title"] = "Novedades Comerciales";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Novedades Comerciales</title>
+
+    <style>
+        /* Configuración general */
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            margin: 20px;
+        }
+
+        .title {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 5px;
+        }
+
+        /* Tabla estilizada */
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+            .table th, .table td {
+                border: 1px solid #ddd;
+                padding: 6px;
+                text-align: left;
+            }
+
+            .table th {
+                background-color: #007bff;
+                color: white;
+                font-weight: bold;
+            }
+
+            .table tr:nth-child(even) {
+                background-color: #f8f9fa;
+            }
+
+        /* Evitar que las filas se corten en el PDF */
+        tr {
+            page-break-inside: avoid;
+        }
+
+        thead {
+            display: table-header-group;
+        }
+
+    </style>
+</head>
+
+<body>
+    <h2 class="title">Novedades Comerciales de Hoy</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>FECHA DE SOLICITUD</th>
+                <th>TIPO DE DOCUMENTO</th>
+                <th>N° DOCUMENTO</th>
+                <th>TIPO SERVICIO</th>
+                <th>FECHA SALIDA</th>
+                <th>EMPRESA</th>
+                <th>CLIENTE</th>
+                <th>SOLICITADO POR</th>
+                <th>ÁREA</th>
+                <th>PAGO</th>
+                <th>OBSERVACIONES</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var novedad in Model)
+            {
+                <tr>
+                    <td>@novedad.Fecha?.ToString("yyyy/MM/dd")</td>
+                    <td>@novedad.TipoDocumento</td>
+                    <td>@novedad.NumeroDocumento</td>
+                    <td>@novedad.TipoServicio</td>
+                    <td>@novedad.FechaSalida?.ToString("yyyy/MM/dd")</td>
+                    <td>@novedad.IdUsuarioNavigation.IdEmpresaNavigation.Nombre</td>
+                    <td>@(novedad.IdClienteNavigation != null ? novedad.IdClienteNavigation.Nombre : novedad.Empresa)</td>
+                    <td>@novedad.IdUsuarioNavigation.Username</td>
+                    <td>@novedad.IdUsuarioNavigation.IdAreaNavigation.Nombre</td>
+                    <td>@novedad.TipoPago</td>
+                    <td>@novedad.Observaciones1</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>

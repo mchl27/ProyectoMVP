@@ -1,0 +1,60 @@
+﻿@model Management_system.Models.Cliente
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout_main.cshtml";
+}
+
+<h1>Delete</h1>
+
+<h3>¿Estás seguro de que quieres eliminar esto?</h3>
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Cliente</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Nit)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Nit)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Nombre)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Nombre)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Ciudad)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Ciudad)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Telefono)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Telefono)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Direccion)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Direccion)
+            </dd>
+        </dl>
+    </div>
+</div>
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="IdCliente" />
+    <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Eliminar</button>
+    <a asp-action="Index" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Volver a la Lista</a>
+</form>

@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Sistema de Gestión</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site1.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/purchase_request.styles.css" asp-append-version="true" />
+    <link rel="icon" href="~/img/1. LOGO GEU.JPG" type="image/x-icon">
+
+    <script>
+        // Verify if the user is authenticated
+        var isAuthenticated = @Html.Raw(User.Identity.IsAuthenticated.ToString().ToLower());
+
+        // Redirect user if not authenticated
+        if (!isAuthenticated) {
+            window.location.href = '/Home/Index';
+        }
+    </script>
+
+</head>
+<body>
+
+    @{
+        var currentDateTime = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+    }
+
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+
+                <img src="~/img/1. LOGO GEU.JPG" alt="Logo" height="50" />
+                
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                        @* <li class="nav-item">
+                            <a class="nav-link">Area: @User.FindFirst("Area")?.Value</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link">Rol: @User.FindFirst("Rol")?.Value</a>
+                        </li> *@
+                        <li class="nav-item">
+                            <a class="nav-link">Usuario: @User.Identity.Name</a>
+                        </li>
+                        }
+                    </li>
+                </ul>
+
+                <div class="container text-right">
+                    <small>Fecha y Hora de Emisión: @currentDateTime</small>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2024 - ML Management system
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

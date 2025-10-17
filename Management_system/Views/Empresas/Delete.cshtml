@@ -1,0 +1,30 @@
+﻿@model Management_system.Models.Empresa
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout_main.cshtml";
+}
+
+<h1>Delete</h1>
+
+<div class="card">
+    <div class="card-body">
+        <h3 class="card-title">¿Estás seguro de que quieres eliminar esto?</h3>
+        <div>
+            <h4>Detalles de la Empresa</h4>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-3">Nombre:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Nombre)</dd>
+            </dl>
+        </div>
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="IdEmpresa" />
+            <div class="text-center">
+                <button type="submit" class="btn btn-danger">Eliminar</button>
+                <a asp-action="Index" class="btn btn-secondary">Volver a la Lista</a>
+            </div>
+        </form>
+    </div>
+</div>

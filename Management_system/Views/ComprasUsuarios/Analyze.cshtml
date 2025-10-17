@@ -1,0 +1,279 @@
+﻿@model Management_system.Models.CompraViewModel
+
+@{
+    ViewData["Title"] = "Analizar Solicitud";
+    Layout = "~/Views/Shared/_Layout_main.cshtml";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
+<style>
+    .fixed-width-btn {
+        width: 50px;
+    }
+
+    .alert-custom {
+        color: red;
+        font-size: 1.2em;
+        display: none;
+        margin-top: 10px;
+    }
+
+    .card {
+        border-radius: 15px;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #333;
+        border-bottom: 1px solid #e5e5e5;
+        padding-bottom: 0.5rem;
+        text-transform: uppercase;
+    }
+
+    input[type="submit"] {
+        width: 150px;
+    }
+
+
+    .table {
+        background-color: #ffffff;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+        .table th {
+            /* background-color: #343a40;
+                        color: #ffffff; */
+            text-align: center;
+            font-weight: 600;
+            vertical-align: middle;
+            font-size: 1rem;
+        }
+
+        .table td {
+            text-align: center;
+            vertical-align: middle;
+            font-size: 0.95rem;
+            color: #495057;
+        }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #f2f2f2;
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: #e9ecef;
+    }
+
+    .title-main {
+        font-size: 1.6em;
+        color: #333;
+    }
+
+    .title-menu {
+        font-size: 1.4em;
+        color: #333;
+    }
+
+    .card-header-title {
+        font-size: 1.1em;
+        color: #333;
+    }
+
+    .lead {
+        font-size: 1.1rem;
+        font-weight: 300;
+    }
+
+    .lead-content {
+        font-size: 1.0rem;
+        font-weight: 300;
+    }
+
+    .btn {
+        /* background-color: #007bff;
+                                border-color: #007bff; */
+        font-weight: 500;
+        padding: 5px 15px;
+        border-radius: 20px;
+        transition: background-color 0.3s ease;
+    }
+
+</style>
+
+<div class="container">
+    <a asp-action="Index" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Volver
+    </a>
+</div>
+
+<div class="container mt-2">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <p class="text-center title-menu">Análisis Solicitud No.@Model.NuevaSolicitud.Consecutivo</p>
+                    <hr/>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label card-header-title">Consecutivo:</label>
+                                <p class="lead-content">@Model.NuevaSolicitud.Consecutivo</p>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label card-header-title">Fecha:</label>
+                                <p class="lead-content">@Model.NuevaSolicitud.Fecha</p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <div class="form-group">
+                                <label class="control-label card-header-title">Proveedor:</label>
+                                <p class="lead-content">@Model.NuevaSolicitud.IdProveedorNavigation.Nombre</p>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label card-header-title">Usuario:</label>
+                                <p class="lead-content">@Model.NuevaSolicitud.IdUsuarioNavigation.Username</p>
+                            </div>
+
+                        </div>
+                        <div class="col-md-4">
+
+                            <div class="form-group">
+                                <label class="control-label card-header-title">Vendedor:</label>
+                                <p class="lead-content">@Model.NuevaSolicitud.IdVendedorNavigation.Nombre</p>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label card-header-title">Observaciones de Compras:</label>
+                                <p class="lead-content">@Model.NuevaSolicitud.Observaciones</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>Solicitud</th>
+                                    <th>Referencia</th>
+                                    <th>Producto</th>
+                                    <th>Observaciones</th>
+                                    <th>Cantidad</th>
+                                    <th>Precio Costo</th>
+                                    <th>Precio Venta</th>
+                                    <th>Rentabilidad</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var detalle in Model.DetallesSolicitud)
+                                {
+                                    <tr>
+                                        <td>@detalle.IdSolicitud</td>
+                                        <td>@detalle.IdProductoNavigation.Referencia</td>
+                                        <td>@detalle.IdProductoNavigation.Descripcion</td>
+                                        <td>@detalle.Observaciones</td>
+                                        <td>@detalle.Cantidad</td>
+                                        <td>@string.Format("{0:C}", detalle.PrecioCosto)</td>
+                                        <td>@string.Format("{0:C}", detalle.PrecioVenta)</td>
+                                        <td>@String.Format("{0:0.##}%", detalle.Rentabilidad * 100)</td>
+                                        <td>
+                                            <a asp-action="AnalyzeCreate" asp-route-idsolicitud="@Model.NuevaSolicitud.IdSolicitud" asp-route-idSolicitudDetalle="@detalle.IdSolicitudDetalle" asp-route-idCompra="@Model.NuevaCompra.IdCompra" class="btn btn-primary btn-sm fixed-width-btn">
+                                                <i class="fas fa-plus"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <p class="text-center title-menu">Análisis Orden de Compra No.@Model.NuevaCompra.OrdenCompra</p>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label card-header-title">Orden de compra:</label>
+                                <p class="lead-content">@Model.NuevaCompra.OrdenCompra</p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label card-header-title">Usuario:</label>
+                                <p class="lead-content">@Model.NuevaCompra.IdUsuarioNavigation.Username</p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label card-header-title">Fecha Orden:</label>
+                                <p class="lead-content">@Model.NuevaCompra.FechaCompra</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label card-header-title">Fecha entrega:</label>
+                                <p class="lead-content">@Model.NuevaCompra.FechaEntrega</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>OC</th>
+                                    @* <th>Referencia</th> *@
+                                    <th>Producto</th>
+                                    @* <th>Cantidad</th> *@
+                                    @* <th>Precio Costo</th> *@
+                                    <th>Prov. Sugerido</th>
+                                    <th>Cantidad</th>
+                                    <th>Precio Unit</th>
+                                    <th>Ahorro</th>
+                                    <th>Prov. Sugerido 2</th>
+                                    <th>Cantidad 2</th>
+                                    <th>Precio Unit 2</th>
+                                    <th>Ahorro 2</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var detalle in Model.Detalles)
+                                {
+                                    <tr>
+                                        <td>@detalle.IdCompra</td>
+                                        @* <td>@detalle.IdSolicitudDetalleNavigation.IdProductoNavigation.Referencia</td> *@
+                                        <td>@detalle.IdSolicitudDetalleNavigation.IdProductoNavigation.Descripcion</td>
+                                        @* <td>@detalle.IdSolicitudDetalleNavigation.Cantidad</td> *@
+                                        @* <td>@detalle.IdSolicitudDetalleNavigation.PrecioCosto</td> *@
+                                        <td>@detalle.ProveedorSugerido</td>
+                                        <td>@detalle.Cantidad</td>
+                                        <td>@string.Format("{0:C}", detalle.PrecioUnitario)</td>
+                                        <td>@string.Format("{0:C}", detalle.Ahorro)</td>
+                                        <td>@detalle.ProveedorSugerido1</td>
+                                        <td>@detalle.Cantidad1</td>
+                                        <td>@string.Format("{0:C}", detalle.PrecioUnitario1)</td>
+                                        <td>@string.Format("{0:C}", detalle.Ahorro1)</td>
+                                        <td>
+                                            <a asp-action="AnalyzeEdit" asp-route-idsolicitud="@Model.NuevaSolicitud.IdSolicitud" asp-route-id="@detalle.IdCompraDetalle" class="btn btn-primary btn-sm fixed-width-btn">Editar</a>
+                                            <a asp-action="AnalyzeDelete" asp-route-idsolicitud="@Model.NuevaSolicitud.IdSolicitud" asp-route-id="@detalle.IdCompraDetalle" class="btn btn-danger btn-sm fixed-width-btn">Eliminar</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

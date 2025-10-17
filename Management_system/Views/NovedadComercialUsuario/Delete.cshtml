@@ -1,0 +1,171 @@
+﻿@model Management_system.Models.NovedadComercial
+
+@{
+    ViewData["Title"] = "Eliminar Novedad Comercial";
+    Layout = "~/Views/Shared/_Layout_main.cshtml";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
+<style>
+    .fixed-width-btn {
+        width: 80px;
+    }
+
+    .alert-custom {
+        color: red;
+        font-size: 1.2em;
+        display: none;
+        margin-top: 10px;
+    }
+
+    .card {
+        border-radius: 15px;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #333;
+        border-bottom: 1px solid #e5e5e5;
+        padding-bottom: 0.5rem;
+        text-transform: uppercase;
+    }
+
+    input[type="submit"] {
+        width: 180px;
+    }
+
+
+    .title-main {
+        font-size: 1.6em;
+        color: #333;
+    }
+
+    .title-menu {
+        font-size: 1.4em;
+        color: #333;
+    }
+
+    .card-header-title {
+        font-size: 1.1em;
+        color: #333;
+    }
+
+    .lead {
+        font-size: 1.1rem;
+        font-weight: 300;
+    }
+
+    .lead-content {
+        font-size: 1.0rem;
+        font-weight: 300;
+    }
+
+    .btn {
+        /* background-color: #007bff;
+                        border-color: #007bff; */
+        font-weight: 500;
+        padding: 5px 15px;
+        border-radius: 20px;
+        transition: background-color 0.3s ease;
+    }
+
+</style>
+
+
+
+<div class="container">
+    <a asp-action="Create" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Volver
+    </a>
+</div>
+
+<div class="container mt-2">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <p class="text-center title-menu">Eliminar Novedad</p>
+
+                    <hr />
+                    <dl class="row">
+                        <dt class = "col-sm-2">
+                            Fecha Creación:
+                        </dt>
+                        <dd class = "col-sm-10">
+                            @Html.DisplayFor(model => model.Fecha)
+                        </dd>
+                        <dt class = "col-sm-2">
+                            Tipo de Documento:
+                        </dt>
+                        <dd class = "col-sm-10">
+                            @Html.DisplayFor(model => model.TipoDocumento)
+                        </dd>
+                        <dt class = "col-sm-2">
+                            Numero de documento:
+                        </dt>
+                        <dd class = "col-sm-10">
+                            @Html.DisplayFor(model => model.NumeroDocumento)
+                        </dd>
+                        <dt class = "col-sm-2">
+                            Tipo de Servicio:
+                        </dt>
+                        <dd class = "col-sm-10">
+                            @Html.DisplayFor(model => model.TipoServicio)
+                        </dd>
+                        <dt class = "col-sm-2">
+                            Fecha Salida:
+                        </dt>
+                        <dd class = "col-sm-10">
+                            @Html.DisplayFor(model => model.FechaSalida)
+                        </dd>
+                        <dt class = "col-sm-2">
+                            Empresa:
+                        </dt>
+                        <dd class = "col-sm-10">
+                            @Html.DisplayFor(model => model.Empresa)
+                        </dd>
+                        <dt class = "col-sm-2">
+                            Dirección:
+                        </dt>
+                        <dd class = "col-sm-10">
+                            @Html.DisplayFor(model => model.Direccion)
+                        </dd>
+                        <dt class = "col-sm-2">
+                            Tipo de Pago:
+                        </dt>
+                        <dd class = "col-sm-10">
+                            @Html.DisplayFor(model => model.TipoPago)
+                        </dd>
+                        <dt class = "col-sm-2">
+                            Observaciones:
+                        </dt>
+                        <dd class = "col-sm-10">
+                            @Html.DisplayFor(model => model.Observaciones)
+                        </dd>
+                        <dt class = "col-sm-2">
+                            Consecutivo:
+                        </dt>
+                        <dd class = "col-sm-10">
+                            @Html.DisplayFor(model => model.Consecutivo)
+                        </dd>
+                        <dt class = "col-sm-2">
+                            Estado:
+                        </dt>
+                        <dd class = "col-sm-10">
+                            @Html.DisplayFor(model => model.Estado)
+                        </dd>
+                    </dl>
+    
+                    <form asp-action="Delete">
+                        <input type="hidden" asp-for="IdNovedadComercial" />
+                        <div class="text-center mt-2">
+                            <input type="submit" value="Eliminar Novedad" class="btn btn-danger" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

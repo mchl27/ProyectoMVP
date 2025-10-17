@@ -1,0 +1,354 @@
+﻿@model Management_system.Models.Compra
+
+
+@{
+    ViewData["Title"] = "Editar OC";
+    Layout = "~/Views/Shared/_Layout_main.cshtml";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
+<style>
+    .fixed-width-btn {
+        width: 80px;
+    }
+
+    .alert-custom {
+        color: red;
+        font-size: 1.2em;
+        display: none;
+        margin-top: 10px;
+    }
+
+    .card {
+        border-radius: 15px;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #333;
+        border-bottom: 1px solid #e5e5e5;
+        padding-bottom: 0.5rem;
+        text-transform: uppercase;
+    }
+
+    input[type="submit"] {
+        width: 150px;
+    }
+
+
+    .title-main {
+        font-size: 1.6em;
+        color: #333;
+    }
+
+    .title-menu {
+        font-size: 1.4em;
+        color: #333;
+    }
+
+    .card-header-title {
+        font-size: 1.1em;
+        color: #333;
+    }
+
+    .lead {
+        font-size: 1.1rem;
+        font-weight: 300;
+    }
+
+    .lead-content {
+        font-size: 1.0rem;
+        font-weight: 300;
+    }
+
+    .btn {
+        /* background-color: #007bff;
+                        border-color: #007bff; */
+        font-weight: 500;
+        padding: 5px 15px;
+        border-radius: 20px;
+        transition: background-color 0.3s ease;
+    }
+
+</style>
+
+<div class="container">
+    <div class="mt-3">
+        <a asp-action="Index" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Volver
+        </a>
+    </div>
+</div>
+
+<div class="container mt-2">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <p class="title-menu text-center">Editar Orden de Compra</p>
+                    <hr />
+                    <form asp-action="Edit">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="IdCompra" />
+
+
+                        <div class="row">
+
+                            <div class="form-group">
+                                <input asp-for="IdSolicitud" class="form-control " type="hidden" readonly />
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="FechaCompra" class="control-label card-header-title">Fecha de Creación</label>
+                                    <input asp-for="FechaCompra" class="form-control lead-content" type="text" readonly />
+                                    <span asp-validation-for="FechaCompra" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="FechaEntrega" class="control-label card-header-title">Fecha de Entrega</label>
+                                    <input asp-for="FechaEntrega" class="form-control lead-content" required />
+                                    <span asp-validation-for="FechaEntrega" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="IdUsuario" class="control-label card-header-title">Usuario</label>
+                                    <select asp-for="IdUsuario" class="form-control lead-content" asp-items="ViewBag.IdUsuario" required></select>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <hr/>
+
+                        <p class="title-menu">Ordenes de Compra</p>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label asp-for="OrdenCompra" class="control-label card-header-title">Numero OC</label>
+                                    <input asp-for="OrdenCompra" class="form-control lead-content" required />
+                                    <span asp-validation-for="OrdenCompra" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="fileUpload" class="control-label card-header-title">Subir Archivo</label>
+                                    <input type="file" id="fileUpload" name="fileUpload" class="form-control lead-content" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="LinkOc" class="control-label card-header-title">Link OC</label>
+                                    <input asp-for="LinkOc" class="form-control lead-content" readonly />
+                                    <span asp-validation-for="LinkOc" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row mt-2">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label asp-for="OrdenCompra1" class="control-label card-header-title">Numero OC</label>
+                                    <input asp-for="OrdenCompra1" class="form-control lead-content" />
+                                    <span asp-validation-for="OrdenCompra1" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="fileUpload" class="control-label card-header-title">Subir Archivo</label>
+                                    <input type="file" id="fileUpload2" name="fileUpload2" class="form-control lead-content" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="LinkOc1" class="control-label card-header-title">Link OC</label>
+                                    <input asp-for="LinkOc1" class="form-control lead-content" readonly />
+                                    <span asp-validation-for="LinkOc1" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row mt-2">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label asp-for="OrdenCompra2" class="control-label card-header-title">Numero OC</label>
+                                    <input asp-for="OrdenCompra2" class="form-control lead-content" />
+                                    <span asp-validation-for="OrdenCompra2" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="fileUpload" class="control-label card-header-title">Subir Archivo</label>
+                                    <input type="file" id="fileUpload3" name="fileUpload3" class="form-control lead-content" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="LinkOc2" class="control-label card-header-title">Link OC</label>
+                                    <input asp-for="LinkOc2" class="form-control lead-content" readonly />
+                                    <span asp-validation-for="LinkOc2" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr/>
+
+                        <p class="title-menu">Información Adicional</p>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="Pago" class="control-label card-header-title">Pagos</label>
+                                    <select asp-for="Pago" class="form-control lead-content">
+                                        <option value="">Seleccionar Estado</option>
+                                        <option value="Para Pago">Para Pago</option>
+                                        <option value="Programado">Programado</option>
+                                        <option value="Pagado">Pagado</option>
+                                    </select>
+                                    <span asp-validation-for="Pago" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="Bodega" class="control-label card-header-title">Bodega</label>
+                                    <select asp-for="Bodega" class="form-control lead-content">
+                                        <option value="">Seleccionar Estado</option>
+                                        <option value="No aplica">No aplica</option>
+                                        <option value="Tener en cuenta espacio de bodega">Tener en cuenta espacio de bodega</option>
+                                    </select>
+                                    <span asp-validation-for="Bodega" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="Logistica" class="control-label card-header-title">Logistica</label>
+                                    <select asp-for="Logistica" class="form-control lead-content">
+                                        <option value="">Seleccionar Estado</option>
+                                        <option value="Asesor Recoge">Asesor Recoge</option>
+                                        <option value="Logistica GEU">Logistica GEU</option>
+                                        <option value="Proveedor Entrega">Proveedor Entrega</option>
+                                    </select>
+                                    <span asp-validation-for="Logistica" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label asp-for="Estado" class="control-label card-header-title">Estado</label>
+                                    <select asp-for="Estado" class="form-control lead-content" required>
+                                        <option value="">Seleccionar Estado</option>
+                                        <option value="Abierta">Abierta</option>
+                                        <option value="Revisar">Revisar</option>
+                                        <option value="Revisada">Revisada</option>
+                                        <option value="Anulado">Anulado</option>
+                                        <option value="Recibido">Recibido</option>
+                                        <option value="OC Creada Legalizar">OC Creada Legalizar</option>
+                                    </select>
+                                    <span asp-validation-for="Estado" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label asp-for="Observaciones" class="control-label card-header-title">Observaciones Generales</label>
+                                    <input asp-for="Observaciones" class="form-control lead-content " />
+                                    <span asp-validation-for="Observaciones" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group text-center mt-3">
+                            <button type="submit" class="btn btn-primary">Editar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script>
+    document.getElementById('fileUpload').addEventListener('change', function () {
+        var formData = new FormData();
+        formData.append('file', this.files[0]);
+
+        fetch('@Url.Action("UploadFileEdit")', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.fileName) {
+                    document.getElementById('LinkOc').value = data.filePath;
+                } else {
+                    alert('Error uploading file');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error uploading file: ' + error.message);
+            });
+    });
+
+
+
+    document.getElementById('fileUpload2').addEventListener('change', function () {
+        var formData = new FormData();
+        formData.append('file', this.files[0]);
+
+        fetch('@Url.Action("UploadFileEdit2")', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.fileName) {
+                    document.getElementById('LinkOc1').value = data.filePath;
+                } else {
+                    alert('Error uploading file');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error uploading file: ' + error.message);
+            });
+    });
+
+
+    document.getElementById('fileUpload3').addEventListener('change', function () {
+        var formData = new FormData();
+        formData.append('file', this.files[0]);
+
+        fetch('@Url.Action("UploadFileEdit3")', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.fileName) {
+                    document.getElementById('LinkOc2').value = data.filePath;
+                } else {
+                    alert('Error uploading file');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error uploading file: ' + error.message);
+            });
+    });
+
+
+</script>

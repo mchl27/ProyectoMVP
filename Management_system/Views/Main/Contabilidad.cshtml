@@ -1,0 +1,1101 @@
+﻿@model List<Management_system.Models.Pago>
+
+@{
+    ViewData["Title"] = "Contabilidad";
+    Layout = "~/Views/Shared/_Layout_main.cshtml";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+@* Styles *@
+<style>
+    .custom-badge {
+        background-color: #0f268d;
+        color: #ffffff;
+        border-radius: 50%;
+        padding: 0.25em 0.75em;
+        font-size: 0.75rem;
+        display: inline-block;
+        text-align: center;
+    }
+</style>
+
+<style>
+    .option {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .title-main {
+        font-size: 1.8em;
+        color: #333;
+    }
+
+    .title-menu {
+        font-size: 1.4em;
+        color: #333;
+    }
+
+    .card-header-title {
+        font-size: 1.2em;
+        color: #333;
+    }
+
+    .lead {
+        font-size: 1.1rem;
+        font-weight: 300;
+    }
+
+    .lead-content {
+        font-size: 1.0rem;
+        font-weight: 300;
+    }
+
+    /*tarjeta 1*/
+    .card-header-first {
+        margin-top: -40px;
+        height: 30px;
+        background: linear-gradient(-90deg, #0f268d, #4a6cc3);
+        box-shadow: 1px 5px 15px #a2a2a2;
+    }
+
+    /*tarjeta 2*/
+    .card-header-second {
+        margin-top: -40px;
+        height: 30px;
+        background: linear-gradient(-90deg, #ff0000, #ff6347);
+        box-shadow: 1px 5px 15px #a2a2a2;
+    }
+
+    /*tarjeta 3*/
+    .card-header-third {
+        margin-top: -40px;
+        height: 30px;
+        background: linear-gradient(-90deg, #2ecc71, #1f6f47);
+        box-shadow: 1px 5px 15px #a2a2a2;
+    }
+
+    /*efecto shadows para todas las tarjetas*/
+    .card-section {
+        box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+    }
+        /*Para el efecto sombra al pasar por encima el mouse*/
+        .card-section:hover {
+            box-shadow: 1px 1px 20px #d2d2d2;
+        }
+
+
+    /* Personalización para nav-pills con clase custom-nav-pills */
+    .custom-nav-pills .nav-link {
+        border: 1px solid #ddd;
+        transition: all 0.3s ease-in-out;
+        border: 1px solid #000;
+        border-radius: 30px;
+        background-color: #fff;
+        font-size: 1.2em;
+        color: #333;
+        font-weight: 320;
+    }
+
+        .custom-nav-pills .nav-link:hover {
+            background: linear-gradient(-90deg, #0f268d, #4a6cc3);
+            color: #fff;
+        }
+
+        .custom-nav-pills .nav-link.active {
+            background: linear-gradient(-90deg, #0f268d, #4a6cc3);
+            color: #fff;
+            border-color: #0f268d;
+        }
+</style>
+
+<style>
+    /* Eliminar la línea vertical entre las columnas */
+    .row {
+        border: none; /* Si hay algún borde entre las columnas, lo eliminamos */
+    }
+
+    /* Asegurar que no haya fondo gris en el menú */
+    .col-3 {
+        background-color: transparent; /* Sin fondo gris */
+    }
+
+    .alert-custom {
+        color: red;
+        font-size: 1.1em;
+        display: block;
+        margin-top: 10px;
+    }
+
+        .alert-custom i {
+            margin-right: 5px;
+        }
+</style>
+
+
+@* Modal *@
+<div class="modal fade" id="pagosModal" tabindex="-1" role="dialog" aria-labelledby="pagosModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="pagosModalLabel">
+                    Pagos Pendientes    
+                    @if (ViewBag.ContadorPagos != null)
+                    {
+                        <span class="custom-badge ml-2">@ViewBag.ContadorPagos</span>
+                    }
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @if (Model != null && Model.Count > 0)
+                {
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>O.C</th>
+                                <th>Fecha</th>
+                                <th>Total</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var pago in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @if (pago.Observaciones2 == "Urgente")
+                                        {
+                                            <i class="fas fa-times-circle" style="color: red;"></i> @("Urgente")
+                                        }
+                                        else
+                                        {
+                                            <i class="fas fa-check-circle" style="color: orange;"></i>
+                                        }
+                                    </td>
+                                    <td>@pago.IdCompraNavigation.OrdenCompra</td>
+                                    <td>@pago.FechaHora?.ToString("yyyy-MM-dd")</td>
+                                    <td>@string.Format("{0:C}", @pago.Total)</td>
+                                    <td>@pago.Estado</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <p>No hay pagos pendientes.</p>
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        // Mostrar el modal automáticamente al cargar la página
+        $('#pagosModal').modal('show');
+    });
+
+    const closeButtons = document.querySelectorAll('.close, .btn-secondary');
+    const modal = document.getElementById('pagosModal');
+
+    // Añade el evento click a los botones de cerrar
+    closeButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            $(modal).modal('hide'); // Usamos el método 'modal' de Bootstrap para cerrar el modal
+        });
+    });
+</script>
+
+
+@* Menu *@
+<div class="container-fluid">
+
+    <div class="section">
+        <P class="title-main">
+            Contabilidad
+        </P>
+        <p class="lead">Este módulo se encarga de gestionar de manera integral el proceso de Pagos.</p>
+    </div>
+    <hr>
+
+
+    <div class="row">
+        <!-- Columna para el Menú (col-3) -->
+        <div class="col-md-3 p-3">
+            <p class="title-menu">Menú</p>
+            <!-- Nav vertical  -->
+            <ul class="nav flex-column nav-pills custom-nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+
+
+                <!-- Opción 1 - Pagos Compras -->
+                @if (User.Identity.IsAuthenticated)
+                {
+                    var userRole = User.FindFirst("Rol")?.Value;
+                    var userArea = User.FindFirst("Area")?.Value;
+
+                    // Check if the user has one of the allowed roles or if the area is "Purchasing".
+                    if (userRole != null && (userRole == "Administrador" || userRole == "Super Usuario" || userRole == "Desarrollador" || userRole == "Soporte TI"))
+                    {
+                        <li class="nav-item mt-2" role="presentation">
+                            <a class="nav-link active" id="v-pills-compras-tab" data-bs-toggle="pill" href="#v-pills-compras" role="tab" aria-controls="v-pills-compras" aria-selected="false">Compras</a>
+                        </li>
+                    }
+
+                    else if (userArea != null && userArea == "Compras")
+                    {
+                        <li class="nav-item mt-2" role="presentation">
+                            <a class="nav-link active" id="v-pills-compras-tab" data-bs-toggle="pill" href="#v-pills-compras" role="tab" aria-controls="v-pills-compras" aria-selected="false">Compras</a>
+                        </li>
+                    }
+                }
+
+                <!-- Opción 2 - Pagos Contablidad -->
+                @if (User.Identity.IsAuthenticated)
+                {
+                    var userRole = User.FindFirst("Rol")?.Value;
+                    var userArea = User.FindFirst("Area")?.Value;
+
+                    // Check if the user has one of the allowed roles or if the area is "Purchasing".
+                    if (userRole != null && (userRole == "Administrador" || userRole == "Super Usuario" || userRole == "Desarrollador" || userRole == "Soporte TI"))
+                    {
+                        <li class="nav-item mt-2" role="presentation">
+                            <a class="nav-link" id="v-pills-contabilidad-tab" data-bs-toggle="pill" href="#v-pills-contabilidad" role="tab" aria-controls="v-pills-contabilidad" aria-selected="false">Contabilidad</a>
+                        </li>
+                    }
+
+                    else if (userArea != null && userArea == "Contabilidad")
+                    {
+                        <li class="nav-item mt-2" role="presentation">
+                            <a class="nav-link active" id="v-pills-contabilidad-tab" data-bs-toggle="pill" href="#v-pills-contabilidad" role="tab" aria-controls="v-pills-contabilidad" aria-selected="false">Contabilidad</a>
+                        </li>
+                    }
+                }
+
+                <!-- Opción 3 - Pagos Soporte -->
+                @if (User.Identity.IsAuthenticated)
+                {
+                    var userRole = User.FindFirst("Rol")?.Value;
+                    var userArea = User.FindFirst("Area")?.Value;
+
+                    // Check if the user has one of the allowed roles or if the area is "Purchasing".
+                    if (userRole != null && (userRole == "Administrador" || userRole == "Super Usuario" || userRole == "Desarrollador" || userRole == "Soporte TI"))
+                    {
+                        <li class="nav-item mt-2" role="presentation">
+                            <a class="nav-link" id="v-pills-pago-tab" data-bs-toggle="pill" href="#v-pills-pago" role="tab" aria-controls="v-pills-pago" aria-selected="false">Pago</a>
+                        </li>
+                    }
+
+                    else if (userArea != null && userArea == "Gerencia")
+                    {
+                        <li class="nav-item mt-2" role="presentation">
+                            <a class="nav-link active" id="v-pills-pago-tab" data-bs-toggle="pill" href="#v-pills-pago" role="tab" aria-controls="v-pills-pago" aria-selected="false">Pago</a>
+                        </li>
+                    }
+                }
+
+            </ul>
+        </div>
+
+        <!-- Columna para el Contenido (col-9) -->
+        <div class="col-md-9 p-3">
+            <div class="tab-content" id="v-pills-tabContent">
+
+
+
+                <!-- Contenido de Opción 1 - Pagos Compra-->
+                @if (User.Identity.IsAuthenticated)
+                {
+                    var userRole = User.FindFirst("Rol")?.Value;
+                    var userArea = User.FindFirst("Area")?.Value;
+
+                    // Check if the user has one of the allowed roles or if the area is "Purchasing".
+                    if (userRole != null && (userRole == "Administrador" || userRole == "Super Usuario" || userRole == "Desarrollador" || userRole == "Soporte TI"))
+                    {
+                        <div class="tab-pane fade show active" id="v-pills-compras" role="tabpanel" aria-labelledby="v-pills-compras-tab">
+                            <div class="novedad-comercial">
+                                <p class="title-menu">
+                                    <i @* class="fas fa-clipboard-list me-2" *@></i> Generar Pago - Compras
+                                </p>
+
+                                <hr />
+
+                                <div class="container mt-3">
+                                    <div class="row">
+
+                                        @* 1. Option *@
+                                        <div class="col-md-4 mt-3">
+                                            <a href="/PagosUsuario/ReviewIndex" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-first rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Generar Pago</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Este apartado permite crear nuevos pagos, asegurando que todas las transacciones se realicen en tiempo y forma.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                        @* 2. Option *@
+                                        <div class="col-md-4 mt-3">
+                                            <a href="/PagosUsuario/ReviewPago" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-first rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Revisar Pago</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Revisa los pagos realizados y edita la información necesaria para corregir o actualizar datos que segun sea necesario.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                        @* 3. Option *@
+                                        <div class="col-md-4 mt-3">
+                                            <a href="/VistaPago/SeguimientoMainCompras" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-first rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Seguimiento Pago</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Mantén un registro detallado del estado de los pagos realizados. Permite verificar el estado de cada pago.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                        @* 4. Option *@
+                                        @if (User.Identity.IsAuthenticated)
+                                        {
+                                            var userRole1 = User.FindFirst("Rol")?.Value;
+                                            if (userRole1 != null && (userRole1 == "Administrador" || userRole1 == "Super Usuario" || userRole1 == "Desarrollador" || userRole1 == "Soporte TI"))
+                                            {
+
+                                                <div class="col-md-4 mt-3">
+                                                    <a href="/PagosUsuario/OverrideIndex" class="option">
+                                                        <div class="card-section border rounded p-3">
+                                                            <div class="card-header-second rounded pb-5">
+                                                                <h2 class="card-header-title text-white pt-3 text-center">Anular Pago</h2>
+                                                            </div>
+                                                            <div class="card-body text-center">
+                                                                <p class="lead-content">La opción de cancelar o anular pagos cuando se identifiquen errores o cambios en las obligaciones, evitando problemas futuros.</p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            }
+                                        }
+
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                                <p class="title-menu mt-3">
+                                    <i class="fas fa-search me-2"></i> Consultar
+                                </p>
+                                <div class="container">
+
+                                    <div class="row">
+
+                                        @* 5. Option *@
+                                        <div class="col-md-4 mt-3">
+                                            <a href="/PagosUsuario/ConsulteReview" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-third rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Movimiento Resumen</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Proporciona un resumen general de todas las transacciones y movimientos relacionados con las órdenes de compra.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                            </div>
+                        </div>
+
+                    }
+
+                    else if (userArea != null && userArea == "Compras")
+                    {
+                        <div class="tab-pane fade show active" id="v-pills-compras" role="tabpanel" aria-labelledby="v-pills-compras-tab">
+                            <div class="novedad-comercial">
+                                <p class="title-menu">
+                                    <i @* class="fas fa-clipboard-list me-2" *@></i> Generar Pago - Compras
+                                <hr />
+
+                                <div class="container mt-3">
+                                    <div class="row">
+
+                                        @* 1. Option *@
+                                        <div class="col-md-4 mt-3">
+                                            <a href="/PagosUsuario/ReviewIndex" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-first rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Generar Pago</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Este apartado permite crear nuevos pagos, asegurando que todas las transacciones se realicen en tiempo y forma.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                        @* 2. Option *@
+                                        <div class="col-md-4 mt-3">
+                                            <a href="/PagosUsuario/ReviewPago" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-first rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Revisar Pago</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Revisa los pagos realizados y edita la información necesaria para corregir o actualizar datos que segun sea necesario.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                        @* 3. Option *@
+                                        <div class="col-md-4 mt-3">
+                                            <a href="/VistaPago/SeguimientoMainCompras" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-first rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Seguimiento Pago</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Mantén un registro detallado del estado de los pagos realizados. Permite verificar el estado de cada pago.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                        @* 4. Option *@
+                                        @if (User.Identity.IsAuthenticated)
+                                        {
+                                            var userRole1 = User.FindFirst("Rol")?.Value;
+                                            if (userRole1 != null && (userRole1 == "Administrador" || userRole1 == "Super Usuario" || userRole1 == "Desarrollador" || userRole1 == "Soporte TI"))
+                                            {
+
+                                                <div class="col-md-4 mt-3">
+                                                    <a href="/PagosUsuario/OverrideIndex" class="option">
+                                                        <div class="card-section border rounded p-3">
+                                                            <div class="card-header-second rounded pb-5">
+                                                                <h2 class="card-header-title text-white pt-3 text-center">Anular Pago</h2>
+                                                            </div>
+                                                            <div class="card-body text-center">
+                                                                <p class="lead-content">La opción de cancelar o anular pagos cuando se identifiquen errores o cambios en las obligaciones, evitando problemas futuros.</p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            }
+                                        }
+
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                                <p class="title-menu mt-3">
+                                    <i class="fas fa-search me-2"></i> Consultar
+                                </p>
+                                <div class="container">
+
+                                    <div class="row">
+
+                                        @* 5. Option *@
+                                        <div class="col-md-4 mt-3">
+                                            <a href="/PagosUsuario/ConsulteReview" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-third rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Movimiento Resumen</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Proporciona un resumen general de todas las transacciones y movimientos relacionados con las órdenes de compra.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                            </div>
+                        </div>
+
+                    }
+
+                }
+
+
+                <!-- Contenido de Opción 2 - Pagos Contabilidad -->
+                @if (User.Identity.IsAuthenticated)
+
+                {
+                    var userRole = User.FindFirst("Rol")?.Value;
+                    var userArea = User.FindFirst("Area")?.Value;
+
+                    // Check if the user has one of the allowed roles or if the area is "Purchasing".
+                    if (userRole != null && (userRole == "Administrador" || userRole == "Super Usuario" || userRole == "Desarrollador" || userRole == "Soporte TI"))
+                    {
+                        <div class="tab-pane fade" id="v-pills-contabilidad" role="tabpanel" aria-labelledby="v-pills-contabilidad-tab">
+
+                            <div class="novedad-comercial">
+                                <p class="title-menu">
+                                    <i @* class="fas fa-clipboard-list me-2" *@></i> Contabilidad
+                                </p>
+
+                                <hr />
+
+                                <div class="container mt-3">
+                                    <div class="row">
+
+                                        @* 1. Option *@
+                                        <div class="col-md-4 mt-3">
+                                            <a href="/PagosUsuario/AddReview" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-first rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Agregar Comprobante</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Accede a esta opción para registrar y gestionar nuevos comprobantes, asegurando un proceso fácil.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                        @* 2. Option *@
+                                        <div class="col-md-4 mt-3">
+                                            <a href="/PagosUsuario/AddIndex" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-first rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Revisar Comprobante</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Consulta y verifica los comprobantes registrados para garantizar la precisión y el seguimiento adecuado.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                        @* 3. Option *@
+                                        <div class="col-md-4 mt-3">
+                                            <a href="/VistaPago/SeguimientoMainContabilidad" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-first rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Seguimiento Comprobante</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Monitorea el estado de los comprobantes registrados y gestiona sus actualizaciones de manera sencilla.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                        @* 4. Option *@
+                                        @if (User.Identity.IsAuthenticated)
+                                        {
+                                            var userRole1 = User.FindFirst("Rol")?.Value;
+                                            if (userRole1 != null && (userRole1 == "Administrador" || userRole1 == "Super Usuario" || userRole1 == "Desarrollador" || userRole1 == "Soporte TI"))
+                                            {
+
+                                                <div class="col-md-4 mt-3">
+                                                    <a href="/PagosUsuarios/Overridemain" class="option">
+                                                        <div class="card-section border rounded p-3">
+                                                            <div class="card-header-second rounded pb-5">
+                                                                <h2 class="card-header-title text-white pt-3 text-center">Anular Comprobante</h2>
+                                                            </div>
+                                                            <div class="card-body text-center">
+                                                                <p class="lead-content">Anular comprobantes registrados de manera rápida y segura cuando sea necesario.</p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            }
+                                        }
+
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                                <p class="title-menu mt-3">
+                                    <i class="fas fa-search me-2"></i> Consultar
+                                </p>
+                                <div class="container">
+
+                                    <div class="row">
+
+                                        @* 5. Option *@
+                                        <div class="col-md-4 mt-3">
+                                            <a href="/PagosUsuarios/ConsulteReview" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-third rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Movimiento Resumen</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Obtén una visión general de todos los movimientos relacionados con pagos de órdenes de compra.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                        @* 6. Option *@
+                                        <div class="col-md-4 mt-3">
+                                            <a href="/PagosUsuarios/ConsulteDetails" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-third rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Movimiento Detalle</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Examina en profundidad cada movimiento de pago, con información detallada sobre cada pago.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                            </div>
+
+                        </div>
+                    }
+
+                    else if (userArea != null && userArea == "Contabilidad")
+                    {
+                        <div class="tab-pane fade show active" id="v-pills-contabilidad" role="tabpanel" aria-labelledby="v-pills-contabilidad-tab">
+
+                            <div class="novedad-comercial">
+                                <p class="title-menu">
+                                    <i @* class="fas fa-clipboard-list me-2" *@></i> Contabilidad
+                                </p>
+
+                                <hr />
+
+                                <div class="container mt-3">
+                                    <div class="row">
+
+                                        @* 1. Option *@
+                                        <div class="col-md-4 mt-3">
+                                            <a href="/PagosUsuario/AddReview" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-first rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Agregar Comprobante</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Accede a esta opción para registrar y gestionar nuevos comprobantes, asegurando un proceso fácil.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                        @* 2. Option *@
+                                        <div class="col-md-4 mt-3">
+                                            <a href="/PagosUsuario/AddIndex" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-first rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Revisar Comprobante</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Consulta y verifica los comprobantes registrados para garantizar la precisión y el seguimiento adecuado.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                        @* 3. Option *@
+                                        <div class="col-md-4 mt-3">
+                                            <a href="/VistaPago/SeguimientoMainContabilidad" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-first rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Seguimiento Comprobante</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Monitorea el estado de los comprobantes registrados y gestiona sus actualizaciones de manera sencilla.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                        @* 4. Option *@
+                                        @if (User.Identity.IsAuthenticated)
+                                        {
+                                            var userRole1 = User.FindFirst("Rol")?.Value;
+                                            if (userRole1 != null && (userRole1 == "Administrador" || userRole1 == "Super Usuario" || userRole1 == "Desarrollador" || userRole1 == "Soporte TI"))
+                                            {
+
+                                                <div class="col-md-4 mt-3">
+                                                    <a href="/PagosUsuarios/Overridemain" class="option">
+                                                        <div class="card-section border rounded p-3">
+                                                            <div class="card-header-second rounded pb-5">
+                                                                <h2 class="card-header-title text-white pt-3 text-center">Anular Comprobante</h2>
+                                                            </div>
+                                                            <div class="card-body text-center">
+                                                                <p class="lead-content">Anular comprobantes registrados de manera rápida y segura cuando sea necesario.</p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            }
+                                        }
+
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                                <p class="title-menu mt-3">
+                                    <i class="fas fa-search me-2"></i> Consultar
+                                </p>
+                                <div class="container">
+
+                                    <div class="row">
+
+                                        @* 5. Option *@
+                                        <div class="col-md-4 mt-3">
+                                            <a href="/PagosUsuarios/ConsulteReview" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-third rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Movimiento Resumen</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Obtén una visión general de todos los movimientos relacionados con pagos de órdenes de compra.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                        @* 6. Option *@
+                                        <div class="col-md-4 mt-3">
+                                            <a href="/PagosUsuarios/ConsulteDetails" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-third rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Movimiento Detalle</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Examina en profundidad cada movimiento de pago, con información detallada sobre cada pago.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                            </div>
+
+                        </div>
+                    }
+
+                }
+
+
+                <!-- Contenido de Opción 3 - Pagos Soporte-->
+                @if (User.Identity.IsAuthenticated)
+                {
+                    var userRole = User.FindFirst("Rol")?.Value;
+                    var userArea = User.FindFirst("Area")?.Value;
+
+                    // Check if the user has one of the allowed roles or if the area is "Purchasing".
+                    if (userRole != null && (userRole == "Administrador" || userRole == "Super Usuario" || userRole == "Desarrollador" || userRole == "Soporte TI"))
+                    {
+                        <div class="tab-pane fade" id="v-pills-pago" role="tabpanel" aria-labelledby="v-pills-pago-tab">
+
+                            <div class="novedad-general">
+                                <p class="title-menu">
+                                    <i @* class="fas fa-clipboard-list me-2" *@></i> Pagos
+                                </p>
+
+                                <hr />
+
+                                <div class="container mt-3">
+                                    <div class="row">
+
+                                        @* 1. Option *@
+                                        <div class="col-md-4 mt-3">
+                                            <a href="/PagosUsuario/PagoReview" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-first rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Agregar Pago</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Accede a esta opción para registrar y administrar nuevos pagos, asegurando un proceso ágil y ordenado.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                        @* 2. Option *@
+                                        <div class="col-md-4 mt-3">
+                                            <a href="/PagosUsuario/PagoIndex" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-first rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Revisar Pago</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Revisar los detalles de un pago registrado y, si es necesario, realizar modificaciones de la información.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                        @* 3. Option 
+
+                                        <div class="col-md-4 mt-3">
+                                            <a href="/VistaSolicitud/SeguimientoMain" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-first rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Seguimiento Ruta</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Monitorea el progreso y estado de las rutas asignadas, revisando en tiempo real el cumplimiento.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+
+                                        *@
+                                        
+
+                                        @* 4. Option *@
+                                        @if (User.Identity.IsAuthenticated)
+                                        {
+                                            var userRole1 = User.FindFirst("Rol")?.Value;
+                                            if (userRole1 != null && (userRole1 == "Administrador" || userRole1 == "Super Usuario" || userRole1 == "Desarrollador" || userRole1 == "Soporte TI"))
+                                            {
+
+                                                <div class="col-md-4 mt-3">
+                                                    <a href="/NovedadUsuario/OverrideIndex" class="option">
+                                                        <div class="card-section border rounded p-3">
+                                                            <div class="card-header-second rounded pb-5">
+                                                                <h2 class="card-header-title text-white pt-3 text-center">Anular Pago</h2>
+                                                            </div>
+                                                            <div class="card-body text-center">
+                                                                <p class="lead-content">
+                                                                    Cancela una ruta asignada previamente en caso de cambios o reprogramaciones, permitiendo ajustar tiempos.
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            }
+                                        }
+
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                                <p class="title-menu mt-3">
+                                    <i class="fas fa-search me-2"></i> Consultar
+                                </p>
+                                <div class="container">
+
+                                    <div class="row">
+
+                                        @* 5. Option *@
+                                        <div class="col-md-4 mt-3">
+                                            <a href="/PagosUsuarios/ConsulteReview" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-third rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Movimiento Resumen</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Obtén una visión general de todos los pagos de órdenes de compra, incluyendo las transacciones más recientes y sus estados.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                        @* 6. Option *@
+                                        <div class="col-md-4 mt-3">
+                                            <a href="/PagosUsuarios/ConsulteDetails" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-third rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Movimiento Detalle</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Examina en profundidad cada movimiento de pago, con información detallada sobre cada transacción, como fechas, montos y destinatarios.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                            </div>
+
+                        </div>
+                    }
+
+                    else if (userArea != null && userArea == "Gerencia")
+                    {
+                        <div class="tab-pane fade show active" id="v-pills-pago" role="tabpanel" aria-labelledby="v-pills-pago-tab">
+                            <div class="novedad-general">
+                                <p class="title-menu">
+                                    <i @* class="fas fa-clipboard-list me-2" *@></i> Pagos
+                                </p>
+
+                                <hr />
+
+                                <div class="container mt-3">
+                                    <div class="row">
+
+                                        @* 1. Option *@
+                                        <div class="col-md-4 mt-3">
+                                            <a href="/PagosUsuario/PagoReview" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-first rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Agregar Pago</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Accede a esta opción para registrar y administrar nuevos pagos, asegurando un proceso ágil y ordenado.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                        @* 2. Option *@
+                                        <div class="col-md-4 mt-3">
+                                            <a href="/PagosUsuario/PagoIndex" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-first rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Revisar Pago</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Revisar los detalles de un pago registrado y, si es necesario, realizar modificaciones de la información.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                        @* 3. Option 
+
+                                        <div class="col-md-4 mt-3">
+                                            <a href="/VistaSolicitud/SeguimientoMain" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-first rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Seguimiento Ruta</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Monitorea el progreso y estado de las rutas asignadas, revisando en tiempo real el cumplimiento.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+
+                                        *@
+
+
+                                        @* 4. Option *@
+                                        @if (User.Identity.IsAuthenticated)
+                                        {
+                                            var userRole1 = User.FindFirst("Rol")?.Value;
+                                            if (userRole1 != null && (userRole1 == "Administrador" || userRole1 == "Super Usuario" || userRole1 == "Desarrollador" || userRole1 == "Soporte TI"))
+                                            {
+
+                                                <div class="col-md-4 mt-3">
+                                                    <a href="/NovedadUsuario/OverrideIndex" class="option">
+                                                        <div class="card-section border rounded p-3">
+                                                            <div class="card-header-second rounded pb-5">
+                                                                <h2 class="card-header-title text-white pt-3 text-center">Anular Pago</h2>
+                                                            </div>
+                                                            <div class="card-body text-center">
+                                                                <p class="lead-content">
+                                                                    Cancela una ruta asignada previamente en caso de cambios o reprogramaciones, permitiendo ajustar tiempos.
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            }
+                                        }
+
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                                <p class="title-menu mt-3">
+                                    <i class="fas fa-search me-2"></i> Consultar
+                                </p>
+                                <div class="container">
+
+                                    <div class="row">
+
+                                        @* 5. Option *@
+                                        <div class="col-md-4 mt-3">
+                                            <a href="/PagosUsuarios/ConsulteReview" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-third rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Movimiento Resumen</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Obtén una visión general de todos los pagos de órdenes de compra, incluyendo las transacciones más recientes y sus estados.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                        @* 6. Option *@
+                                        <div class="col-md-4 mt-3">
+                                            <a href="/PagosUsuarios/ConsulteDetails" class="option">
+                                                <div class="card-section border rounded p-3">
+                                                    <div class="card-header-third rounded pb-5">
+                                                        <h2 class="card-header-title text-white pt-3 text-center">Movimiento Detalle</h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <p class="lead-content">Examina en profundidad cada movimiento de pago, con información detallada sobre cada transacción, como fechas, montos y destinatarios.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                            </div>
+
+                        </div>
+                    }
+                }
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>

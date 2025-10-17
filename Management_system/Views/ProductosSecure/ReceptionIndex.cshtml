@@ -1,0 +1,158 @@
+﻿@model ProductoReceptionIndexViewModel
+
+@{
+    ViewData["Title"] = "Productos ";
+    Layout = "~/Views/Shared/_Layout_main.cshtml";
+}
+
+<div class="container">
+    <a asp-action="RecepcionMercancia" asp-controller="Main" class="btn btn-secondary">Volver</a>
+</div>
+
+
+<style>
+    .fixed-width-btn {
+        width: 80px;
+    }
+
+    .card {
+        border-radius: 15px;
+    }
+
+    .card-title {
+        font-size: 1.25rem;
+        font-weight: 500;
+        margin-bottom: 0.75rem;
+        color: #333;
+        border-bottom: 1px solid #e5e5e5;
+        padding-bottom: 0.5rem;
+    }
+</style>
+
+<div class="container mt-2">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title text-center">Lista de Productos</h4>
+            
+            <form method="get">
+                <div class="row">
+                    <div class="col-md-11">
+                        <div class="form-group">
+                            <input type="text" name="searchString" value="@ViewData["CurrentFilter"]" class="form-control" placeholder="Buscar...">
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                        <div class="mt-1">
+                            <button type="submit" class="btn btn-primary">Buscar</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.Productos.First().Empresa)</th>
+                            <th>@Html.DisplayNameFor(model => model.Productos.First().Referencia)</th>
+                            <th>@Html.DisplayNameFor(model => model.Productos.First().Descripcion)</th>
+                            <th>@Html.DisplayNameFor(model => model.Productos.First().Unidad)</th>
+                            <th>@Html.DisplayNameFor(model => model.Productos.First().Estado)</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Productos)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.Empresa)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Referencia)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Descripcion)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Unidad)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Estado)</td>
+                                <td>
+                                    <a asp-action="ReceptionEdit" asp-route-id="@item.IdProducto" class="btn btn-primary fixed-width-btn">Editar</a>
+                                    <a asp-action="ReceptionDetails" asp-route-id="@item.IdProducto" class="btn btn-secondary fixed-width-btn">Detalle</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <nav>
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item @(Model.Pagination.PageNumber == 1 ? "disabled" : "")">
+                                <a class="page-link" asp-action="ReceptionIndex" asp-route-pageNumber="@(Model.Pagination.PageNumber - 1)" asp-route-pageSize="@Model.Pagination.PageSize" asp-route-searchString="@ViewData["CurrentFilter"]">Anterior</a>
+                            </li>
+                            @for (int i = 1; i <= Model.Pagination.TotalPages; i++)
+                            {
+                                <li class="page-item @(i == Model.Pagination.PageNumber ? "active" : "") page-number" data-page="@i" style="display: @(i > 5 ? "none" : "inline-block")">
+                                    <a class="page-link" asp-action="ReceptionIndex" asp-route-pageNumber="@i" asp-route-pageSize="@Model.Pagination.PageSize" asp-route-searchString="@ViewData["CurrentFilter"]">@i</a>
+                                </li>
+                            }
+                            <li class="page-item @(Model.Pagination.PageNumber == Model.Pagination.TotalPages ? "disabled" : "")">
+                                <a class="page-link" asp-action="ReceptionIndex" asp-route-pageNumber="@(Model.Pagination.PageNumber + 1)" asp-route-pageSize="@Model.Pagination.PageSize" asp-route-searchString="@ViewData["CurrentFilter"]">Siguiente</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .pagination {
+        justify-content: center;
+    }
+</style>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var maxVisiblePages = 5;
+        var totalPages = @Model.Pagination.TotalPages;
+        var currentPage = @Model.Pagination.PageNumber;
+
+        function showPageNumbers(startPage) {
+            $('.page-number').hide();
+            for (var i = startPage; i < startPage + maxVisiblePages && i <= totalPages; i++) {
+                $('.page-number[data-page=' + i + ']').show();
+            }
+        }
+
+        showPageNumbers(Math.max(currentPage - Math.floor(maxVisiblePages / 2), 1));
+
+        $('.previous-page a').click(function (e) {
+            e.preventDefault();
+            if (currentPage > 1) {
+                currentPage--;
+                showPageNumbers(Math.max(currentPage - Math.floor(maxVisiblePages / 2), 1));
+                updatePageLinks();
+            }
+        });
+
+        $('.next-page a').click(function (e) {
+            e.preventDefault();
+            if (currentPage < totalPages) {
+                currentPage++;
+                showPageNumbers(Math.max(currentPage - Math.floor(maxVisiblePages / 2), 1));
+                updatePageLinks();
+            }
+        });
+
+        function updatePageLinks() {
+            $('.pagination a').each(function () {
+                var pageNumber = $(this).attr('asp-route-pageNumber');
+                if (pageNumber) {
+                    $(this).attr('href', '@Url.Action("ReceptionIndex")?pageNumber=' + pageNumber + '&pageSize=@Model.Pagination.PageSize&searchString=@ViewData["CurrentFilter"]');
+                }
+            });
+        }
+
+        updatePageLinks();
+    });
+</script>

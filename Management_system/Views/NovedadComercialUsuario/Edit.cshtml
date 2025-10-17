@@ -1,0 +1,285 @@
+﻿@model Management_system.Models.NovedadComercial
+
+@{
+    ViewData["Title"] = "Editar Novedad Comercial";
+    Layout = "~/Views/Shared/_Layout_main.cshtml";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
+<style>
+    .fixed-width-btn {
+        width: 80px;
+    }
+
+    .alert-custom {
+        color: red;
+        font-size: 1.2em;
+        display: none;
+        margin-top: 10px;
+    }
+
+    .card {
+        border-radius: 15px;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #333;
+        border-bottom: 1px solid #e5e5e5;
+        padding-bottom: 0.5rem;
+        text-transform: uppercase;
+    }
+
+    input[type="submit"] {
+        width: 180px;
+    }
+
+
+    .title-main {
+        font-size: 1.6em;
+        color: #333;
+    }
+
+    .title-menu {
+        font-size: 1.4em;
+        color: #333;
+    }
+
+    .card-header-title {
+        font-size: 1.1em;
+        color: #333;
+    }
+
+    .lead {
+        font-size: 1.1rem;
+        font-weight: 300;
+    }
+
+    .lead-content {
+        font-size: 1.0rem;
+        font-weight: 300;
+    }
+
+    .btn {
+        /* background-color: #007bff;
+                        border-color: #007bff; */
+        font-weight: 500;
+        padding: 5px 15px;
+        border-radius: 20px;
+        transition: background-color 0.3s ease;
+    }
+
+</style>
+
+<div class="container">
+    <a asp-action="Create" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Volver
+    </a>
+</div>
+
+<div class="container mt-2">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <p class="text-center title-menu">Editar Novedad</p>
+
+                    <hr />
+
+                    <form asp-action="Edit">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="IdNovedadComercial" />
+
+                        <div class="form-group">
+                            <input asp-for="Fecha" class="form-control" type="hidden" readonly />
+                            <span asp-validation-for="Fecha" class="text-danger"></span>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label asp-for="TipoDocumento" class="control-label card-header-title">Tipo Documento</label>
+                                    <select asp-for="TipoDocumento" class="form-control lead-content" required>
+                                        <option value="" class="lead-content">Seleccionar Documento</option>
+                                        <option value="FACTURA" class="lead-content">FACTURA</option>
+                                        <option value="REMISION" class="lead-content">REMISION</option>
+                                        <option value="FACTURA CON NOVEDAD" class="lead-content">FACTURA CON NOVEDAD</option>
+                                        <option value="REMISION CON NOVEDAD" class="lead-content">REMISION CON NOVEDAD</option>
+                                    </select>
+                                    <span asp-validation-for="TipoDocumento" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label asp-for="NumeroDocumento" class="control-label card-header-title">N° Documento</label>
+                                    <input asp-for="NumeroDocumento" class="form-control lead-content" required />
+                                    <span asp-validation-for="NumeroDocumento" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label asp-for="TipoServicio" class="control-label card-header-title">Tipo de Servicio</label>
+                                    <select asp-for="TipoServicio" class="form-control lead-content" required>
+                                        <option value="" class="lead-content">Seleccionar Servicio</option>
+                                        <option value="COBRO" class="lead-content">COBRO</option>
+                                        <option value="LLEVAR MERCANCIA" class="lead-content">LLEVAR MERCANCIA</option>
+                                        <option value="RADICAR DOCUMENTO" class="lead-content">RADICAR DOCUMENTO</option>
+                                        <option value="RECOGER MERCANCIA" class="lead-content">RECOGER MERCANCIA</option>
+                                        <option value="RECOGER DEVOLUCION" class="lead-content">RECOGER DEVOLUCIÓN</option>
+                                        <option value="TRANSPORTADORA" class="lead-content">TRANSPORTADORA</option>
+                                    </select>
+                                    <span asp-validation-for="TipoServicio" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label asp-for="FechaSalida" class="control-label card-header-title">Fecha Salida</label>
+                                    <input asp-for="FechaSalida" class="form-control lead-content" type="date" required />
+                                    <span asp-validation-for="FechaSalida" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                var userRole = User.FindFirst("Rol")?.Value;
+                                var userEmpresa = User.FindFirst("Empresa")?.Value;
+
+                                if ((userRole != null && (userRole == "Administrador" || userRole == "Super Usuario" || userRole == "Gerencia" || userRole == "Desarrollador" || userRole == "Soporte TI")) || (userEmpresa != null && userEmpresa == "UNIVERSAL"))
+                                {
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="searchNombreC" class="control-label card-header-title">Buscar Cliente (Nombre)</label>
+                                            <input type="text" id="searchNombreC" class="form-control lead-content" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label asp-for="IdCliente" class="control-label card-header-title">Cliente</label>
+                                            <select asp-for="IdCliente" class="form-control lead-content" id="selectCliente" asp-items="ViewBag.IdCliente" required>
+                                                <option value="">Seleccionar Cliente</option>
+                                            </select>
+                                            <span asp-validation-for="IdCliente" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label asp-for="Direccion" class="control-label card-header-title">Dirección</label>
+                                            <input asp-for="Direccion" class="form-control lead-content" />
+                                            <span asp-validation-for="Direccion" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label asp-for="TipoPago" class="control-label card-header-title">Tipo de Pago</label>
+                                            <select asp-for="TipoPago" class="form-control lead-content" required>
+                                                <option value="" class="lead-content">Seleccionar Pago</option>
+                                                <option value="CHEQUE" class="lead-content">CHEQUE</option>
+                                                <option value="CONTRAENTREGA" class="lead-content">CONTRAENTREGA</option>
+                                                <option value="CREDITO" class="lead-content">CRÉDITO</option>
+                                                <option value="EFECTIVO" class="lead-content">EFECTIVO</option>
+                                                <option value="TRANSFERENCIA" class="lead-content">TRANSFERENCIA</option>
+                                            </select>
+                                            <span asp-validation-for="TipoPago" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="Empresa" class="control-label card-header-title">Empresa</label>
+                                            <input asp-for="Empresa" class="form-control lead-content" required />
+                                            <span asp-validation-for="Empresa" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="Direccion" class="control-label card-header-title">Dirección</label>
+                                            <input asp-for="Direccion" class="form-control lead-content" />
+                                            <span asp-validation-for="Direccion" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="TipoPago" class="control-label card-header-title">Tipo de Pago</label>
+                                            <select asp-for="TipoPago" class="form-control lead-content" required>
+                                                <option value="" class="lead-content">Seleccionar Pago</option>
+                                                <option value="CHEQUE" class="lead-content">CHEQUE</option>
+                                                <option value="CONTRAENTREGA" class="lead-content">CONTRAENTREGA</option>
+                                                <option value="CREDITO" class="lead-content">CRÉDITO</option>
+                                                <option value="EFECTIVO" class="lead-content">EFECTIVO</option>
+                                                <option value="TRANSFERENCIA" class="lead-content">TRANSFERENCIA</option>
+                                            </select>
+                                            <span asp-validation-for="TipoPago" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+
+
+                        <div class="row">
+                            
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label asp-for="Observaciones1" class="control-label card-header-title">Observaciones</label>
+                                    <input asp-for="Observaciones1" class="form-control lead-content" required />
+                                    <span asp-validation-for="Observaciones1" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="IdUsuario" class="control-label card-header-title">Usuario</label>
+                                    <input asp-for="IdUsuario" class="form-control lead-content" asp-items="ViewBag.IdUsuario" readonly />
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group mt-2 text-center">
+                            <input type="submit" value="Editar" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $("#searchNombreC").on("input", function () {
+                var query = $(this).val();
+                if (query.length > 2) { // Buscar después de que el usuario haya ingresado al menos 3 caracteres
+                    $.ajax({
+                        url: '@Url.Action("SearchClienteEdit", "NovedadComercialUsuario")',
+                        data: { term: query },
+                        success: function (data) {
+                            var select = $("#selectCliente");
+                            select.empty();
+                            select.append($("<option>").val("").text("Seleccionar"));
+                            $.each(data, function (index, item) {
+                                select.append($("<option>").val(item.value).text(item.text));
+                            });
+                        }
+                    });
+                }
+            });
+
+        });
+    </script>
+}

@@ -1,0 +1,217 @@
+﻿@model Management_system.Models.Producto
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout_main.cshtml";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
+<style>
+    .fixed-width-btn {
+        width: 80px;
+    }
+
+    .alert-custom {
+        color: red;
+        font-size: 1.2em;
+        display: none;
+        margin-top: 10px;
+    }
+
+    .card {
+        border-radius: 15px;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #333;
+        border-bottom: 1px solid #e5e5e5;
+        padding-bottom: 0.5rem;
+        text-transform: uppercase;
+    }
+
+    input[type="submit"] {
+        width: 150px;
+    }
+
+
+    .title-main {
+        font-size: 1.6em;
+        color: #333;
+    }
+
+    .title-menu {
+        font-size: 1.4em;
+        color: #333;
+    }
+
+    .card-header-title {
+        font-size: 1.1em;
+        color: #333;
+    }
+
+    .lead {
+        font-size: 1.1rem;
+        font-weight: 300;
+    }
+
+    .lead-content {
+        font-size: 1.0rem;
+        font-weight: 300;
+    }
+
+    .btn {
+        /* background-color: #007bff;
+                                border-color: #007bff; */
+        font-weight: 500;
+        padding: 5px 15px;
+        border-radius: 20px;
+        transition: background-color 0.3s ease;
+    }
+
+</style>
+
+<div class="container">
+    <a asp-action="SolicitudIndex" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Volver
+    </a>
+</div>
+
+
+<div class="container mt-2">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <p class="text-center title-menu">Información Producto</p>
+
+                    <hr />
+                    <form asp-action="SolicitudEdit">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="IdProducto" />
+                        <div class="form-group">
+                            <label asp-for="Empresa" class="control-label card-header-title">Empresa</label>
+                            <input asp-for="Empresa" class="form-control lead-content" readonly />
+                            <span asp-validation-for="Empresa" class="text-danger"></span>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="Referencia" class="control-label card-header-title">Referencia</label>
+                                    <input asp-for="Referencia" class="form-control lead-content" id="Referencia" readonly />
+                                    <span asp-validation-for="Referencia" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="Descripcion" class="control-label card-header-title">Descripción</label>
+                                    <input asp-for="Descripcion" class="form-control lead-content" readonly />
+                                    <span asp-validation-for="Descripcion" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="Unidad" class="control-label card-header-title">Unidad</label>
+                                    <input asp-for="Unidad" class="form-control lead-content" readonly />
+                                    <span asp-validation-for="Unidad" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="Estado" class="control-label card-header-title">Estado</label>
+                                    <input asp-for="Estado" class="form-control lead-content" readonly />
+                                    <span asp-validation-for="Estado" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="Proveedor" class="control-label card-header-title">Ultimo Proveedor</label>
+                                    <input asp-for="Proveedor" class="form-control lead-content" readonly />
+                                    <span asp-validation-for="Proveedor" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="UltimoIngreso" class="control-label card-header-title">Ultima Fecha ingreso</label>
+                                    <input asp-for="UltimoIngreso" class="form-control lead-content" readonly />
+                                    <span asp-validation-for="UltimoIngreso" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="Precio" class="control-label card-header-title">Ultimo Precio</label>
+                                    <input asp-for="Precio" class="form-control lead-content" readonly />
+                                    <span asp-validation-for="Precio" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                
+                        <p class="text-center title-menu">Adjuntar Plano</p>
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="fileUpload" class="control-label card-header-title">Subir Archivo</label>
+                                    <input type="file" id="fileUpload" name="fileUpload" class="form-control lead-content" />
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label asp-for="Link" class="control-label card-header-title">Link Plano</label>
+                                    <input asp-for="Link" class="form-control lead-content" readonly />
+                                    <span asp-validation-for="Link" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                        </div>
+                
+                        <div class="form-group mt-2 text-center">
+                            <button type="submit" class="btn btn-primary">Guardar Información</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        document.getElementById('fileUpload').addEventListener('change', function () {
+            var formData = new FormData();
+            var referencia = document.getElementById('Referencia').value; // Obtener la referencia del producto
+            formData.append('file', this.files[0]);
+            formData.append('referencia', referencia); // Agregar la referencia al formData
+
+            fetch('@Url.Action("UploadFileEditS")', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.fileName) {
+                        document.getElementById('Link').value = data.filePath;
+                    } else {
+                        alert('Error uploading file');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error uploading file: ' + error.message);
+                });
+        });
+    </script>
+}

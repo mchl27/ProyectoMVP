@@ -1,0 +1,26 @@
+﻿@model Management_system.Models.Rol
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout_main.cshtml";
+}
+
+<h1>Detalles</h1>
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Detalles del Rol</h4>
+        <hr />
+        <div>
+            <dl class="row">
+                <dt class="col-sm-3">Nombre:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Nombre)</dd>
+            </dl>
+        </div>
+    </div>
+</div>
+
+<div class="mt-3">
+    <a asp-action="Edit" asp-route-id="@Model?.IdRol" class="btn btn-primary">Editar</a>
+    <a asp-action="Index" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Volver a la Lista</a>
+</div>

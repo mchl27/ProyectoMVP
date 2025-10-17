@@ -1,0 +1,199 @@
+﻿@model IEnumerable<Management_system.Models.Rutum>
+
+@{
+    ViewData["Title"] = "Ruta";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ruta</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            margin: 20px;
+        }
+
+        .title {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #000000;
+            padding-bottom: 5px;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+            .table th, .table td {
+                border: 1px solid #ddd;
+                padding: 6px;
+                text-align: left;
+            }
+
+            .table th {
+                background-color: #000000;
+                color: white;
+                font-weight: bold;
+            }
+
+            .table tr:nth-child(even) {
+                background-color: #f8f9fa;
+            }
+
+        tr {
+            page-break-inside: avoid;
+        }
+
+        thead {
+            display: table-header-group;
+        }
+    </style>
+</head>
+<body>
+    @{
+        var currentDateTime = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+    }
+
+    <h2 class="title">Ruta de Logística - <small>Emitido: @currentDateTime</small></h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>EMPRESA</th>
+                <th>PROCESO</th>
+                <th>CLIENTE</th>
+                <th>TIPO DOCUMENTO</th>
+                <th>N° DOCUMENTO</th>
+                <th>PAGO</th>
+                <th>OBSERVACIONES</th>
+                <th>CONDUCTOR</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var novedad in Model)
+            {
+                <tr>
+                    <td>
+                        @if (novedad.IdNovedadGeneralNavigation != null)
+                        {
+                            @novedad.IdNovedadGeneralNavigation.IdUsuarioNavigation.IdEmpresaNavigation.Nombre
+                        }
+                        else if (novedad.IdNovedadComercialNavigation != null)
+                        {
+                            @novedad.IdNovedadComercialNavigation.IdUsuarioNavigation.IdEmpresaNavigation.Nombre
+                        }
+                        else if (novedad.IdNovedadComprasNavigation != null)
+                        {
+                            @novedad.IdNovedadComprasNavigation.IdUsuarioNavigation.IdEmpresaNavigation.Nombre
+                        }
+                    </td>
+                    <td>
+                        @if (novedad.IdNovedadGeneralNavigation != null)
+                        {
+                            @novedad.IdNovedadGeneralNavigation.IdUsuarioNavigation.IdAreaNavigation.Nombre
+                        }
+                        else if (novedad.IdNovedadComercialNavigation != null)
+                        {
+                            @novedad.IdNovedadComercialNavigation.IdUsuarioNavigation.IdAreaNavigation.Nombre
+                        }
+                        else if (novedad.IdNovedadComprasNavigation != null)
+                        {
+                            @novedad.IdNovedadComprasNavigation.IdUsuarioNavigation.IdAreaNavigation.Nombre
+                        }
+                    </td>
+                    <td>
+                        @if (novedad.IdNovedadGeneralNavigation != null)
+                        {
+                            @novedad.IdNovedadGeneralNavigation.Empresa
+                        }
+                        else if (novedad.IdNovedadComercialNavigation != null)
+                        {
+                            @if (novedad.IdNovedadComercialNavigation.IdCliente != null)
+                            {
+                                @novedad.IdNovedadComercialNavigation.IdClienteNavigation.Nombre
+                            }
+                            else
+                            {
+                                @novedad.IdNovedadComercialNavigation.Empresa
+                            }
+                        }
+                        else if (novedad.IdNovedadComprasNavigation != null)
+                        {
+                            @novedad.IdNovedadComprasNavigation.Empresa
+                        }
+                    </td>
+                    <td>
+                        @if (novedad.IdNovedadGeneralNavigation != null)
+                        {
+                            <span>Novedad General</span>
+                        }
+                        else if (novedad.IdNovedadComercialNavigation != null)
+                        {
+                            @novedad.IdNovedadComercialNavigation.TipoDocumento
+                        }
+                        else if (novedad.IdNovedadComprasNavigation != null)
+                        {
+                            <span>Novedad Compra</span>
+                        }
+                    </td>
+                    <td>
+                        @if (novedad.IdNovedadGeneralNavigation != null)
+                        {
+                            @novedad.IdNovedadGeneralNavigation.Consecutivo
+                        }
+                        else if (novedad.IdNovedadComercialNavigation != null)
+                        {
+                            @novedad.IdNovedadComercialNavigation.NumeroDocumento
+                        }
+                        else if (novedad.IdNovedadComprasNavigation != null)
+                        {
+                            @novedad.IdNovedadComprasNavigation.Consecutivo
+                        }
+                    </td>
+                    <td>
+                        @if (novedad.IdNovedadGeneralNavigation != null)
+                        {
+                            @novedad.IdNovedadGeneralNavigation.TipoNovedad
+                        }
+                        else if (novedad.IdNovedadComercialNavigation != null)
+                        {
+                            @novedad.IdNovedadComercialNavigation.TipoPago
+                        }
+                        else if (novedad.IdNovedadComprasNavigation != null)
+                        {
+                            @novedad.IdNovedadComprasNavigation.TipoNovedad
+                        }
+                    </td>
+                    <td>
+                        @if (novedad.IdNovedadGeneralNavigation != null)
+                        {
+                            @novedad.IdNovedadGeneralNavigation.Observaciones
+                        }
+                        else if (novedad.IdNovedadComercialNavigation != null)
+                        {
+                            @novedad.IdNovedadComercialNavigation.Observaciones1
+                        }
+                        else if (novedad.IdNovedadComprasNavigation != null)
+                        {
+                            @novedad.IdNovedadComprasNavigation.Observaciones
+                        }
+                    </td>
+                    <td>
+                        @novedad.IdConductorNavigation.Nombre
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>

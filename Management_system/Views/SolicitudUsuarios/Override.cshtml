@@ -1,0 +1,141 @@
+﻿@model Management_system.Models.Solicitud
+
+@{
+    ViewData["Title"] = "Anulacion Solicitud";
+    Layout = "~/Views/Shared/_Layout_main.cshtml";
+}
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
+<style>
+    .fixed-width-btn {
+        width: 80px;
+    }
+
+    .alert-custom {
+        color: red;
+        font-size: 1.2em;
+        display: none;
+        margin-top: 10px;
+    }
+
+    .card {
+        border-radius: 15px;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #333;
+        border-bottom: 1px solid #e5e5e5;
+        padding-bottom: 0.5rem;
+        text-transform: uppercase;
+    }
+
+    input[type="submit"] {
+        width: 150px;
+    }
+
+
+    .title-main {
+        font-size: 1.6em;
+        color: #333;
+    }
+
+    .title-menu {
+        font-size: 1.4em;
+        color: #333;
+    }
+
+    .card-header-title {
+        font-size: 1.1em;
+        color: #333;
+    }
+
+    .lead {
+        font-size: 1.1rem;
+        font-weight: 300;
+    }
+
+    .lead-content {
+        font-size: 1.0rem;
+        font-weight: 300;
+    }
+
+    .btn {
+        /* background-color: #007bff;
+                            border-color: #007bff; */
+        font-weight: 500;
+        padding: 5px 15px;
+        border-radius: 20px;
+        transition: background-color 0.3s ease;
+    }
+
+</style>
+
+
+<div class="container">
+    <a asp-action="Overridemain" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Volver
+    </a>
+</div>
+
+<div class="container mt-2">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <p class="text-center title-menu">Anular Solicitud</p>
+                    <hr />
+                    <form asp-action="Override">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="IdSolicitud" />
+                        <div class="form-group">
+                            <label asp-for="Fecha" class="control-label card-header-title">Fecha</label>
+                            <input asp-for="Fecha" type="date" class="form-control lead-content" />
+                            <span asp-validation-for="Fecha" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="IdCliente" class="control-label card-header-title">Cliente</label>
+                            <select asp-for="IdCliente" class="form-control lead-content" asp-items="ViewBag.IdCliente"></select>
+                            <span asp-validation-for="IdCliente" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="IdProveedor" class="control-label card-header-title">Proveedor</label>
+                            <select asp-for="IdProveedor" class="form-control lead-content" asp-items="ViewBag.IdProveedor"></select>
+                            <span asp-validation-for="IdProveedor" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="IdUsuario" class="control-label card-header-title">Usuario</label>
+                            <select asp-for="IdUsuario" class="form-control lead-content" asp-items="ViewBag.IdUsuario"></select>
+                            <span asp-validation-for="IdUsuario" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="IdVendedor" class="control-label card-header-title">Vendedor</label>
+                            <select asp-for="IdVendedor" class="form-control lead-content" asp-items="ViewBag.IdVendedor"></select>
+                            <span asp-validation-for="IdVendedor" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Estado" class="control-label card-header-title">Estado</label>
+                            <select asp-for="Estado" class="form-control lead-content" required>
+                                <option value="">Seleccionar Estado</option>
+                                <option value="Anulado">Anulado</option>
+                            </select>
+                            <span asp-validation-for="Estado" class="text-danger"></span>
+                        </div>
+                        <div class="form-group text-center mt-3">
+                            <button type="submit" class="btn btn-danger">Anular</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

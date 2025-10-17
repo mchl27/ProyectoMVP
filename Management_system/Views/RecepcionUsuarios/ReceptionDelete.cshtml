@@ -1,0 +1,113 @@
+﻿@model Management_system.Models.RecepcionDetalle
+
+@{
+    ViewData["Title"] = "Eliminar Recepción";
+    Layout = "~/Views/Shared/_Layout_main.cshtml";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
+<style>
+    .fixed-width-btn {
+        width: 80px;
+    }
+
+    .alert-custom {
+        color: red;
+        font-size: 1.2em;
+        display: none;
+        margin-top: 10px;
+    }
+
+    .card {
+        border-radius: 15px;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #333;
+        border-bottom: 1px solid #e5e5e5;
+        padding-bottom: 0.5rem;
+        text-transform: uppercase;
+    }
+
+    input[type="submit"] {
+        width: 150px;
+    }
+
+
+    .title-main {
+        font-size: 1.6em;
+        color: #333;
+    }
+
+    .title-menu {
+        font-size: 1.4em;
+        color: #333;
+    }
+
+    .card-header-title {
+        font-size: 1.1em;
+        color: #333;
+    }
+
+    .lead {
+        font-size: 1.1rem;
+        font-weight: 300;
+    }
+
+    .lead-content {
+        font-size: 1.0rem;
+        font-weight: 300;
+    }
+
+    .btn {
+        /* background-color: #007bff;
+                        border-color: #007bff; */
+        font-weight: 500;
+        padding: 5px 15px;
+        border-radius: 20px;
+        transition: background-color 0.3s ease;
+    }
+
+</style>
+
+<div class="container">
+    <a asp-action="ReceptionDetalle" asp-route-idSolicitud="@ViewData["IdSolicitud"]" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Volver
+    </a>
+</div>
+
+<div class="container mt-2">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <p class="text-center title-menu">Eliminar Producto</p>
+
+                    <hr />
+
+                    <dl class="row">
+                        <dt class="col-sm-4">ID Recepción:</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.IdRecepcion)</dd>
+                        <dt class="col-sm-4">Producto:</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.IdSolicitudDetalle)</dd>
+                        <dt class="col-sm-4">Proveedor Sugerido:</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.CantidadRecibida)</dd>
+                        <dt class="col-sm-4">Cantidad:</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.EstadoProducto)</dd>
+                        <dt class="col-sm-4">Precio Unitario:</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.Observaciones)</dd>
+                    </dl>
+                </div>
+                <div class="card-footer text-center">
+                    <form asp-action="ReceptionDelete">
+                        <input type="hidden" asp-for="IdRecepcionDetalle" />
+                        <button type="submit" class="btn btn-danger mr-2">Eliminar Producto</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
