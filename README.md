@@ -93,22 +93,22 @@ El sistema está basado en el patrón **Modelo–Vista–Controlador (MVC)**, ba
 git clone https://github.com/mchl27/ProyectoMVP.git
 
 
-####2️⃣ Abrir el proyecto
+2️⃣ Abrir el proyecto
 
 Abre el archivo ProyectoMVP.sln en Visual Studio.
 
-####3️⃣ Configurar la conexión a la base de datos
+3️⃣ Configurar la conexión a la base de datos
 
 Edita el archivo appsettings.json con tu cadena de conexión:****
 "ConnectionStrings": {
   "DefaultConnection": "Server=TU_SERVIDOR;Database=ProyectoMVP;User Id=USUARIO;Password=CONTRASEÑA;TrustServerCertificate=True;"
 }
 
-####4️⃣ Actualizar la base de datos (si usas Entity Framework)
+4️⃣ Actualizar la base de datos (si usas Entity Framework)
 
 Ejecuta en la consola del administrador de paquetes:
 
-####5️⃣ Ejecutar el proyecto
+5️⃣ Ejecutar el proyecto
 
 Presiona F5 o selecciona Start Debugging.
 El sistema se abrirá en tu navegador predeterminado.
